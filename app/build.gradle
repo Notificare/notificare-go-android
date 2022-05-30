@@ -70,6 +70,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
+            buildConfigField 'String', 'GOOGLE_AUTH_SERVER_ID', "\"${properties.getProperty("google.auth.server.id.release")}\""
+
             manifestPlaceholders = [
                     configuration_link_host: 'go-demo.ntc.re',
                     crashlyticsEnabled: true,
