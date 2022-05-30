@@ -55,8 +55,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideAssetsService(moshi: Moshi): AssetsService {
-        return AssetsService(moshi)
+    fun provideAssetsService(): AssetsService {
+        return AssetsService()
     }
 
     @Provides
