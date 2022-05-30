@@ -1,5 +1,8 @@
 package re.notifica.go.ui.profile
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextWatcher
@@ -12,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
+import re.notifica.go.R
 import re.notifica.go.databinding.*
 import re.notifica.go.models.UserInfo
 import java.text.SimpleDateFormat
@@ -31,7 +36,15 @@ class ProfileFragment : Fragment() {
         viewModel.userInfo.observe(viewLifecycleOwner, ::render)
         viewModel.userDataFields.observe(viewLifecycleOwner, ::render)
 
-        binding.headerSection.setOnClickListener { }
+        binding.headerSection.setOnLongClickListener {
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("User ID", viewModel.userInfo.value?.id)
+            clipboard.setPrimaryClip(clip)
+
+            Snackbar.make(binding.root, R.string.profile_user_id_copied_message, Snackbar.LENGTH_SHORT).show()
+
+            true
+        }
     }
 
 

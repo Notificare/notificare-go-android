@@ -114,7 +114,7 @@
     <string name="products_list_title">Products list</string>
 
     <string name="profile_title">Profile</string>
-    <string name="profile_copy_id">Copy user id</string>
+    <string name="profile_user_id_copied_message">User ID copied to clipboard.</string>
     <string name="profile_membership_card">Membership card</string>
     <string name="profile_personal_information">Tell us about you</string>
     <string name="profile_sign_out">Sign out</string>
