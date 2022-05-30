@@ -14,7 +14,7 @@ import re.notifica.go.storage.db.entities.ProductEntity
         CartEntryEntity::class,
         ProductEntity::class,
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(
     DateConverter::class,
