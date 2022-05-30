@@ -12,6 +12,7 @@ import re.notifica.go.R
 import re.notifica.go.core.formatPrice
 import re.notifica.go.databinding.ViewProductBinding
 import re.notifica.go.ktx.dp
+import re.notifica.go.ktx.toHtml
 import re.notifica.go.models.Product
 
 class ProductsAdapter(
@@ -44,7 +45,7 @@ class ProductsAdapter(
                 .into(binding.showcaseImage)
 
             binding.nameLabel.text = product.name
-            binding.descriptionLabel.text = product.description
+            binding.descriptionLabel.text = product.description.toHtml()
             binding.priceLabel.text = product.price.let(::formatPrice)
 
             binding.root.setOnClickListener {

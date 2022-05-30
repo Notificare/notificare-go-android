@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import re.notifica.go.R
 import re.notifica.go.core.formatPrice
 import re.notifica.go.databinding.FragmentProductDetailsBinding
+import re.notifica.go.ktx.toHtml
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
@@ -36,7 +37,7 @@ class ProductDetailsFragment : Fragment() {
 
         binding.nameLabel.text = args.product.name
         binding.priceLabel.text = args.product.price.let(::formatPrice)
-        binding.descriptionLabel.text = args.product.description
+        binding.descriptionLabel.text = args.product.description.toHtml()
 
         binding.addToCartButton.setOnClickListener {
             lifecycleScope.launch {
