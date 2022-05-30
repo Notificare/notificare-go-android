@@ -63,6 +63,18 @@
             android:name="re.notifica.debug_logging_enabled"
             android:value="true" />
 
+        <meta-data
+            android:name="re.notifica.push.notification_small_icon"
+            android:resource="@drawable/ic_stat_notification" />
+
+        <meta-data
+            android:name="re.notifica.geo.beacons.foreground_service_enabled"
+            android:value="true" />
+
+        <meta-data
+            android:name="re.notifica.geo.beacons.service_notification_small_icon"
+            android:resource="@drawable/ic_baseline_bluetooth_searching_24" />
+
         <!-- Allow incoming push messages to be handled by the app -->
         <service
             android:name=".FixService"
