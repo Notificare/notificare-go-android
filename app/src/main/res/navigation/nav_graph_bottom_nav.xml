@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_bottom_nav"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="re.notifica.go.ui.home.HomeFragment"
+        android:label="@string/home_title"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/home_to_product_details_action"
+            app:destination="@id/product_details_fragment" />
+        <action
+            android:id="@+id/home_to_products_list_action"
+            app:destination="@id/products_list_fragment" />
+        <action
+            android:id="@+id/home_to_events_action"
+            app:destination="@id/events_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cart_fragment"
+        android:name="re.notifica.go.ui.cart.CartFragment"
+        android:label="@string/cart_title"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/cart_to_products_list_action"
+            app:destination="@id/products_list_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="re.notifica.go.ui.settings.SettingsFragment"
+        android:label="@string/settings_title"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/settings_to_profile_action"
+            app:destination="@id/profile_fragment" />
+        <action
+            android:id="@+id/settings_to_inbox_action"
+            app:destination="@id/inbox_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/events_fragment"
+        android:name="re.notifica.go.ui.events.EventsFragment"
+        android:label="@string/events_title"
+        tools:layout="@layout/fragment_events" />
+
+    <fragment
+        android:id="@+id/inbox_fragment"
+        android:name="re.notifica.go.ui.inbox.InboxFragment"
+        android:label="@string/inbox_title"
+        tools:layout="@layout/fragment_inbox" />
+
+    <fragment
+        android:id="@+id/product_details_fragment"
+        android:name="re.notifica.go.ui.product_details.ProductDetailsFragment"
+        android:label="@string/product_details_title"
+        tools:layout="@layout/fragment_product_details">
+        <argument
+            android:name="product"
+            app:argType="re.notifica.go.models.Product"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/products_list_fragment"
+        android:name="re.notifica.go.ui.products_list.ProductsListFragment"
+        android:label="@string/products_list_title"
+        tools:layout="@layout/fragment_products_list">
+        <action
+            android:id="@+id/products_list_to_product_details_action"
+            app:destination="@id/product_details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="re.notifica.go.ui.profile.ProfileFragment"
+        android:label="@string/profile_title"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

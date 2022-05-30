@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/showcase_image"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_inbox_attachment_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        app:layout_constraintEnd_toStartOf="@id/price_label"
+        app:layout_constraintStart_toEndOf="@id/showcase_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Mac Studio" />
+
+    <TextView
+        android:id="@+id/description_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        app:layout_constraintEnd_toEndOf="@id/name_label"
+        app:layout_constraintStart_toStartOf="@id/name_label"
+        app:layout_constraintTop_toBottomOf="@id/name_label"
+        tools:text="Mac Studio" />
+
+    <TextView
+        android:id="@+id/price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="€300" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

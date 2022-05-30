@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/showcase_image"
+        android:layout_width="96dp"
+        android:layout_height="64dp"
+        android:background="@drawable/shape_inbox_attachment_placeholder"
+        tools:ignore="ContentDescription" />
+
+    <!-- app:cardBackgroundColor="#e4ecf9" -->
+
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        tools:text="Mac Studio" />
+
+    <TextView
+        android:id="@+id/price_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        tools:text="€300" />
+
+</LinearLayout>

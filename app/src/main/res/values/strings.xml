@@ -1,0 +1,122 @@
+<resources>
+    <string name="app_name">Notificare Go</string>
+
+    <string name="dialog_ok_button">OK</string>
+    <string name="dialog_cancel_button">Cancel</string>
+
+    <string name="permission_foreground_location_rationale">We need access to foreground location in order to show relevant content.</string>
+    <string name="permission_background_location_rationale">We need access to background location in order to show relevant content.</string>
+    <string name="permission_bluetooth_scan_rationale">We need access to bluetooth scan in order to show relevant content.</string>
+
+    <string name="main_configured_dialog_title">Already configured</string>
+    <string name="main_configured_dialog_message">You cannot change the configuration once it has been set. Please reinstall the app to reconfigure it.</string>
+    <string name="main_configuration_error_dialog_title">Configuration failed</string>
+    <string name="main_configuration_error_dialog_message">Something went wrong while configuring the app. Check your internet connection and try again.</string>
+
+    <string name="navigation_home">Home</string>
+    <string name="navigation_cart">Cart</string>
+    <string name="navigation_settings">Settings</string>
+
+    <string name="scanner_configure_title">Configure your app</string>
+    <string name="scanner_configure_message">Either scan a QR code to automatically configure your app or click the magic link in the invitation email sent by your administrator.</string>
+    <string name="scanner_open_scanner_button">Open scanner</string>
+    <string name="scanner_camera_permissions_error">Unable to continue without camera access.</string>
+    <string name="scanner_invalid_qr_code_error">The scanned QR code is not valid. Scan the QR code sent to your email.</string>
+    <string name="scanner_camera_permission_title">Permissions!</string>
+    <string name="scanner_camera_permission_message">We need access to your camera to scan the configuration QR code.</string>
+    <string name="scanner_camera_permission_button">Enable camera</string>
+
+    <string name="intro_welcome_title">Welcome</string>
+    <string name="intro_welcome_message">Welcome to the Notificare Go app.\nHere you can play around with all the functionalities provided by the Notificare platform.</string>
+    <string name="intro_welcome_button">Get started</string>
+    <string name="intro_notifications_title">Notifications</string>
+    <string name="intro_notifications_message">By enabling remote notifications, you can harness the power of highly relevant and contextual messages.</string>
+    <string name="intro_notifications_button">Continue</string>
+    <string name="intro_location_title">Location</string>
+    <string name="intro_location_message">Granting the privilege to access your location enables the Notificare Geo functionality, providing you with a way to segment and geo-target your users.\nYou can also configure beacons to show relevant content to nearby users.</string>
+    <string name="intro_location_button">Continue</string>
+    <string name="intro_login_title">Login</string>
+    <string name="intro_login_message">Sign in with your Google Account to quickly find and target your user in the Notificare Dashboard.</string>
+    <string name="intro_login_button">Login</string>
+    <string name="intro_login_error_message">Login request failed!</string>
+
+    <string name="home_title">Home</string>
+    <string name="home_welcome_title">Welcome to the Notificare Go app</string>
+    <string name="home_welcome_message">Here you can play around with all the functionalities provided by the Notificare platform.</string>
+    <string name="home_products_title">Top products</string>
+    <string name="home_products_browse_more_button">Browse more</string>
+    <string name="home_scan_title">Scan for a product</string>
+    <string name="home_scan_message">Create scannables and attach them to products to easily unlock relevant informational content.</string>
+    <string name="home_scan_nfc_button">Scan NFC tag</string>
+    <string name="home_scan_qr_code_button">Scan QR code</string>
+    <string name="home_beacons_title">Nearby beacons</string>
+    <string name="home_beacons_empty_message">There are no beacons in your vicinity.</string>
+    <string name="home_permissions_title">Missing permissions</string>
+    <string name="home_permissions_message">In order to show your nearby beacons we need access to your precise location.</string>
+    <string name="home_permissions_request_button">Request access</string>
+    <string name="home_events_title">Log custom events</string>
+    <string name="home_events_message">Log events manually by setting up its name and attributes. Use your custom event to create event-based automations.</string>
+    <string name="home_events_try_button">Try it!</string>
+
+    <string name="cart_title">Cart</string>
+    <string name="cart_disclaimer_message">The cart functionality is merely illustrative.\nYou are not acquiring any products, nor will you be charged.\nTest your automations with peace of mind.</string>
+    <string name="cart_summary_title">Summary</string>
+    <string name="cart_last_modified">Last update</string>
+    <string name="cart_total_amount">Total amount</string>
+    <string name="cart_purchase_button">Purchase</string>
+    <string name="cart_remove_item_button">Remove this item</string>
+    <string name="cart_empty_message">There are no products in your cart.</string>
+    <string name="cart_shop_products_button">Shop for some products</string>
+    <string name="cart_purchase_success">Thank you for your purchase!</string>
+    <string name="cart_purchase_failure">Couldn\'t complete your purchase.</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_inbox_title">Inbox</string>
+    <string name="settings_notifications_title">Notifications</string>
+    <string name="settings_notifications_message">Allow us to send notifications whenever your apps generate alarms or important notifications.</string>
+    <string name="settings_dnd_title">Do not disturb</string>
+    <string name="settings_dnd_message">Configure a period of time when notifications shouldn\'t generate alerts in the notification center.</string>
+    <string name="settings_dnd_start">From</string>
+    <string name="settings_dnd_end">To</string>
+    <string name="settings_location_title">Location</string>
+    <string name="settings_location_message">Allow us to tap into your location to show you content when it\'s most relevant.</string>
+    <string name="settings_topics_title">Subscribe to topics</string>
+    <string name="settings_topics_announcements">Announcements &amp; events</string>
+    <string name="settings_topics_best_practices">Best practices</string>
+    <string name="settings_topics_product_updates">Product updates</string>
+    <string name="settings_topics_engineering">Engineering &amp; technology</string>
+    <string name="settings_topics_staff">Staff &amp; experiences</string>
+
+    <string name="events_title">Events</string>
+    <string name="events_event_name_hint">Event name</string>
+    <string name="events_event_attributes_title">Attributes</string>
+    <string name="events_attribute_name_hint">Name</string>
+    <string name="events_attribute_value_hint">Value</string>
+    <string name="events_attribute_create_button">Create an attribute</string>
+    <string name="events_send_button">Log custom event</string>
+    <string name="events_create_event_success_message">Custom event logged.</string>
+    <string name="events_create_event_failure_message">Couldn\'t log the event.</string>
+
+    <string name="inbox_title">Inbox</string>
+    <string name="inbox_empty_message">You have no notifications in your inbox.</string>
+    <string name="inbox_section_today">Today</string>
+    <string name="inbox_section_yesterday">Yesterday</string>
+    <string name="inbox_section_last_seven_days">Last 7 days</string>
+
+    <string name="intro_title">Welcome</string>
+
+    <string name="product_details_title">Product details</string>
+    <string name="product_details_product_info">Product info</string>
+    <string name="product_details_cart_button">Add to cart</string>
+    <string name="product_details_cart_success">Product added to your cart.</string>
+    <string name="product_details_cart_failure">Couldn\'t add the product to your cart.</string>
+
+    <string name="products_list_title">Products list</string>
+
+    <string name="profile_title">Profile</string>
+    <string name="profile_copy_id">Copy user id</string>
+    <string name="profile_membership_card">Membership card</string>
+    <string name="profile_personal_information">Tell us about you</string>
+    <string name="profile_sign_out">Sign out</string>
+    <string name="profile_unsupported_user_data_type">Unsupported field</string>
+</resources>

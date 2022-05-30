@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splash_fragment">
+
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="re.notifica.go.ui.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/splash_to_scanner_action"
+            app:destination="@id/scanner_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/splash_to_intro_action"
+            app:destination="@id/intro_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/splash_to_main_action"
+            app:destination="@id/nav_graph_main"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scanner_fragment"
+        android:name="re.notifica.go.ui.scanner.ScannerFragment"
+        tools:layout="@layout/fragment_scanner">
+        <action
+            android:id="@+id/scanner_to_scanner_camera_action"
+            app:destination="@id/scanner_camera_fragment" />
+        <action
+            android:id="@+id/scanner_to_splash_action"
+            app:destination="@id/splash_fragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scanner_camera_fragment"
+        android:name="re.notifica.go.ui.scanner_camera.ScannerCameraFragment"
+        tools:layout="@layout/fragment_scanner_camera" />
+
+    <fragment
+        android:id="@+id/intro_fragment"
+        android:name="re.notifica.go.ui.intro.IntroFragment"
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/intro_to_main_action"
+            app:destination="@id/nav_graph_main"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/nav_graph_main"
+        app:startDestination="@id/main_fragment">
+
+        <fragment
+            android:id="@+id/main_fragment"
+            android:name="re.notifica.go.ui.main.MainFragment"
+            tools:layout="@layout/fragment_main" />
+
+    </navigation>
+
+</navigation>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="?attr/materialCardViewFilledStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/notifications_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:text="@string/settings_topics_title"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            app:drawableStartCompat="@drawable/ic_baseline_sell_24" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/announcements_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_announcements"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/best_practices_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_best_practices"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/product_updates_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_product_updates"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/engineering_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_engineering"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/staff_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_staff"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
