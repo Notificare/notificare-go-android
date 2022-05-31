@@ -52,6 +52,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="re.notifica.push.ui.NotificationActivity"
+            android:theme="@style/Theme.Notificare.Translucent" />
+
+        <activity
+            android:name="re.notifica.scannables.ScannableActivity"
+            android:theme="@style/Theme.Notificare" />
+
         <!-- Provider to auto configure Notificare -->
         <provider
             android:name="re.notifica.NotificareConfigurationProvider"
