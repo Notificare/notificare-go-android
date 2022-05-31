@@ -2,6 +2,7 @@ package re.notifica.go.ui.settings
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentSettingsBinding
 import timber.log.Timber
@@ -91,6 +94,13 @@ class SettingsFragment : Fragment() {
             } else {
                 viewModel.changeLocationUpdates(enabled = false)
             }
+        }
+
+        binding.locationCard.viewPolicyButton.setOnClickListener {
+            CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .build()
+                .launchUrl(requireContext(), Uri.parse(BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL))
         }
 
         binding.tagsCard.announcementsSwitch.setOnCheckedChangeListener { _, checked ->

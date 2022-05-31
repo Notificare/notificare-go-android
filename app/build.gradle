@@ -31,6 +31,8 @@ android {
                 ]
             }
         }
+
+        buildConfigField 'String', 'LOCATION_DATA_PRIVACY_POLICY_URL', "\"https://ntc.re/0OMbJKeJ2m\""
     }
 
     signingConfigs {
@@ -98,6 +100,7 @@ dependencies {
     // Android
     implementation "androidx.activity:activity-ktx:$androidx_activity_version"
     implementation "androidx.appcompat:appcompat:$androidx_app_compat_version"
+    implementation "androidx.browser:browser:$androidx_browser_version"
     implementation "androidx.camera:camera-camera2:$androidx_camera_version"
     implementation "androidx.camera:camera-lifecycle:$androidx_camera_version"
     implementation "androidx.camera:camera-view:$androidx_camera_view_version"
