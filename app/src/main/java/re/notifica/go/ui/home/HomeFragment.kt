@@ -9,19 +9,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import re.notifica.Notificare
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentHomeBinding
 import re.notifica.go.models.Product
+import re.notifica.push.ui.ktx.pushUI
+import re.notifica.scannables.NotificareScannables
+import re.notifica.scannables.NotificareUserCancelledScannableSessionException
 import re.notifica.scannables.ktx.scannables
+import re.notifica.scannables.models.NotificareScannable
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), NotificareScannables.ScannableSessionListener {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private val productsAdapter = ProductsAdapter(::onProductClicked)
     private val beaconsAdapter = BeaconsAdapter()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Notificare.scannables().addListener(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -46,6 +57,11 @@ class HomeFragment : Fragment() {
 
         setupListeners()
         setupObservers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Notificare.scannables().removeListener(this)
     }
 
     private fun setupListeners() {
@@ -88,4 +104,19 @@ class HomeFragment : Fragment() {
             )
         )
     }
+
+    // region NotificareScannables.ScannableSessionListener
+
+    override fun onScannableDetected(scannable: NotificareScannable) {
+        val notification = scannable.notification ?: return
+        Notificare.pushUI().presentNotification(requireActivity(), notification)
+    }
+
+    override fun onScannableSessionError(error: Exception) {
+        if (error is NotificareUserCancelledScannableSessionException) return
+
+        Snackbar.make(binding.root, R.string.home_scan_session_error_message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    // endregion
 }

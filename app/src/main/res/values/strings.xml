@@ -49,6 +49,7 @@
     <string name="home_scan_message">Create scannables and attach them to products to easily unlock relevant informational content.</string>
     <string name="home_scan_nfc_button">Scan NFC tag</string>
     <string name="home_scan_qr_code_button">Scan QR code</string>
+    <string name="home_scan_session_error_message">Couldn\'t to complete your scan.</string>
     <string name="home_beacons_title">Nearby beacons</string>
     <string name="home_beacons_empty_message">There are no beacons in your vicinity.</string>
     <string name="home_permissions_title">Missing permissions</string>
