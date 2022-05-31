@@ -41,7 +41,7 @@ class InboxViewModel @Inject constructor(
         val result = mutableListOf<InboxListEntry>()
 
         val itemsToday = items.filter { it.time >= today() }
-        if (items.isNotEmpty()) {
+        if (itemsToday.isNotEmpty()) {
             result.add(InboxListEntry.Section(context.getString(R.string.inbox_section_today)))
             result.addAll(itemsToday.map { InboxListEntry.Item(it) }.sortedByDescending { it.inboxItem.time })
         }
