@@ -17,7 +17,7 @@ import java.util.*
 data class CartEntryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val time: Date,
-    @ColumnInfo(name = "product_id") val productId: String,
+    @ColumnInfo(name = "product_id", index = true) val productId: String,
 )
 
 data class CartEntryWithProduct(
