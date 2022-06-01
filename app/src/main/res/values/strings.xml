@@ -33,7 +33,8 @@
     <string name="intro_notifications_message">By enabling remote notifications, you can harness the power of highly relevant and contextual messages.</string>
     <string name="intro_notifications_button">Continue</string>
     <string name="intro_location_title">Location</string>
-    <string name="intro_location_message">Granting the privilege to access your location enables the Notificare Geo functionality, providing you with a way to segment and geo-target your users.\nYou can also configure beacons to show relevant content to nearby users.</string>
+    <string name="intro_location_message">Notificare Go collects location data to enable geo-based content, even when the app is closed or not in use.\nYou can also configure beacons to show relevant content to nearby users.</string>
+    <string name="intro_location_view_policies_button">View data policies</string>
     <string name="intro_location_button">Continue</string>
     <string name="intro_login_title">Login</string>
     <string name="intro_login_message">Sign in with your Google Account to quickly find and target your user in the Notificare Dashboard.</string>
@@ -81,6 +82,7 @@
     <string name="settings_dnd_end">To</string>
     <string name="settings_location_title">Location</string>
     <string name="settings_location_message">Allow us to tap into your location to show you content when it\'s most relevant.</string>
+    <string name="settings_location_view_policies_button">View data policies</string>
     <string name="settings_topics_title">Subscribe to topics</string>
     <string name="settings_topics_announcements">Announcements &amp; events</string>
     <string name="settings_topics_best_practices">Best practices</string>

@@ -52,7 +52,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="View data policies"
+            android:text="@string/settings_location_view_policies_button"
             app:icon="@drawable/ic_baseline_arrow_forward_24"
             app:iconGravity="end"
             app:layout_constraintBottom_toBottomOf="parent"

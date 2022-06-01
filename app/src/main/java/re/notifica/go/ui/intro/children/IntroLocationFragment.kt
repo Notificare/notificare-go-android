@@ -2,6 +2,7 @@ package re.notifica.go.ui.intro.children
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentIntroLocationBinding
 import re.notifica.go.ui.intro.IntroViewModel
@@ -65,6 +68,13 @@ class IntroLocationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.viewPolicyButton.setOnClickListener {
+            CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .build()
+                .launchUrl(requireContext(), Uri.parse(BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL))
+        }
+
         binding.continueButton.setOnClickListener {
             enableLocationUpdates()
         }
