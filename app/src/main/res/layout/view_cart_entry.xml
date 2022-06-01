@@ -10,8 +10,9 @@
     <ImageView
         android:id="@+id/showcase_image"
         android:layout_width="64dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:background="@drawable/shape_inbox_attachment_placeholder"
+        app:layout_constraintDimensionRatio="16:10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
