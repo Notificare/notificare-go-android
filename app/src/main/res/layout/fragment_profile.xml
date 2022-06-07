@@ -69,6 +69,16 @@
             tools:minHeight="128dp"
             tools:visibility="visible" />
 
+        <Button
+            android:id="@+id/delete_account_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="?attr/colorError"
+            android:text="@string/profile_delete_account_button"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
 </ScrollView>

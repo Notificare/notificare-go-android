@@ -9,13 +9,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import re.notifica.go.R
 import re.notifica.go.databinding.*
 import re.notifica.go.models.UserInfo
@@ -44,6 +48,32 @@ class ProfileFragment : Fragment() {
             Snackbar.make(binding.root, R.string.profile_user_id_copied_message, Snackbar.LENGTH_SHORT).show()
 
             true
+        }
+
+        binding.deleteAccountButton.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.profile_delete_account_confirmation_title)
+                .setMessage(R.string.profile_delete_account_confirmation_message)
+                .setPositiveButton(R.string.dialog_yes_button) { _, _ ->
+                    lifecycleScope.launch {
+                        try {
+                            viewModel.deleteAccount()
+
+                            // Access the parent NavController.
+                            // Using findNavController will yield a reference to the Bottom Navigation NavController.
+                            val navController = requireActivity().findNavController(R.id.nav_host_fragment)
+                            navController.navigate(R.id.global_to_intro)
+                        } catch (e: Exception) {
+                            Snackbar.make(
+                                binding.root,
+                                R.string.profile_delete_account_failure,
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+                .setNegativeButton(R.string.dialog_cancel_button, null)
+                .show()
         }
     }
 
@@ -167,6 +197,8 @@ class ProfileFragment : Fragment() {
 
         binding.userDataFieldsTitleLabel.isVisible = userDataFields.isNotEmpty()
         binding.userDataFieldsContainer.isVisible = userDataFields.isNotEmpty()
+
+        binding.deleteAccountButton.isVisible = true
     }
 
     companion object {

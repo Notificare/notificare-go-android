@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Notificare Go</string>
 
+    <string name="dialog_yes_button">Yes</string>
+    <string name="dialog_no_button">No</string>
     <string name="dialog_ok_button">OK</string>
     <string name="dialog_cancel_button">Cancel</string>
 
@@ -122,4 +124,8 @@
     <string name="profile_personal_information">Tell us about you</string>
     <string name="profile_sign_out">Sign out</string>
     <string name="profile_unsupported_user_data_type">Unsupported field</string>
+    <string name="profile_delete_account_button">Delete account</string>
+    <string name="profile_delete_account_confirmation_title">Are you certain?</string>
+    <string name="profile_delete_account_confirmation_message">This action is permanent and will delete your user account. Proceed with caution.</string>
+    <string name="profile_delete_account_failure">Couldn\'t delete your account.</string>
 </resources>

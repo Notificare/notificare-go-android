@@ -5,6 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/splash_fragment">
 
+    <action
+        android:id="@+id/global_to_intro"
+        app:destination="@id/intro_fragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
     <fragment
         android:id="@+id/splash_fragment"
         android:name="re.notifica.go.ui.splash.SplashFragment"

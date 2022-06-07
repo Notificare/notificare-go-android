@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import re.notifica.Notificare
 import re.notifica.go.models.UserInfo
 import re.notifica.ktx.device
 import timber.log.Timber
-
 
 class ProfileViewModel : ViewModel() {
     private val _userInfo = MutableLiveData<UserInfo>()
@@ -69,6 +71,15 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
+
+    suspend fun deleteAccount() = withContext(Dispatchers.IO) {
+        // Register the device as anonymous.
+        Notificare.device().register(userId = null, userName = null)
+
+        // Remove the Firebase user.
+        val user = checkNotNull(Firebase.auth.currentUser)
+        user.delete().await()
+    }
 
     data class UserDataField(
         val key: String,
