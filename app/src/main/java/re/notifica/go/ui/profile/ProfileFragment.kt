@@ -85,7 +85,7 @@ class ProfileFragment : Fragment() {
             .into(binding.avatarImage)
 
         binding.idLabel.text = userInfo.id
-        binding.nameLabel.text = userInfo.name
+        binding.nameLabel.text = userInfo.name ?: getString(R.string.profile_anonymous_user_name)
     }
 
     private fun render(userDataFields: List<ProfileViewModel.UserDataField>) {

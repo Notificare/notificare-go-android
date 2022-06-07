@@ -132,7 +132,7 @@ class SettingsFragment : Fragment() {
     private fun setupObservers() {
         viewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
             binding.userCard.idLabel.text = userInfo.id
-            binding.userCard.nameLabel.text = userInfo.name
+            binding.userCard.nameLabel.text = userInfo.name ?: getString(R.string.settings_anonymous_user_name)
 
             Glide.with(this)
                 .load(userInfo.pictureUrl)
