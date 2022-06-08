@@ -3,6 +3,8 @@ package re.notifica.go.ui.profile
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextWatcher
@@ -19,13 +21,16 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import re.notifica.go.R
 import re.notifica.go.databinding.*
 import re.notifica.go.models.UserInfo
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentProfileBinding
@@ -74,6 +79,22 @@ class ProfileFragment : Fragment() {
                 }
                 .setNegativeButton(R.string.dialog_cancel_button, null)
                 .show()
+        }
+
+        viewModel.membershipCard.observe(viewLifecycleOwner) { membershipCardUrl ->
+            binding.membershipCard.root.isVisible = membershipCardUrl != null
+
+            if (membershipCardUrl != null) {
+                val url = Uri.parse(membershipCardUrl)
+
+                binding.membershipCard.root.setOnClickListener {
+                    try {
+                        startActivity(Intent(Intent.ACTION_VIEW, url))
+                    } catch (e: Exception) {
+                        Timber.e(e, "Failed to open the membership card URL.")
+                    }
+                }
+            }
         }
     }
 

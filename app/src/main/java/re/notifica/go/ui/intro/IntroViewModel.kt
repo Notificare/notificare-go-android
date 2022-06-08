@@ -13,12 +13,13 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
+import re.notifica.go.R
 import re.notifica.go.core.loadRemoteConfig
+import re.notifica.go.network.push.PushService
+import re.notifica.go.network.push.payloads.EnrollmentPayload
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.ktx.device
 import re.notifica.push.ktx.push
@@ -28,8 +29,9 @@ import javax.inject.Inject
 @HiltViewModel
 @SuppressLint("StaticFieldLeak")
 class IntroViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext private val context: Context,
     private val preferences: NotificareSharedPreferences,
+    private val pushService: PushService,
 ) : ViewModel() {
 
     private val _currentPage = MutableLiveData(IntroPage.WELCOME)
@@ -69,6 +71,30 @@ class IntroViewModel @Inject constructor(
         } else {
             try {
                 Notificare.device().register(user.uid, user.displayName)
+
+                val programId = preferences.appConfiguration?.loyaltyProgramId
+                if (programId != null) {
+                    Timber.d("Creating loyalty program enrollment.")
+                    val response = pushService.createEnrollment(
+                        programId = programId,
+                        payload = EnrollmentPayload(
+                            userId = user.uid,
+                            memberId = user.uid,
+                            fields = listOf(
+                                EnrollmentPayload.Field(
+                                    key = "name",
+                                    value = user.displayName ?: context.getString(R.string.settings_anonymous_user_name)
+                                ),
+                                EnrollmentPayload.Field(
+                                    key = "email",
+                                    value = user.email ?: "",
+                                ),
+                            ),
+                        )
+                    )
+
+                    preferences.membershipCardUrl = response.saveLinks.googlePay
+                }
             } catch (e: Exception) {
                 // TODO: handle error scenario.
             }

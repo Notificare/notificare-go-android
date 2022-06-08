@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,10 +16,19 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import re.notifica.Notificare
 import re.notifica.go.models.UserInfo
+import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.ktx.device
 import timber.log.Timber
+import javax.inject.Inject
 
-class ProfileViewModel : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    preferences: NotificareSharedPreferences,
+) : ViewModel() {
+
+    private val _membershipCard = MutableLiveData<String?>(preferences.membershipCardUrl)
+    val membershipCard: LiveData<String?> = _membershipCard
+
     private val _userInfo = MutableLiveData<UserInfo>()
     val userInfo: LiveData<UserInfo> = _userInfo
 

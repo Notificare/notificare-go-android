@@ -11,6 +11,6 @@ data class Configuration(
     data class Demo(
         val applicationKey: String,
         val applicationSecret: String,
-        // val loyaltyProgram: String,
+        val loyaltyProgram: String?,
     )
 }

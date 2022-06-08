@@ -24,4 +24,8 @@ class NotificareSharedPreferences(
     var hasStoreEnabled: Boolean
         get() = preferences.getBoolean("has_store_enabled", false)
         set(value) = preferences.edit { putBoolean("has_store_enabled", value) }
+
+    var membershipCardUrl: String?
+        get() = preferences.getString("membership_card_url", null)
+        set(value) = preferences.edit { putString("membership_card_url", value) }
 }

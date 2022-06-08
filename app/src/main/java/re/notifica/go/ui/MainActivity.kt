@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                     preferences.appConfiguration = AppConfiguration(
                         applicationKey = configuration.demo.applicationKey,
                         applicationSecret = configuration.demo.applicationSecret,
+                        loyaltyProgramId = configuration.demo.loyaltyProgram,
                     )
 
                     findNavController(R.id.nav_host_fragment).navigate(R.id.splash_fragment)

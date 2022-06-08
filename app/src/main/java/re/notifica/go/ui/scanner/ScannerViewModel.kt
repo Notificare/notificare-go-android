@@ -32,6 +32,7 @@ class ScannerViewModel @Inject constructor(
         preferences.appConfiguration = AppConfiguration(
             applicationKey = configuration.demo.applicationKey,
             applicationSecret = configuration.demo.applicationSecret,
+            loyaltyProgramId = configuration.demo.loyaltyProgram,
         )
     }
 }

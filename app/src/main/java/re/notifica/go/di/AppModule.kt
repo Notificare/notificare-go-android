@@ -9,6 +9,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import re.notifica.go.BuildConfig
@@ -42,7 +44,7 @@ class AppModule {
     }
 
     @Provides
-    fun provideGenericHttpClient(): OkHttpClient {
+    fun provideAuthenticatedHttpClient(preferences: NotificareSharedPreferences): OkHttpClient {
         val logger = HttpLoggingInterceptor()
             .setLevel(
                 if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC
@@ -50,6 +52,15 @@ class AppModule {
             )
 
         return OkHttpClient.Builder()
+            .authenticator(Authenticator { _, response ->
+                val credentials = preferences.appConfiguration?.let { configuration ->
+                    Credentials.basic(configuration.applicationKey, configuration.applicationSecret)
+                } ?: return@Authenticator response.request
+
+                return@Authenticator response.request.newBuilder()
+                    .header("Authorization", credentials)
+                    .build()
+            })
             .addInterceptor(logger)
             .build()
     }

@@ -6,5 +6,5 @@ import com.squareup.moshi.JsonClass
 data class AppConfiguration(
     val applicationKey: String,
     val applicationSecret: String,
-    // val loyaltyProgram: String,
+    val loyaltyProgramId: String?,
 )
