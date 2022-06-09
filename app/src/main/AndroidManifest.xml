@@ -83,22 +83,6 @@
             android:name="re.notifica.geo.beacons.service_notification_small_icon"
             android:resource="@drawable/ic_baseline_bluetooth_searching_24" />
 
-        <!-- Allow incoming push messages to be handled by the app -->
-        <service
-            android:name=".FixService"
-            android:exported="false"
-            android:label="Notificare Push Service">
-            <intent-filter>
-                <!-- Receives the actual messages. -->
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name="re.notifica.push.gms.NotificarePushService"
-            android:exported="false"
-            tools:node="remove" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
