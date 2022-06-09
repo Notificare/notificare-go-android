@@ -11,6 +11,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -19,10 +21,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.*
 import re.notifica.go.models.UserInfo
@@ -35,6 +41,32 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: FragmentProfileBinding
     private val textWatchers = mutableMapOf<String, TextWatcher>()
+
+    private val authenticationRequestLauncher = registerForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult()
+    ) { result ->
+        lifecycleScope.launch {
+            try {
+                viewModel.handleAuthenticationResult(result)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to handle the authentication result.")
+                Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
+
+                return@launch
+            }
+
+            try {
+                viewModel.deleteAccount()
+                showIntro()
+            } catch (e: Exception) {
+                Snackbar.make(
+                    binding.root,
+                    R.string.profile_delete_account_failure,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
@@ -63,12 +95,15 @@ class ProfileFragment : Fragment() {
                     lifecycleScope.launch {
                         try {
                             viewModel.deleteAccount()
-
-                            // Access the parent NavController.
-                            // Using findNavController will yield a reference to the Bottom Navigation NavController.
-                            val navController = requireActivity().findNavController(R.id.nav_host_fragment)
-                            navController.navigate(R.id.global_to_intro)
+                            showIntro()
                         } catch (e: Exception) {
+                            if (e is FirebaseAuthRecentLoginRequiredException) {
+                                Timber.w("Must re-authenticate the user before removing the account.")
+                                authenticate()
+
+                                return@launch
+                            }
+
                             Snackbar.make(
                                 binding.root,
                                 R.string.profile_delete_account_failure,
@@ -220,6 +255,43 @@ class ProfileFragment : Fragment() {
         binding.userDataFieldsContainer.isVisible = userDataFields.isNotEmpty()
 
         binding.deleteAccountButton.isVisible = true
+    }
+
+    private fun authenticate(filterAuthorizedAccounts: Boolean = true) {
+        val request = BeginSignInRequest.Builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.Builder()
+                    .setSupported(true)
+                    .setServerClientId(BuildConfig.GOOGLE_AUTH_SERVER_ID)
+                    .setFilterByAuthorizedAccounts(filterAuthorizedAccounts)
+                    .build()
+            )
+            .build()
+
+        lifecycleScope.launch {
+            try {
+                val result = viewModel.loginClient.beginSignIn(request).await()
+                authenticationRequestLauncher.launch(
+                    IntentSenderRequest.Builder(result.pendingIntent.intentSender)
+                        .build()
+                )
+            } catch (e: Exception) {
+                if (filterAuthorizedAccounts) {
+                    authenticate(filterAuthorizedAccounts = false)
+                    return@launch
+                }
+
+                Timber.e(e, "Failed to authenticate the user.")
+                Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showIntro() {
+        // Access the parent NavController.
+        // Using findNavController will yield a reference to the Bottom Navigation NavController.
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
+        navController.navigate(R.id.global_to_intro)
     }
 
     companion object {

@@ -1,12 +1,18 @@
 package re.notifica.go.ui.profile
 
+import android.app.Activity
+import android.content.Context
+import androidx.activity.result.ActivityResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,8 +29,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     preferences: NotificareSharedPreferences,
 ) : ViewModel() {
+
+    val loginClient = Identity.getSignInClient(context)
 
     private val _membershipCard = MutableLiveData<String?>(preferences.membershipCardUrl)
     val membershipCard: LiveData<String?> = _membershipCard
@@ -83,12 +92,25 @@ class ProfileViewModel @Inject constructor(
 
 
     suspend fun deleteAccount() = withContext(Dispatchers.IO) {
-        // Register the device as anonymous.
-        Notificare.device().register(userId = null, userName = null)
-
         // Remove the Firebase user.
         val user = checkNotNull(Firebase.auth.currentUser)
         user.delete().await()
+
+        // Register the device as anonymous.
+        Notificare.device().register(userId = null, userName = null)
+    }
+
+    suspend fun handleAuthenticationResult(result: ActivityResult) {
+        if (result.resultCode != Activity.RESULT_OK) throw IllegalStateException("Login request result NOT OK.")
+
+        val credential = loginClient.getSignInCredentialFromIntent(result.data)
+        val token = credential.googleIdToken
+            ?: throw IllegalArgumentException("Invalid googleIdToken extracted from the intent.")
+
+        val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
+
+        val user = checkNotNull(Firebase.auth.currentUser)
+        user.reauthenticate(firebaseCredential).await()
     }
 
     data class UserDataField(
