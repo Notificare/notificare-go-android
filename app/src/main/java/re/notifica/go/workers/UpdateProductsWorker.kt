@@ -26,7 +26,7 @@ class UpdateProductsWorker @AssistedInject constructor(
         val databaseProducts = database.products().getAll().map { it.toModel() }
         val networkProducts = assetsService.getProducts()
 
-        val toRemove = databaseProducts.filter { !networkProducts.contains(it) }
+        val toRemove = databaseProducts.filter { db -> !networkProducts.any { it.id == db.id } }
         database.products().remove(toRemove.map { it.id })
 
         networkProducts.forEach { product ->
