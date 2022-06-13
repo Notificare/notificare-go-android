@@ -6,14 +6,14 @@ import re.notifica.go.models.Product
 
 class AssetsService {
     suspend fun getProducts(): List<Product> {
-        return Notificare.assets().fetch(group = "products").map { asset ->
+        return Notificare.assets().fetch(group = "products").mapNotNull { asset ->
             Product(
-                id = checkNotNull(asset.extra["id"] as? String),
+                id = asset.extra["id"] as? String ?: return@mapNotNull null,
                 name = asset.title,
-                description = checkNotNull(asset.description),
-                price = checkNotNull(asset.extra["price"] as? Double),
-                imageUrl = checkNotNull(asset.url),
-                highlighted = checkNotNull(asset.extra["highlighted"] as? Boolean),
+                description = asset.description ?: return@mapNotNull null,
+                price = asset.extra["price"] as? Double ?: return@mapNotNull null,
+                imageUrl = asset.url ?: return@mapNotNull null,
+                highlighted = asset.extra["highlighted"] as? Boolean ?: return@mapNotNull null,
             )
         }
     }
