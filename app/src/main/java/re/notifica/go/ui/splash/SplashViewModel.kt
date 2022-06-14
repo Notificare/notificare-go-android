@@ -45,8 +45,11 @@ class SplashViewModel @Inject constructor(
                 _navigationFlow.emit(NavigationOption.SCANNER)
             }
         } else {
+            if (!Notificare.isConfigured) {
+                Notificare.configure(context, appConfiguration.applicationKey, appConfiguration.applicationSecret)
+            }
+
             // Let's get started! 🚀
-            Notificare.configure(context, appConfiguration.applicationKey, appConfiguration.applicationSecret)
             Notificare.launch()
         }
     }

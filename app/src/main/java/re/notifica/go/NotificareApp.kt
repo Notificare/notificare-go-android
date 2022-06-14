@@ -5,6 +5,8 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.HiltAndroidApp
+import re.notifica.Notificare
+import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -14,6 +16,9 @@ class NotificareApp : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    @Inject
+    lateinit var preferences: NotificareSharedPreferences
+
     override fun onCreate() {
         super.onCreate()
 
@@ -22,6 +27,12 @@ class NotificareApp : Application(), Configuration.Provider {
 
         // Plant a debug tree. 🌱
         Timber.plant(Timber.DebugTree())
+
+        // Configure Notificare if there is a stored configuration set.
+        val configuration = preferences.appConfiguration
+        if (configuration != null) {
+            Notificare.configure(this, configuration.applicationKey, configuration.applicationSecret)
+        }
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
