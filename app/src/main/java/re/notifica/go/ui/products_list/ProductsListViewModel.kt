@@ -8,9 +8,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import re.notifica.Notificare
+import re.notifica.go.ktx.PageView
+import re.notifica.go.ktx.logPageViewed
 import re.notifica.go.models.Product
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.mappers.toModel
+import re.notifica.ktx.events
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +27,12 @@ class ProductsListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.PRODUCTS)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
+            }
+
             database.products().getAllFlow()
                 .flowOn(Dispatchers.IO)
                 .collect { products ->

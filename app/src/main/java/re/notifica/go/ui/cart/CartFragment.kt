@@ -27,6 +27,16 @@ class CartFragment : Fragment() {
     private val adapter = CartAdapter()
     private val swipeHelper = ItemTouchHelper(CartItemTouchCallback(::onItemSwiped))
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(viewModel)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root

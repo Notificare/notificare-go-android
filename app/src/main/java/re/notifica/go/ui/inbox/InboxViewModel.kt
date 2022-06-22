@@ -11,8 +11,12 @@ import re.notifica.go.R
 import re.notifica.go.core.sevenDaysAgo
 import re.notifica.go.core.today
 import re.notifica.go.core.yesterday
+import re.notifica.go.ktx.PageView
+import re.notifica.go.ktx.logPageViewed
 import re.notifica.inbox.ktx.inbox
 import re.notifica.inbox.models.NotificareInboxItem
+import re.notifica.ktx.events
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -26,6 +30,12 @@ class InboxViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.INBOX)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
+            }
+
             Notificare.inbox().observableItems
                 .asFlow()
                 .collect { items ->

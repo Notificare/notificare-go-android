@@ -7,13 +7,16 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
+import re.notifica.go.ktx.PageView
 import re.notifica.go.ktx.hasLocationTrackingCapabilities
+import re.notifica.go.ktx.logPageViewed
 import re.notifica.go.models.UserInfo
 import re.notifica.ktx.device
+import re.notifica.ktx.events
 import re.notifica.push.ktx.push
 import timber.log.Timber
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
     private val _userInfo = MutableLiveData<UserInfo>()
     val userInfo: LiveData<UserInfo> = _userInfo
 
@@ -112,6 +115,16 @@ class SettingsViewModel : ViewModel() {
                 data.postValue(subscribed)
             } catch (e: Exception) {
                 Timber.e(e, "Failed to subscribe to a topic.")
+            }
+        }
+    }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.SETTINGS)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
             }
         }
     }

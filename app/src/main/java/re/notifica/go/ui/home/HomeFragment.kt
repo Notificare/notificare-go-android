@@ -31,6 +31,7 @@ class HomeFragment : Fragment(), NotificareScannables.ScannableSessionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
         Notificare.scannables().addListener(this)
     }
 
@@ -61,6 +62,7 @@ class HomeFragment : Fragment(), NotificareScannables.ScannableSessionListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        lifecycle.removeObserver(viewModel)
         Notificare.scannables().removeListener(this)
     }
 

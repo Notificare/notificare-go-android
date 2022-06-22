@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
-import re.notifica.go.ktx.logAddToCart
-import re.notifica.go.ktx.logCartUpdated
-import re.notifica.go.ktx.logProductView
+import re.notifica.go.ktx.*
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.entities.CartEntryEntity
 import re.notifica.go.storage.db.mappers.toModel
@@ -26,6 +24,12 @@ class ProductDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.PRODUCT_DETAILS)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
+            }
+
             try {
                 Notificare.events().logProductView(arguments.product)
             } catch (e: Exception) {

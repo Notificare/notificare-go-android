@@ -18,10 +18,12 @@ import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
 import re.notifica.go.R
 import re.notifica.go.core.loadRemoteConfig
+import re.notifica.go.ktx.logIntroFinished
 import re.notifica.go.network.push.PushService
 import re.notifica.go.network.push.payloads.EnrollmentPayload
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.ktx.device
+import re.notifica.ktx.events
 import re.notifica.push.ktx.push
 import timber.log.Timber
 import javax.inject.Inject
@@ -98,6 +100,12 @@ class IntroViewModel @Inject constructor(
             } catch (e: Exception) {
                 // TODO: handle error scenario.
             }
+        }
+
+        try {
+            Notificare.events().logIntroFinished()
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to log a custom event.")
         }
 
         preferences.hasIntroFinished = true

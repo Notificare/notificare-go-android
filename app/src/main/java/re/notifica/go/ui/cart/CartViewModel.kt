@@ -1,28 +1,23 @@
 package re.notifica.go.ui.cart
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
-import re.notifica.go.ktx.logCartCleared
-import re.notifica.go.ktx.logCartUpdated
-import re.notifica.go.ktx.logPurchase
-import re.notifica.go.ktx.logRemoveFromCart
+import re.notifica.go.ktx.*
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.entities.CartEntryWithProduct
 import re.notifica.go.storage.db.mappers.toModel
 import re.notifica.ktx.events
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val database: NotificareDatabase,
-) : ViewModel() {
+) : ViewModel(), DefaultLifecycleObserver {
     private val _entries = MutableLiveData<List<CartEntryWithProduct>>()
     val entries: LiveData<List<CartEntryWithProduct>> = _entries
 
@@ -53,6 +48,16 @@ class CartViewModel @Inject constructor(
 
         if (entries.isEmpty()) {
             Notificare.events().logCartCleared()
+        }
+    }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.CART)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
+            }
         }
     }
 }

@@ -21,9 +21,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import re.notifica.Notificare
+import re.notifica.go.ktx.PageView
+import re.notifica.go.ktx.logPageViewed
 import re.notifica.go.models.UserInfo
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.ktx.device
+import re.notifica.ktx.events
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -51,6 +54,12 @@ class ProfileViewModel @Inject constructor(
         if (user != null) _userInfo.postValue(UserInfo(user))
 
         viewModelScope.launch {
+            try {
+                Notificare.events().logPageViewed(PageView.USER_PROFILE)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to log a custom event.")
+            }
+
             try {
                 val fields = Notificare.fetchApplication().userDataFields
                 val userData = Notificare.device().fetchUserData()

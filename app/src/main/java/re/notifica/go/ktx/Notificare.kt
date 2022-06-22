@@ -37,6 +37,13 @@ val NotificareGeo.hasGeofencingCapabilities: Boolean
         return hasLocationServicesEnabled && hasLocationPermissions
     }
 
+suspend fun NotificareEventsModule.logIntroFinished() {
+    logCustom("intro_finished")
+}
+
+suspend fun NotificareEventsModule.logPageViewed(page: PageView) {
+    logCustom("page_viewed.${page.rawValue}")
+}
 
 suspend fun NotificareEventsModule.logAddToCart(product: Product) {
     val data: NotificareEventData = mapOf(
@@ -94,4 +101,27 @@ private fun transformProduct(product: Product): Map<String, Any> {
         "price" to product.price,
         "price_formatted" to product.price.let(::formatPrice),
     )
+}
+
+enum class PageView {
+    HOME,
+    CART,
+    SETTINGS,
+    INBOX,
+    USER_PROFILE,
+    EVENTS,
+    PRODUCTS,
+    PRODUCT_DETAILS;
+
+    val rawValue: String
+        get() = when (this) {
+            HOME -> "home"
+            CART -> "cart"
+            SETTINGS -> "settings"
+            INBOX -> "inbox"
+            USER_PROFILE -> "user_profile"
+            EVENTS -> "events"
+            PRODUCTS -> "products"
+            PRODUCT_DETAILS -> "product_details"
+        }
 }
