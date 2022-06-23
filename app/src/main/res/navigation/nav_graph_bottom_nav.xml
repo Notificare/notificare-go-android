@@ -62,8 +62,8 @@
         android:label="@string/product_details_title"
         tools:layout="@layout/fragment_product_details">
         <argument
-            android:name="product"
-            app:argType="re.notifica.go.models.Product"
+            android:name="product_id"
+            app:argType="string"
             app:nullable="false" />
     </fragment>
 

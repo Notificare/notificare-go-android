@@ -9,6 +9,9 @@ import re.notifica.go.storage.db.entities.ProductEntity
 
 @Dao
 interface ProductsDao {
+    @Query("SELECT * FROM products WHERE id = :id")
+    fun getById(id: String): ProductEntity?
+
     @Query("SELECT * FROM products")
     suspend fun getAll(): List<ProductEntity>
 

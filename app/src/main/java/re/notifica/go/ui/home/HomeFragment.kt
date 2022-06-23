@@ -101,9 +101,7 @@ class HomeFragment : Fragment(), NotificareScannables.ScannableSessionListener {
 
     private fun onProductClicked(product: Product) {
         findNavController().navigate(
-            HomeFragmentDirections.homeToProductDetailsAction(
-                product
-            )
+            HomeFragmentDirections.homeToProductDetailsAction(product.id)
         )
     }
 

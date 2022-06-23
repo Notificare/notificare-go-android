@@ -1,12 +1,13 @@
 package re.notifica.go.ui.product_details
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import re.notifica.Notificare
 import re.notifica.go.ktx.*
+import re.notifica.go.models.Product
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.entities.CartEntryEntity
 import re.notifica.go.storage.db.mappers.toModel
@@ -22,6 +23,9 @@ class ProductDetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private val arguments = ProductDetailsFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
+    private val _product = MutableLiveData<Product>()
+    val product: LiveData<Product> = _product
+
     init {
         viewModelScope.launch {
             try {
@@ -31,24 +35,36 @@ class ProductDetailsViewModel @Inject constructor(
             }
 
             try {
-                Notificare.events().logProductView(arguments.product)
+                val product = withContext(Dispatchers.IO) {
+                    database.products().getById(arguments.productId)?.toModel()
+                } ?: return@launch
+
+                _product.postValue(product)
+
+                try {
+                    Notificare.events().logProductView(product)
+                } catch (e: Exception) {
+                    Timber.e(e, "Failed to log product viewed event.")
+                }
             } catch (e: Exception) {
-                Timber.e(e, "Failed to log product viewed event.")
+                Timber.e(e, "Failed to fetch the product from the database.")
             }
         }
     }
 
     suspend fun addToCart() {
+        val product = product.value ?: return
+
         database.cartEntries().add(
             CartEntryEntity(
                 id = 0,
                 time = Date(),
-                productId = arguments.product.id
+                productId = product.id
             )
         )
 
         val entries = database.cartEntries().getEntriesWithProduct()
-        Notificare.events().logAddToCart(arguments.product)
+        Notificare.events().logAddToCart(product)
         Notificare.events().logCartUpdated(entries.map { it.product.toModel() })
     }
 }

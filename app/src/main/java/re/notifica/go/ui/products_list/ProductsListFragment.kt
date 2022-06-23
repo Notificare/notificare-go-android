@@ -34,9 +34,7 @@ class ProductsListFragment : Fragment() {
 
     private fun onProductClicked(product: Product) {
         findNavController().navigate(
-            ProductsListFragmentDirections.productsListToProductDetailsAction(
-                product
-            )
+            ProductsListFragmentDirections.productsListToProductDetailsAction(product.id)
         )
     }
 }
