@@ -14,6 +14,7 @@ import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import re.notifica.go.BuildConfig
+import re.notifica.go.core.DeepLinksService
 import re.notifica.go.network.assets.AssetsService
 import re.notifica.go.network.push.PushService
 import re.notifica.go.storage.db.NotificareDatabase
@@ -83,5 +84,11 @@ class AppModule {
     @Provides
     fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
         return WorkManager.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeepLinksServices(): DeepLinksService {
+        return DeepLinksService()
     }
 }

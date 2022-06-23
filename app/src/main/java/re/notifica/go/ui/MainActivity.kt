@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
 import re.notifica.go.R
+import re.notifica.go.core.DeepLinksService
 import re.notifica.go.core.extractConfigurationCode
 import re.notifica.go.databinding.ActivityMainBinding
 import re.notifica.go.models.AppConfiguration
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var pushService: PushService
+
+    @Inject
+    lateinit var deepLinksService: DeepLinksService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -89,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         val uri = intent.data ?: return
         Timber.d("Received deep link with uri = $uri")
+        deepLinksService.deepLinkIntent.tryEmit(intent)
     }
 
     private fun handleConfigurationIntent(intent: Intent): Boolean {

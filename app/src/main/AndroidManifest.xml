@@ -4,7 +4,9 @@
     package="re.notifica.go">
 
     <!-- Temporarily override the NFC feature declaration until the SDK makes it optional. -->
-    <uses-feature android:name="android.hardware.nfc" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
 
     <application
         android:name=".NotificareApp"
@@ -52,6 +54,16 @@
                 <data
                     android:host="${configuration_link_host}"
                     android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="notifica.re"
+                    android:scheme="${applicationId}" />
             </intent-filter>
         </activity>
 
