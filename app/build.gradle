@@ -106,6 +106,7 @@ dependencies {
     implementation "androidx.camera:camera-view:$androidx_camera_view_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation "androidx.core:core-google-shortcuts:$androidx_core_shortcuts_version"
     implementation "androidx.fragment:fragment-ktx:$androidx_fragment_version"
     implementation "androidx.hilt:hilt-work:$androidx_hilt_work_version"
     kapt "androidx.hilt:hilt-compiler:$androidx_hilt_work_version"

@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
+import re.notifica.go.core.createDynamicShortcuts
 import re.notifica.go.core.loadRemoteConfig
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.go.workers.UpdateProductsWorker
@@ -83,6 +84,7 @@ class SplashViewModel @Inject constructor(
 
         viewModelScope.launch {
             loadRemoteConfig(preferences)
+            createDynamicShortcuts(context, preferences)
             _navigationFlow.tryEmit(NavigationOption.MAIN)
         }
     }

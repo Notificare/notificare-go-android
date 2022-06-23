@@ -17,6 +17,7 @@ import kotlinx.coroutines.tasks.await
 import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
 import re.notifica.go.R
+import re.notifica.go.core.createDynamicShortcuts
 import re.notifica.go.core.loadRemoteConfig
 import re.notifica.go.ktx.logIntroFinished
 import re.notifica.go.network.push.PushService
@@ -66,6 +67,7 @@ class IntroViewModel @Inject constructor(
         val authenticationResult = Firebase.auth.signInWithCredential(firebaseCredential).await()
 
         loadRemoteConfig(preferences)
+        createDynamicShortcuts(context, preferences)
 
         val user = authenticationResult.user
         if (user == null) {
