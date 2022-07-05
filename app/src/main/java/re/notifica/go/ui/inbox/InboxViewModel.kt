@@ -47,6 +47,14 @@ class InboxViewModel @Inject constructor(
 
     suspend fun open(item: NotificareInboxItem) = Notificare.inbox().open(item)
 
+    suspend fun markAsRead(item: NotificareInboxItem) = Notificare.inbox().markAsRead(item)
+
+    suspend fun markAllAsRead() = Notificare.inbox().markAllAsRead()
+
+    suspend fun remove(item: NotificareInboxItem) = Notificare.inbox().remove(item)
+
+    suspend fun clear() = Notificare.inbox().clear()
+
     private fun createSections(items: SortedSet<NotificareInboxItem>): List<InboxListEntry> {
         val result = mutableListOf<InboxListEntry>()
 

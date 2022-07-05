@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/open_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackground"
+        android:drawablePadding="24dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:text="@string/inbox_options_open"
+        app:drawableStartCompat="@drawable/ic_baseline_drafts_24" />
+
+    <TextView
+        android:id="@+id/mark_as_read_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackground"
+        android:drawablePadding="24dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:text="@string/inbox_options_mark_as_read"
+        app:drawableStartCompat="@drawable/ic_baseline_mark_email_read_24" />
+
+    <TextView
+        android:id="@+id/remove_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackground"
+        android:drawablePadding="24dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:text="@string/inbox_options_remove"
+        app:drawableStartCompat="@drawable/ic_baseline_delete_24" />
+
+</LinearLayout>

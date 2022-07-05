@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -56,6 +57,7 @@ class MainFragment : Fragment() {
             setOf(R.id.home_fragment, R.id.cart_fragment, R.id.settings_fragment)
         )
 
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
 

@@ -21,6 +21,7 @@ import java.util.*
 
 class InboxAdapter(
     private val onInboxItemClicked: (NotificareInboxItem) -> Unit,
+    private val onInboxItemLongPressed: (NotificareInboxItem) -> Unit,
 ) : ListAdapter<InboxViewModel.InboxListEntry, RecyclerView.ViewHolder>(InboxDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (ViewType.values()[viewType]) {
@@ -83,6 +84,11 @@ class InboxAdapter(
         init {
             binding.root.setOnClickListener {
                 inboxItem?.also { onInboxItemClicked(it) }
+            }
+
+            binding.root.setOnLongClickListener {
+                inboxItem?.also { onInboxItemLongPressed(it) }
+                return@setOnLongClickListener true
             }
         }
 

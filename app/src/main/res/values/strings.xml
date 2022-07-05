@@ -112,6 +112,11 @@
     <string name="inbox_section_today">Today</string>
     <string name="inbox_section_yesterday">Yesterday</string>
     <string name="inbox_section_last_seven_days">Last 7 days</string>
+    <string name="inbox_options_open">Open</string>
+    <string name="inbox_options_mark_as_read">Mark as read</string>
+    <string name="inbox_options_mark_all_as_read">Mark all as read</string>
+    <string name="inbox_options_remove">Remove</string>
+    <string name="inbox_options_remove_all">Remove all</string>
 
     <string name="intro_title">Welcome</string>
 
