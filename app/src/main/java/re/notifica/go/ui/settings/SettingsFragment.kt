@@ -12,13 +12,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentSettingsBinding
+import re.notifica.models.NotificareDoNotDisturb
+import re.notifica.models.NotificareTime
 import timber.log.Timber
 
 class SettingsFragment : Fragment() {
@@ -96,6 +101,53 @@ class SettingsFragment : Fragment() {
             viewModel.changeRemoteNotifications(enabled = checked)
         }
 
+        binding.dndCard.dndSwitch.setOnCheckedChangeListener { _, checked ->
+            if (checked == viewModel.dndEnabled.value) return@setOnCheckedChangeListener
+            viewModel.changeDoNotDisturbEnabled(enabled = checked)
+        }
+
+        binding.dndCard.dndStartContainer.setOnClickListener {
+            val dnd = viewModel.dnd.value ?: return@setOnClickListener
+
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(dnd.start.hours)
+                .setMinute(dnd.start.minutes)
+                .build()
+
+            picker.addOnPositiveButtonClickListener {
+                viewModel.changeDoNotDisturb(
+                    NotificareDoNotDisturb(
+                        start = NotificareTime(picker.hour, picker.minute),
+                        end = dnd.end,
+                    )
+                )
+            }
+
+            picker.show(childFragmentManager, "time-picker")
+        }
+
+        binding.dndCard.dndEndContainer.setOnClickListener {
+            val dnd = viewModel.dnd.value ?: return@setOnClickListener
+
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(dnd.end.hours)
+                .setMinute(dnd.end.minutes)
+                .build()
+
+            picker.addOnPositiveButtonClickListener {
+                viewModel.changeDoNotDisturb(
+                    NotificareDoNotDisturb(
+                        start = dnd.start,
+                        end = NotificareTime(picker.hour, picker.minute),
+                    )
+                )
+            }
+
+            picker.show(childFragmentManager, "time-picker")
+        }
+
         binding.locationCard.locationSwitch.setOnCheckedChangeListener { _, checked ->
             if (checked == viewModel.locationUpdatesEnabled.value) return@setOnCheckedChangeListener
 
@@ -152,6 +204,18 @@ class SettingsFragment : Fragment() {
 
         viewModel.notificationsEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.notificationsCard.notificationsSwitch.isChecked = enabled
+            binding.dndCard.root.isVisible = enabled
+        }
+
+        viewModel.dndEnabled.observe(viewLifecycleOwner) { enabled ->
+            binding.dndCard.dndSwitch.isChecked = enabled
+            binding.dndCard.dndStartContainer.isVisible = enabled
+            binding.dndCard.dndEndContainer.isVisible = enabled
+        }
+
+        viewModel.dnd.observe(viewLifecycleOwner) { dnd ->
+            binding.dndCard.dndStartLabel.text = dnd.start.format()
+            binding.dndCard.dndEndLabel.text = dnd.end.format()
         }
 
         viewModel.locationUpdatesEnabled.observe(viewLifecycleOwner) { enabled ->

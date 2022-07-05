@@ -13,6 +13,8 @@ import re.notifica.go.ktx.logPageViewed
 import re.notifica.go.models.UserInfo
 import re.notifica.ktx.device
 import re.notifica.ktx.events
+import re.notifica.models.NotificareDoNotDisturb
+import re.notifica.models.NotificareTime
 import re.notifica.push.ktx.push
 import timber.log.Timber
 
@@ -22,6 +24,12 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
 
     private val _notificationsEnabled = MutableLiveData(hasNotificationsEnabled)
     val notificationsEnabled: LiveData<Boolean> = _notificationsEnabled
+
+    private val _dndEnabled = MutableLiveData(hasDndEnabled)
+    val dndEnabled: LiveData<Boolean> = _dndEnabled
+
+    private val _dnd = MutableLiveData(Notificare.device().currentDevice?.dnd ?: NotificareDoNotDisturb.default)
+    val dnd: LiveData<NotificareDoNotDisturb> = _dnd
 
     private val _locationUpdatesEnabled = MutableLiveData(hasLocationUpdatesEnabled)
     val locationUpdatesEnabled: LiveData<Boolean> = _locationUpdatesEnabled
@@ -44,6 +52,9 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
     private val hasNotificationsEnabled: Boolean
         get() = Notificare.push().hasRemoteNotificationsEnabled && Notificare.push().allowedUI
 
+    private val hasDndEnabled: Boolean
+        get() = hasNotificationsEnabled && Notificare.device().currentDevice?.dnd != null
+
     private val hasLocationUpdatesEnabled: Boolean
         get() = Notificare.geo().hasLocationTrackingCapabilities
 
@@ -60,6 +71,15 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
                 .collect { enabled ->
                     _notificationsEnabled.postValue(enabled)
                 }
+        }
+
+        viewModelScope.launch {
+            try {
+                val dnd = Notificare.device().fetchDoNotDisturb()
+                _dnd.postValue(dnd ?: NotificareDoNotDisturb.default)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to fetch the do not disturb settings.")
+            }
         }
 
         viewModelScope.launch {
@@ -82,6 +102,34 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
             Notificare.push().enableRemoteNotifications()
         } else {
             Notificare.push().disableRemoteNotifications()
+        }
+    }
+
+    fun changeDoNotDisturbEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            try {
+                if (enabled) {
+                    Notificare.device().updateDoNotDisturb(NotificareDoNotDisturb.default)
+                } else {
+                    Notificare.device().clearDoNotDisturb()
+                }
+
+                _dndEnabled.postValue(enabled)
+                _dnd.postValue(NotificareDoNotDisturb.default)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to update the do not disturb settings.")
+            }
+        }
+    }
+
+    fun changeDoNotDisturb(dnd: NotificareDoNotDisturb) {
+        viewModelScope.launch {
+            try {
+                Notificare.device().updateDoNotDisturb(dnd)
+                _dnd.postValue(dnd)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to update the do not disturb settings.")
+            }
         }
     }
 
@@ -146,4 +194,16 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
                 STAFF -> "topic_staff"
             }
     }
+
+    private val NotificareDoNotDisturb.Companion.default: NotificareDoNotDisturb
+        get() = NotificareDoNotDisturb(
+            NotificareDoNotDisturb.defaultStart,
+            NotificareDoNotDisturb.defaultEnd,
+        )
+
+    private val NotificareDoNotDisturb.Companion.defaultStart: NotificareTime
+        get() = NotificareTime(hours = 23, minutes = 0)
+
+    private val NotificareDoNotDisturb.Companion.defaultEnd: NotificareTime
+        get() = NotificareTime(hours = 8, minutes = 0)
 }
