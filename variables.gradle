@@ -9,20 +9,20 @@ buildscript {
         kotlinx_coroutines_version = '1.6.1'
 
         // Android
-        androidx_activity_version = '1.4.0'
-        androidx_app_compat_version = '1.4.1'
+        androidx_activity_version = '1.5.1'
+        androidx_app_compat_version = '1.5.0'
         androidx_browser_version = '1.4.0'
-        androidx_camera_version = '1.1.0-rc01'
-        androidx_camera_view_version = '1.1.0-rc01'
+        androidx_camera_version = '1.1.0'
+        androidx_camera_view_version = '1.1.0'
         androidx_constraint_layout_version = '2.1.4'
         androidx_core_version = '1.7.0'
         androidx_core_shortcuts_version = '1.0.1'
-        androidx_fragment_version = '1.4.1'
+        androidx_fragment_version = '1.5.2'
         androidx_hilt_work_version = '1.0.0'
-        androidx_lifecycle_version = '2.4.1'
-        androidx_navigation_version = '2.4.2'
+        androidx_lifecycle_version = '2.5.1'
+        androidx_navigation_version = '2.5.1'
         androidx_recycler_view_version = '1.2.1'
-        androidx_room_version = '2.4.2'
+        androidx_room_version = '2.4.3'
         androidx_view_pager_version = '1.0.0'
         android_work_version = '2.7.1'
 
@@ -31,7 +31,7 @@ buildscript {
         google_barcode_scanning_version = '17.0.2'
         google_firebase_version = '30.0.1'
         google_hilt_version = '2.42'
-        google_material_version = '1.7.0-alpha01'
+        google_material_version = '1.7.0-beta01'
 
         // Others
         dots_indicator_version = '4.3'
