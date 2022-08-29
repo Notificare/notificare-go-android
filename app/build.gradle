@@ -65,6 +65,7 @@ android {
             manifestPlaceholders = [
                     configuration_link_host: 'go-demo-dev.ntc.re',
                     crashlyticsEnabled: false,
+                    googleMapsApiKey: properties.getProperty('google.maps.key.debug'),
             ]
         }
         release {
@@ -77,6 +78,7 @@ android {
             manifestPlaceholders = [
                     configuration_link_host: 'go-demo.ntc.re',
                     crashlyticsEnabled: true,
+                    googleMapsApiKey: properties.getProperty('google.maps.key.release'),
             ]
         }
     }
