@@ -64,11 +64,11 @@
 
         <activity
             android:name="re.notifica.push.ui.NotificationActivity"
-            android:theme="@style/Theme.Notificare.Translucent" />
+            android:theme="@style/Theme.App.Notificare.Translucent" />
 
         <activity
             android:name="re.notifica.scannables.ScannableActivity"
-            android:theme="@style/Theme.Notificare" />
+            android:theme="@style/Theme.App.Notificare" />
 
         <!-- Provider to auto configure Notificare -->
         <provider
