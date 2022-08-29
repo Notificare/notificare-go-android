@@ -26,4 +26,24 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="Theme.App.Notificare.Iam">
+        <!-- Disable the ActionBar -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Apply a translucent background effect -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/notificare_translucent</item>
+
+        <!-- Customise your theme below -->
+        <item name="cardViewStyle">@style/Widget.App.CardView.Filled</item>
+    </style>
+
+    <style name="Widget.App.CardView.Filled" parent="Base.Widget.Material3.CardView">
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
 </resources>

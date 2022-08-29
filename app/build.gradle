@@ -142,6 +142,7 @@ dependencies {
     implementation "re.notifica:notificare-geo:$notificare_version"
     implementation "re.notifica:notificare-geo-gms:$notificare_version"
     implementation "re.notifica:notificare-geo-beacons:$notificare_version"
+    implementation "re.notifica:notificare-in-app-messaging:$notificare_version"
     implementation "re.notifica:notificare-inbox:$notificare_version"
     implementation "re.notifica:notificare-loyalty:$notificare_version"
     implementation "re.notifica:notificare-push:$notificare_version"
