@@ -21,9 +21,31 @@
             android:textAppearance="?attr/textAppearanceTitleMedium"
             app:drawableStartCompat="@drawable/ic_baseline_inbox_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/chevron"
+            app:layout_constraintEnd_toStartOf="@id/badge_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/badge_label"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_badge_background"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:padding="4dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:autoSizeMaxTextSize="10sp"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/chevron"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp"
+            tools:text="99+"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/chevron"

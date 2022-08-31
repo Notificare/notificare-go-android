@@ -19,9 +19,11 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import re.notifica.Notificare
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentSettingsBinding
+import re.notifica.inbox.ktx.inbox
 import re.notifica.models.NotificareDoNotDisturb
 import re.notifica.models.NotificareTime
 import timber.log.Timber
@@ -192,6 +194,11 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        Notificare.inbox().observableBadge.observe(viewLifecycleOwner) { badge ->
+            binding.inboxCard.badgeLabel.isVisible = badge > 0
+            binding.inboxCard.badgeLabel.text = if (badge <= 99) badge.toString() else "99+"
+        }
+
         viewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
             binding.userCard.idLabel.text = userInfo.id
             binding.userCard.nameLabel.text = userInfo.name ?: getString(R.string.settings_anonymous_user_name)
