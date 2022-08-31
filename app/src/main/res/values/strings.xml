@@ -96,6 +96,8 @@
     <string name="settings_topics_product_updates">Product updates</string>
     <string name="settings_topics_engineering">Engineering &amp; technology</string>
     <string name="settings_topics_staff">Staff &amp; experiences</string>
+    <string name="settings_application_version" translatable="false">v%s</string>
+    <string name="settings_application_id_copied_message">Application ID copied to clipboard.</string>
 
     <string name="events_title">Events</string>
     <string name="events_event_name_hint">Event name</string>

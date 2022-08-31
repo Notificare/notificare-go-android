@@ -60,6 +60,41 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp" />
 
+        <LinearLayout
+            android:id="@+id/app_information_section"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/app_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                tools:text="Notificare Go" />
+
+            <TextView
+                android:id="@+id/app_id_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                tools:text="621f3c440933d6c0520848ab" />
+
+            <TextView
+                android:id="@+id/app_version_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                tools:text="v1.0.0" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

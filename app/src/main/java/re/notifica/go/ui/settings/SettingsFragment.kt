@@ -1,6 +1,9 @@
 package re.notifica.go.ui.settings
 
 import android.Manifest
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -17,8 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import re.notifica.Notificare
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentSettingsBinding
@@ -82,6 +87,23 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val application = Notificare.application
+
+        binding.appNameLabel.text = application?.name
+        binding.appIdLabel.text = application?.id
+        binding.appVersionLabel.text = getString(R.string.settings_application_version, BuildConfig.VERSION_NAME)
+
+        binding.appInformationSection.isVisible = application != null
+        binding.appInformationSection.setOnLongClickListener {
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Application ID", application?.id)
+            clipboard.setPrimaryClip(clip)
+
+            Snackbar.make(binding.root, R.string.settings_application_id_copied_message, Snackbar.LENGTH_SHORT).show()
+
+            true
+        }
+
         setupListeners()
         setupObservers()
     }
