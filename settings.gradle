@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
 
         maven { url 'https://maven.notifica.re/releases' }
+        maven { url 'https://maven.notifica.re/prereleases' }
         maven { url 'https://developer.huawei.com/repo' }
 
         mavenLocal()
