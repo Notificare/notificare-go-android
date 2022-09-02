@@ -19,6 +19,7 @@ import re.notifica.go.core.createDynamicShortcuts
 import re.notifica.go.core.loadRemoteConfig
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.go.workers.UpdateProductsWorker
+import re.notifica.iam.ktx.inAppMessaging
 import re.notifica.models.NotificareApplication
 import re.notifica.push.ktx.push
 import timber.log.Timber
@@ -70,6 +71,7 @@ class SplashViewModel @Inject constructor(
 
         val user = Firebase.auth.currentUser
         if (!preferences.hasIntroFinished || user == null) {
+            Notificare.inAppMessaging().hasMessagesSuppressed = true
             _navigationFlow.tryEmit(NavigationOption.INTRO)
             return
         }

@@ -23,6 +23,7 @@ import re.notifica.go.ktx.logIntroFinished
 import re.notifica.go.network.push.PushService
 import re.notifica.go.network.push.payloads.EnrollmentPayload
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
+import re.notifica.iam.ktx.inAppMessaging
 import re.notifica.ktx.device
 import re.notifica.ktx.events
 import re.notifica.push.ktx.push
@@ -111,5 +112,6 @@ class IntroViewModel @Inject constructor(
         }
 
         preferences.hasIntroFinished = true
+        Notificare.inAppMessaging().hasMessagesSuppressed = false
     }
 }
