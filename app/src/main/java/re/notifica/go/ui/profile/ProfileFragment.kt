@@ -291,7 +291,7 @@ class ProfileFragment : Fragment() {
         // Access the parent NavController.
         // Using findNavController will yield a reference to the Bottom Navigation NavController.
         val navController = requireActivity().findNavController(R.id.nav_host_fragment)
-        navController.navigate(R.id.global_to_intro)
+        navController.navigate(R.id.global_to_intro_action)
     }
 
     companion object {
