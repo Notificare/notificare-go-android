@@ -13,6 +13,7 @@ def properties = new Properties()
 properties.load(rootProject.file('local.properties').newDataInputStream())
 
 android {
+    namespace 're.notifica.go'
     compileSdk compile_sdk_version
 
     defaultConfig {

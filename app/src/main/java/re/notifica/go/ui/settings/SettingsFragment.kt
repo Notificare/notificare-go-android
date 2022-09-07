@@ -36,6 +36,17 @@ class SettingsFragment : Fragment() {
     private val viewModel: SettingsViewModel by viewModels()
     private lateinit var binding: FragmentSettingsBinding
 
+    private val notificationsPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (!granted) {
+            binding.notificationsCard.notificationsSwitch.isChecked = false
+            return@registerForActivityResult
+        }
+
+        viewModel.changeRemoteNotifications(enabled = true)
+    }
+
     private val foregroundLocationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -109,7 +120,6 @@ class SettingsFragment : Fragment() {
         setupObservers()
     }
 
-
     private fun setupListeners() {
         binding.userCard.root.setOnClickListener {
             findNavController().navigate(R.id.settings_to_profile_action)
@@ -121,7 +131,12 @@ class SettingsFragment : Fragment() {
 
         binding.notificationsCard.notificationsSwitch.setOnCheckedChangeListener { _, checked ->
             if (checked == viewModel.notificationsEnabled.value) return@setOnCheckedChangeListener
-            viewModel.changeRemoteNotifications(enabled = checked)
+
+            if (checked) {
+                enableRemoteNotifications()
+            } else {
+                viewModel.changeRemoteNotifications(enabled = false)
+            }
         }
 
         binding.dndCard.dndSwitch.setOnCheckedChangeListener { _, checked ->
@@ -269,6 +284,46 @@ class SettingsFragment : Fragment() {
         viewModel.staffTopicEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.tagsCard.staffSwitch.isChecked = enabled
         }
+    }
+
+    private fun enableRemoteNotifications() {
+        if (!ensureNotificationsPermission()) return
+        viewModel.changeRemoteNotifications(enabled = true)
+    }
+
+    private fun ensureNotificationsPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
+
+        val permission = Manifest.permission.POST_NOTIFICATIONS
+        val granted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (granted) return true
+
+        if (shouldShowRequestPermissionRationale(permission)) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.app_name)
+                .setMessage(R.string.permission_notifications_rationale)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    Timber.d("Requesting notifications permission.")
+                    notificationsPermissionLauncher.launch(permission)
+                }
+                .setNegativeButton(R.string.dialog_cancel_button) { _, _ ->
+                    Timber.d("Notifications permission rationale cancelled.")
+                    binding.notificationsCard.notificationsSwitch.isChecked = false
+                }
+                .show()
+
+            return false
+        }
+
+        Timber.d("Requesting notifications permission.")
+        notificationsPermissionLauncher.launch(permission)
+
+        return false
     }
 
     private fun enableLocationUpdates() {
