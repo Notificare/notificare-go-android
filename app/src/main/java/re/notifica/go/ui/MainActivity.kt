@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
@@ -30,7 +28,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     @Inject
@@ -61,10 +58,6 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
 
         if (intent != null) handleIntent(intent)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
 
