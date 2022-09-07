@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="re.notifica.go">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".NotificareApp"
         android:allowBackup="false"
