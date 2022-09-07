@@ -24,7 +24,7 @@ buildscript {
         androidx_recycler_view_version = '1.2.1'
         androidx_room_version = '2.4.3'
         androidx_view_pager_version = '1.0.0'
-        android_work_version = '2.7.1'
+        androidx_work_version = '2.7.1'
 
         // Google
         google_auth_version = '20.2.0'

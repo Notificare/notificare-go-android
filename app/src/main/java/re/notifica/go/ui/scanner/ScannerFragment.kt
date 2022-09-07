@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,10 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentScannerBinding
+import re.notifica.go.ui.MainViewModel
 
 @AndroidEntryPoint
 class ScannerFragment : Fragment() {
     private val viewModel: ScannerViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
+
     private lateinit var binding: FragmentScannerBinding
 
     private val cameraPermissionLauncher = registerForActivityResult(
@@ -40,8 +44,10 @@ class ScannerFragment : Fragment() {
 
             lifecycleScope.launch {
                 try {
-                    viewModel.configure(barcode)
-                    findNavController().navigate(R.id.scanner_to_splash_action)
+                    val configuration = viewModel.fetchConfiguration(barcode)
+
+                    mainViewModel.configure(configuration)
+                    mainViewModel.launch()
                 } catch (e: Exception) {
                     Snackbar.make(binding.root, R.string.scanner_invalid_qr_code_error, Snackbar.LENGTH_SHORT).show()
                 }

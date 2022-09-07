@@ -6,31 +6,27 @@
     app:startDestination="@id/splash_fragment">
 
     <action
-        android:id="@+id/global_to_intro"
+        android:id="@+id/global_to_scanner_action"
+        app:destination="@id/scanner_fragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/global_to_intro_action"
         app:destination="@id/intro_fragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/global_to_main_action"
+        app:destination="@id/nav_graph_main"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/splash_fragment"
         android:name="re.notifica.go.ui.splash.SplashFragment"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/splash_to_scanner_action"
-            app:destination="@id/scanner_fragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/splash_to_intro_action"
-            app:destination="@id/intro_fragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/splash_to_main_action"
-            app:destination="@id/nav_graph_main"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_splash" />
 
     <fragment
         android:id="@+id/scanner_fragment"

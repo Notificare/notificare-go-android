@@ -121,7 +121,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$androidx_room_version"
     kapt "androidx.room:room-compiler:$androidx_room_version"
     implementation "androidx.viewpager2:viewpager2:$androidx_view_pager_version"
-    implementation "androidx.work:work-runtime-ktx:$android_work_version"
+    implementation "androidx.work:work-runtime-ktx:$androidx_work_version"
 
     // Google
     implementation "com.google.android.gms:play-services-auth:$google_auth_version"
