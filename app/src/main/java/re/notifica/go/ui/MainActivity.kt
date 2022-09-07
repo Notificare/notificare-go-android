@@ -2,9 +2,11 @@ package re.notifica.go.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,9 +17,7 @@ import re.notifica.go.R
 import re.notifica.go.core.DeepLinksService
 import re.notifica.go.core.extractConfigurationCode
 import re.notifica.go.databinding.ActivityMainBinding
-import re.notifica.go.models.AppConfiguration
-import re.notifica.go.network.push.PushService
-import re.notifica.go.storage.preferences.NotificareSharedPreferences
+import re.notifica.go.ktx.observeInLifecycle
 import re.notifica.models.NotificareNotification
 import re.notifica.push.ktx.INTENT_ACTION_ACTION_OPENED
 import re.notifica.push.ktx.INTENT_ACTION_NOTIFICATION_OPENED
@@ -28,18 +28,16 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     @Inject
-    lateinit var preferences: NotificareSharedPreferences
-
-    @Inject
-    lateinit var pushService: PushService
-
-    @Inject
     lateinit var deepLinksService: DeepLinksService
+
+    private val navController: NavController
+        get() = findNavController(R.id.nav_host_fragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -49,6 +47,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (intent != null) handleIntent(intent)
+
+        viewModel.navigationFlow.observeInLifecycle(this) { option ->
+            when (option) {
+                MainViewModel.NavigationOption.SCANNER -> navController.navigate(R.id.global_to_scanner_action)
+                MainViewModel.NavigationOption.INTRO -> navController.navigate(R.id.global_to_intro_action)
+                MainViewModel.NavigationOption.MAIN -> navController.navigate(R.id.global_to_main_action)
+            }
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -58,7 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
@@ -100,32 +105,26 @@ class MainActivity : AppCompatActivity() {
         val uri = intent.data ?: return false
         val code = extractConfigurationCode(uri) ?: return false
 
-        if (preferences.appConfiguration != null) {
-            AlertDialog.Builder(this)
-                .setTitle(R.string.main_configured_dialog_title)
-                .setMessage(R.string.main_configured_dialog_message)
-                .setPositiveButton(R.string.dialog_ok_button, null)
-                .show()
-        } else {
-            lifecycleScope.launch {
-                try {
-                    val configuration = pushService.getConfiguration(code)
-
-                    // Persist the configuration.
-                    preferences.appConfiguration = AppConfiguration(
-                        applicationKey = configuration.demo.applicationKey,
-                        applicationSecret = configuration.demo.applicationSecret,
-                        loyaltyProgramId = configuration.demo.loyaltyProgram,
-                    )
-
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.splash_fragment)
-                } catch (e: Exception) {
-                    AlertDialog.Builder(this@MainActivity)
-                        .setTitle(R.string.main_configuration_error_dialog_title)
-                        .setMessage(R.string.main_configuration_error_dialog_message)
-                        .setPositiveButton(R.string.dialog_ok_button, null)
-                        .show()
+        lifecycleScope.launch {
+            try {
+                when (viewModel.configure(code)) {
+                    MainViewModel.ConfigurationResult.ALREADY_CONFIGURED -> {
+                        AlertDialog.Builder(this@MainActivity)
+                            .setTitle(R.string.main_configured_dialog_title)
+                            .setMessage(R.string.main_configured_dialog_message)
+                            .setPositiveButton(R.string.dialog_ok_button, null)
+                            .show()
+                    }
+                    MainViewModel.ConfigurationResult.SUCCESS -> {
+                        navController.navigate(R.id.splash_fragment)
+                    }
                 }
+            } catch (e: Exception) {
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle(R.string.main_configuration_error_dialog_title)
+                    .setMessage(R.string.main_configuration_error_dialog_message)
+                    .setPositiveButton(R.string.dialog_ok_button, null)
+                    .show()
             }
         }
 
