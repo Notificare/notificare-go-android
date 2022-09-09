@@ -115,6 +115,10 @@ class SettingsFragment : Fragment() {
 
             true
         }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
 
         setupListeners()
         setupObservers()
