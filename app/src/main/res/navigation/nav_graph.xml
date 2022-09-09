@@ -6,6 +6,12 @@
     app:startDestination="@id/splash_fragment">
 
     <action
+        android:id="@+id/global_to_splash_action"
+        app:destination="@id/splash_fragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
+    <action
         android:id="@+id/global_to_scanner_action"
         app:destination="@id/scanner_fragment"
         app:popUpTo="@id/nav_graph"

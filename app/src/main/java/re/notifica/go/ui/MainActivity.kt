@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.navigationFlow.observeInLifecycle(this) { option ->
             when (option) {
+                MainViewModel.NavigationOption.SPLASH -> navController.navigate(R.id.global_to_splash_action)
                 MainViewModel.NavigationOption.SCANNER -> navController.navigate(R.id.global_to_scanner_action)
                 MainViewModel.NavigationOption.INTRO -> navController.navigate(R.id.global_to_intro_action)
                 MainViewModel.NavigationOption.MAIN -> navController.navigate(R.id.global_to_main_action)

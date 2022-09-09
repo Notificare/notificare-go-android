@@ -49,6 +49,13 @@ class MainViewModel @Inject constructor(
 
 
     init {
+        if (!Notificare.isReady) {
+            // Ensure we don't leave the app in an unstable state.
+            // When the app is recreated, ie due to permission changes,
+            // we should reset to the splash while Notificare is launching.
+            navigationChannel.trySend(NavigationOption.SPLASH)
+        }
+
         Notificare.addListener(this)
 
         if (!hasConfiguration) {
@@ -131,6 +138,7 @@ class MainViewModel @Inject constructor(
     // endregion
 
     enum class NavigationOption {
+        SPLASH,
         SCANNER,
         INTRO,
         MAIN;
