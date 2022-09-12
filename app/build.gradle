@@ -20,8 +20,8 @@ android {
         applicationId 're.notifica.go'
         minSdk min_sdk_version
         targetSdk target_sdk_version
-        versionCode 9
-        versionName '1.2.0'
+        versionCode 10
+        versionName '1.2.1'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
