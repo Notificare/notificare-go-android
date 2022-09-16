@@ -44,7 +44,12 @@ class SettingsFragment : Fragment() {
     private val openSettingsNotificationsLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        viewModel.changeRemoteNotifications(enabled = true)
+        if (NotificationManagerCompat.from(requireContext().applicationContext).areNotificationsEnabled()) {
+            viewModel.changeRemoteNotifications(enabled = true)
+            return@registerForActivityResult
+        }
+
+        binding.notificationsCard.notificationsSwitch.isChecked = false
     }
 
     private val openSettingsLocationLauncher = registerForActivityResult(
@@ -329,7 +334,7 @@ class SettingsFragment : Fragment() {
         }
 
         if (permission != null) {
-            // Rational did show and permission denied
+            // Rationale did show and permission was denied
             if (!shouldShowRequestPermissionRationale(permission) && pendingRationales.contains(permissionType)) {
                 pendingRationales.remove(permissionType)
                 return false
