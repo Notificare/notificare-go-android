@@ -9,7 +9,9 @@
     <string name="dialog_no_button">No</string>
     <string name="dialog_ok_button">OK</string>
     <string name="dialog_cancel_button">Cancel</string>
+    <string name="dialog_settings_button">Settings</string>
 
+    <string name="permission_open_os_settings_rationale">In order to activate this functionality, permission has to be granted.</string>
     <string name="permission_notifications_rationale">Allow notifications in order to receive relevant content.</string>
     <string name="permission_foreground_location_rationale">We need access to foreground location in order to show relevant content.</string>
     <string name="permission_background_location_rationale">We need access to background location in order to show relevant content.</string>

@@ -103,6 +103,8 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
         } else {
             Notificare.push().disableRemoteNotifications()
         }
+
+        _notificationsEnabled.postValue(hasNotificationsEnabled)
     }
 
     fun changeDoNotDisturbEnabled(enabled: Boolean) {
