@@ -4,16 +4,19 @@ import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -33,18 +36,42 @@ import re.notifica.models.NotificareTime
 import timber.log.Timber
 
 class SettingsFragment : Fragment() {
+    private val pendingRationales = mutableListOf<PermissionType>()
+
     private val viewModel: SettingsViewModel by viewModels()
     private lateinit var binding: FragmentSettingsBinding
+
+    private val openSettingsNotificationsLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (NotificationManagerCompat.from(requireContext().applicationContext).areNotificationsEnabled()) {
+            viewModel.changeRemoteNotifications(enabled = true)
+            return@registerForActivityResult
+        }
+
+        binding.notificationsCard.notificationsSwitch.isChecked = false
+    }
+
+    private val openSettingsLocationLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        viewModel.changeLocationUpdates(enabled = true)
+    }
 
     private val notificationsPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        if (!granted) {
-            binding.notificationsCard.notificationsSwitch.isChecked = false
+        if (granted) {
+            viewModel.changeRemoteNotifications(enabled = true)
             return@registerForActivityResult
         }
 
-        viewModel.changeRemoteNotifications(enabled = true)
+        if (shouldOpenSettings(PermissionType.NOTIFICATIONS)) {
+            showSettingsPrompt(PermissionType.NOTIFICATIONS)
+            return@registerForActivityResult
+        }
+
+        binding.notificationsCard.notificationsSwitch.isChecked = false
     }
 
     private val foregroundLocationPermissionLauncher = registerForActivityResult(
@@ -54,6 +81,11 @@ class SettingsFragment : Fragment() {
 
         if (granted) {
             return@registerForActivityResult enableLocationUpdates()
+        }
+
+        if (shouldOpenSettings(PermissionType.LOCATION)) {
+            showSettingsPrompt(PermissionType.LOCATION)
+            return@registerForActivityResult
         }
 
         // Enables location updates with whatever capabilities have been granted so far.
@@ -81,7 +113,6 @@ class SettingsFragment : Fragment() {
         // Enables location updates with whatever capabilities have been granted so far.
         viewModel.changeLocationUpdates(enabled = true)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -290,8 +321,72 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun shouldOpenSettings(permissionType: PermissionType): Boolean {
+        val permission = when (permissionType) {
+            PermissionType.NOTIFICATIONS -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    Manifest.permission.POST_NOTIFICATIONS
+                } else {
+                    null
+                }
+            }
+            PermissionType.LOCATION -> Manifest.permission.ACCESS_FINE_LOCATION
+        }
+
+        if (permission != null) {
+            // Rationale did show and permission was denied
+            if (!shouldShowRequestPermissionRationale(permission) && pendingRationales.contains(permissionType)) {
+                pendingRationales.remove(permissionType)
+                return false
+            }
+            // Rational did show but request was dismissed
+            if (shouldShowRequestPermissionRationale(permission) && pendingRationales.contains(permissionType)) {
+                pendingRationales.remove(permissionType)
+                return false
+            }
+            // First permission request denied
+            if (shouldShowRequestPermissionRationale(permission) && !pendingRationales.contains(permissionType)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun showSettingsPrompt(permissionType: PermissionType) {
+        AlertDialog.Builder(requireContext()).setTitle(R.string.app_name)
+            .setMessage(R.string.permission_open_os_settings_rationale)
+            .setCancelable(false)
+            .setPositiveButton(R.string.dialog_settings_button) { _, _ ->
+                Timber.d("Opening OS Settings")
+                val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", requireContext().packageName, null)
+                }
+
+                when (permissionType) {
+                    PermissionType.NOTIFICATIONS -> openSettingsNotificationsLauncher.launch(settingsIntent)
+                    PermissionType.LOCATION -> openSettingsLocationLauncher.launch(settingsIntent)
+                }
+            }
+            .setNegativeButton(R.string.dialog_cancel_button) { _, _ ->
+                Timber.d("Redirect to OS Settings cancelled")
+                when (permissionType) {
+                    PermissionType.NOTIFICATIONS -> binding.notificationsCard.notificationsSwitch.isChecked = false
+                    PermissionType.LOCATION -> viewModel.changeLocationUpdates(enabled = true)
+                }
+            }
+            .show()
+    }
+
     private fun enableRemoteNotifications() {
         if (!ensureNotificationsPermission()) return
+        if (!NotificationManagerCompat.from(requireContext().applicationContext).areNotificationsEnabled()) {
+            // Only runs on Android 12 or lower
+            if (shouldOpenSettings(PermissionType.NOTIFICATIONS)) {
+                showSettingsPrompt(PermissionType.NOTIFICATIONS)
+            }
+            return
+        }
+
         viewModel.changeRemoteNotifications(enabled = true)
     }
 
@@ -313,6 +408,7 @@ class SettingsFragment : Fragment() {
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     Timber.d("Requesting notifications permission.")
+                    pendingRationales.add(PermissionType.NOTIFICATIONS)
                     notificationsPermissionLauncher.launch(permission)
                 }
                 .setNegativeButton(R.string.dialog_cancel_button) { _, _ ->
@@ -355,6 +451,7 @@ class SettingsFragment : Fragment() {
                 .setCancelable(false)
                 .setPositiveButton(R.string.dialog_ok_button) { _, _ ->
                     Timber.d("Requesting foreground location permission.")
+                    pendingRationales.add(PermissionType.LOCATION)
                     foregroundLocationPermissionLauncher.launch(
                         arrayOf(
                             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -460,5 +557,10 @@ class SettingsFragment : Fragment() {
         bluetoothScanLocationPermissionLauncher.launch(permission)
 
         return false
+    }
+
+    enum class PermissionType {
+        NOTIFICATIONS,
+        LOCATION
     }
 }
