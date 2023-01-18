@@ -32,11 +32,6 @@ class AppModule {
     }
 
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context, moshi: Moshi): NotificareSharedPreferences {
-        return NotificareSharedPreferences(context, moshi)
-    }
-
-    @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): NotificareDatabase {
         return Room.databaseBuilder(context, NotificareDatabase::class.java, "notificare-app.db")

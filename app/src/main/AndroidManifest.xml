@@ -87,6 +87,10 @@
             android:exported="false"
             tools:node="remove" />
 
+        <receiver
+            android:name=".PushReceiver"
+            android:exported="false" />
+
         <meta-data
             android:name="re.notifica.debug_logging_enabled"
             android:value="true" />

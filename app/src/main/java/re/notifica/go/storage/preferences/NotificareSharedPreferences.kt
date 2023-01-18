@@ -1,17 +1,19 @@
 package re.notifica.go.storage.preferences
 
+import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import com.squareup.moshi.Moshi
 import re.notifica.go.ktx.getMoshi
 import re.notifica.go.ktx.putMoshi
 import re.notifica.go.models.AppConfiguration
+import javax.inject.Inject
 
-class NotificareSharedPreferences(
-    context: Context,
+class NotificareSharedPreferences @Inject constructor(
+    application: Application,
     private val moshi: Moshi,
 ) {
-    private val preferences = context.getSharedPreferences("re.notifica.go.preferences", Context.MODE_PRIVATE)
+    private val preferences = application.getSharedPreferences("re.notifica.go.preferences", Context.MODE_PRIVATE)
 
     var appConfiguration: AppConfiguration?
         get() = preferences.getMoshi(moshi, "app_configuration")

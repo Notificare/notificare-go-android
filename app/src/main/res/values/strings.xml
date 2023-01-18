@@ -68,6 +68,12 @@
     <string name="home_events_title">Log custom events</string>
     <string name="home_events_message">Log events manually by setting up its name and attributes. Use your custom event to create event-based automations.</string>
     <string name="home_events_try_button">Try it!</string>
+    <string name="home_coffee_brewer_title">Live Activities sandbox</string>
+    <string name="home_coffee_brewer_message">Experiment with Live Activities by leveraging Notificare\'s toolset.</string>
+    <string name="home_coffee_brewer_create_button">Brew a coffee</string>
+    <string name="home_coffee_brewer_brew_button">Start brewing</string>
+    <string name="home_coffee_brewer_serve_button">Serve the coffee!</string>
+    <string name="home_coffee_brewer_stop_button">Cancel</string>
 
     <string name="cart_title">Cart</string>
     <string name="cart_disclaimer_message">The cart functionality is merely illustrative.\nYou are not acquiring any products, nor will you be charged.\nTest your automations with peace of mind.</string>
@@ -144,4 +150,16 @@
     <string name="profile_delete_account_confirmation_title">Are you certain?</string>
     <string name="profile_delete_account_confirmation_message">This action is permanent and will delete your user account. Proceed with caution.</string>
     <string name="profile_delete_account_failure">Couldn\'t delete your account.</string>
+
+    <string name="notification_channel_live_activities_title">Live Activities</string>
+    <string name="notification_channel_live_activities_description">Real-time updates for relevant content.</string>
+
+    <string name="coffee_headline_served_title">Coffee is served!</string>
+    <plurals name="coffee_headline_pick_up_title">
+        <item quantity="one">Pick-up in %1$d min</item>
+        <item quantity="other">Pick-up in %1$d mins</item>
+    </plurals>
+    <string name="coffee_headline_served_subtitle">That\'s a good cuppa coffee.</string>
+    <string name="coffee_headline_brewing_subtitle">Brewing the perfect cup of coffee.</string>
+    <string name="coffee_headline_grinding_subtitle">Grinding a few coffee beans!</string>
 </resources>

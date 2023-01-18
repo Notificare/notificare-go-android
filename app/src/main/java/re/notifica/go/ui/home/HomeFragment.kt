@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import re.notifica.Notificare
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentHomeBinding
+import re.notifica.go.models.CoffeeBrewingState
 import re.notifica.go.models.Product
 import re.notifica.push.ui.ktx.pushUI
 import re.notifica.scannables.NotificareScannables
@@ -96,6 +97,37 @@ class HomeFragment : Fragment(), NotificareScannables.ScannableSessionListener {
 
             binding.beaconsList.isVisible = beacons.isNotEmpty()
             binding.beaconsEmptyMessageLabel.isVisible = beacons.isEmpty()
+        }
+
+        viewModel.coffeeBrewerUiState.observe(viewLifecycleOwner) { uiState ->
+            binding.coffeeBrewerButton.isVisible = uiState.brewingState != CoffeeBrewingState.SERVED
+            binding.coffeeBrewerCancelButton.isVisible = uiState.brewingState != null
+
+            when (uiState.brewingState) {
+                null -> {
+                    binding.coffeeBrewerButton.setText(R.string.home_coffee_brewer_create_button)
+                    binding.coffeeBrewerButton.setOnClickListener {
+                        viewModel.createCoffeeSession()
+                    }
+                }
+                CoffeeBrewingState.GRINDING -> {
+                    binding.coffeeBrewerButton.setText(R.string.home_coffee_brewer_brew_button)
+                    binding.coffeeBrewerButton.setOnClickListener {
+                        viewModel.continueCoffeeSession()
+                    }
+                }
+                CoffeeBrewingState.BREWING -> {
+                    binding.coffeeBrewerButton.setText(R.string.home_coffee_brewer_serve_button)
+                    binding.coffeeBrewerButton.setOnClickListener {
+                        viewModel.continueCoffeeSession()
+                    }
+                }
+                CoffeeBrewingState.SERVED -> {}
+            }
+
+            binding.coffeeBrewerCancelButton.setOnClickListener {
+                viewModel.cancelCoffeeSession()
+            }
         }
     }
 
