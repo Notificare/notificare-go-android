@@ -162,4 +162,11 @@
     <string name="coffee_headline_served_subtitle">That\'s a good cuppa coffee.</string>
     <string name="coffee_headline_brewing_subtitle">Brewing the perfect cup of coffee.</string>
     <string name="coffee_headline_grinding_subtitle">Grinding a few coffee beans!</string>
+
+    <string name="order_headline_preparing_title">Order in progress</string>
+    <string name="order_headline_shipped_title">On it\'s way</string>
+    <string name="order_headline_delivered_title">Arrived!</string>
+    <string name="order_headline_preparing_subtitle">Preparing your goodies</string>
+    <string name="order_headline_shipped_subtitle">At the speed of light</string>
+    <string name="order_headline_delivered_subtitle">On your doorstep</string>
 </resources>

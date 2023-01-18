@@ -12,8 +12,10 @@ import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.withContext
 import re.notifica.Notificare
 import re.notifica.go.R
+import re.notifica.go.live_activities.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.models.OrderContentState
 import re.notifica.go.live_activities.ui.CoffeeLiveNotification
-import re.notifica.go.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.ui.OrderStatusLiveNotification
 import re.notifica.go.storage.datastore.NotificareDataStore
 import re.notifica.ktx.events
 import re.notifica.push.ktx.push
@@ -31,6 +33,7 @@ class LiveActivitiesController @Inject constructor(
     private val notificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     val coffeeActivityStream: Flow<CoffeeBrewerContentState?> = dataStore.coffeeBrewerContentStateStream
+    val orderActivityStream: Flow<OrderContentState?> = dataStore.orderContentStateStream
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun registerLiveActivitiesChannel() {
@@ -50,7 +53,14 @@ class LiveActivitiesController @Inject constructor(
         if (coffeeBrewerContentState != null) {
             Notificare.push().registerLiveActivity(LiveActivity.COFFEE_BREWER.identifier)
         }
+
+        val orderContentState = orderActivityStream.lastOrNull()
+        if (orderContentState != null) {
+            Notificare.push().registerLiveActivity(LiveActivity.ORDER_STATUS.identifier)
+        }
     }
+
+    // region Coffee Brewer
 
     suspend fun createCoffeeActivity(
         contentState: CoffeeBrewerContentState
@@ -100,6 +110,61 @@ class LiveActivitiesController @Inject constructor(
         // End on Notificare to stop receiving updates.
         Notificare.push().endLiveActivity(LiveActivity.COFFEE_BREWER.identifier)
     }
+
+    // endregion
+
+    // region Order Status
+
+    suspend fun createOrderActivity(
+        contentState: OrderContentState
+    ): Unit = withContext(Dispatchers.IO) {
+        // Present the notification UI.
+        updateOrderActivity(contentState)
+
+        // Track a custom event for analytics purposes.
+        Notificare.events().logCustom(
+            event = "live_activity_started",
+            data = mapOf(
+                "activity" to LiveActivity.ORDER_STATUS.identifier,
+                "activityId" to UUID.randomUUID().toString(),
+            )
+        )
+
+        // Register on Notificare to receive updates.
+        Notificare.push().registerLiveActivity(LiveActivity.ORDER_STATUS.identifier)
+    }
+
+    suspend fun updateOrderActivity(
+        contentState: OrderContentState
+    ): Unit = withContext(Dispatchers.IO) {
+        // Present the notification UI.
+        val ongoingNotification = notificationManager.activeNotifications
+            .firstOrNull { it.tag == LiveActivity.ORDER_STATUS.identifier }
+
+        notificationManager.notify(
+            LiveActivity.ORDER_STATUS.identifier,
+            ongoingNotification?.id ?: notificationCounter.incrementAndGet(),
+            OrderStatusLiveNotification(application, contentState).build()
+        )
+
+        // Persist the state to storage.
+        dataStore.updateOrderContentState(contentState)
+    }
+
+    suspend fun clearOrderActivity(): Unit = withContext(Dispatchers.IO) {
+        // Dismiss the notification.
+        notificationManager.activeNotifications
+            .filter { it.tag == LiveActivity.ORDER_STATUS.identifier }
+            .forEach { notificationManager.cancel(LiveActivity.ORDER_STATUS.identifier, it.id) }
+
+        // Persist the state to storage.
+        dataStore.updateOrderContentState(null)
+
+        // End on Notificare to stop receiving updates.
+        Notificare.push().endLiveActivity(LiveActivity.ORDER_STATUS.identifier)
+    }
+
+    // endregion
 
     companion object {
         private val notificationCounter = AtomicInteger(0)

@@ -11,8 +11,8 @@ import re.notifica.go.R
 import re.notifica.go.ktx.setBackgroundResource
 import re.notifica.go.ktx.setColorFilter
 import re.notifica.go.live_activities.LiveActivitiesController
-import re.notifica.go.models.CoffeeBrewerContentState
-import re.notifica.go.models.CoffeeBrewingState
+import re.notifica.go.live_activities.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.models.CoffeeBrewingState
 
 class CoffeeLiveNotification(
     private val context: Context,
@@ -160,7 +160,7 @@ class CoffeeLiveNotification(
         return if (shouldHighlightView(contentState.state, representedState)) {
             R.drawable.shape_coffee_brewer_circle_colored
         } else {
-            R.drawable.shape_coffee_brewer_circle_disabled
+            R.drawable.shape_circle_disabled
         }
     }
 }

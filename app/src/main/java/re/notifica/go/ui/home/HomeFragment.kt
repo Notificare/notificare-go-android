@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import re.notifica.Notificare
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentHomeBinding
-import re.notifica.go.models.CoffeeBrewingState
+import re.notifica.go.live_activities.models.CoffeeBrewingState
 import re.notifica.go.models.Product
 import re.notifica.push.ui.ktx.pushUI
 import re.notifica.scannables.NotificareScannables

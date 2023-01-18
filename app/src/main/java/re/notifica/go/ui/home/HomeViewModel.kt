@@ -14,8 +14,8 @@ import re.notifica.geo.models.NotificareRegion
 import re.notifica.go.ktx.PageView
 import re.notifica.go.ktx.logPageViewed
 import re.notifica.go.live_activities.LiveActivitiesController
-import re.notifica.go.models.CoffeeBrewerContentState
-import re.notifica.go.models.CoffeeBrewingState
+import re.notifica.go.live_activities.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.models.CoffeeBrewingState
 import re.notifica.go.models.Product
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.mappers.toModel

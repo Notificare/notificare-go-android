@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
 import re.notifica.go.ktx.*
+import re.notifica.go.live_activities.LiveActivitiesController
+import re.notifica.go.live_activities.models.OrderContentState
+import re.notifica.go.live_activities.models.OrderStatus
 import re.notifica.go.storage.db.NotificareDatabase
 import re.notifica.go.storage.db.entities.CartEntryWithProduct
 import re.notifica.go.storage.db.mappers.toModel
@@ -17,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val database: NotificareDatabase,
+    private val liveActivitiesController: LiveActivitiesController,
 ) : ViewModel(), DefaultLifecycleObserver {
     private val _entries = MutableLiveData<List<CartEntryWithProduct>>()
     val entries: LiveData<List<CartEntryWithProduct>> = _entries
@@ -37,6 +41,12 @@ class CartViewModel @Inject constructor(
 
         database.cartEntries().clear()
         Notificare.events().logCartCleared()
+
+        liveActivitiesController.createOrderActivity(
+            OrderContentState(
+                status = OrderStatus.PREPARING
+            )
+        )
     }
 
     suspend fun remove(entry: CartEntryWithProduct) {

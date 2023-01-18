@@ -9,7 +9,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import re.notifica.go.live_activities.LiveActivitiesController
 import re.notifica.go.live_activities.LiveActivity
-import re.notifica.go.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.models.CoffeeBrewerContentState
+import re.notifica.go.live_activities.models.OrderContentState
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.push.NotificarePushIntentReceiver
 import re.notifica.push.models.NotificareLiveActivityUpdate
@@ -31,7 +32,8 @@ class PushReceiver : NotificarePushIntentReceiver() {
         super.onReceive(context, intent)
 
         when (intent.action) {
-            INTENT_ACTION_COFFEE_BREWER_DISMISS -> onDismissCoffeeBrewer()
+            INTENT_ACTION_COFFEE_BREWER_DISMISS -> dismissLiveActivity(LiveActivity.COFFEE_BREWER)
+            INTENT_ACTION_ORDER_STATUS_DISMISS -> dismissLiveActivity(LiveActivity.ORDER_STATUS)
         }
     }
 
@@ -55,6 +57,13 @@ class PushReceiver : NotificarePushIntentReceiver() {
 
                         liveActivitiesController.updateCoffeeActivity(contentState)
                     }
+                    LiveActivity.ORDER_STATUS -> {
+                        val contentState = update.content<OrderContentState>()
+                            ?: return@launch
+
+                        liveActivitiesController.updateOrderActivity(contentState)
+                    }
+                    null -> {}
                 }
             } catch (e: Exception) {
                 Timber.e(e, "Failed to update the live activity.")
@@ -62,10 +71,13 @@ class PushReceiver : NotificarePushIntentReceiver() {
         }
     }
 
-    private fun onDismissCoffeeBrewer() {
+    private fun dismissLiveActivity(activity: LiveActivity) {
         coroutineScope.launch {
             try {
-                liveActivitiesController.clearCoffeeActivity()
+                when (activity) {
+                    LiveActivity.COFFEE_BREWER -> liveActivitiesController.clearCoffeeActivity()
+                    LiveActivity.ORDER_STATUS -> liveActivitiesController.clearOrderActivity()
+                }
             } catch (e: Exception) {
                 Timber.e(e, "Failed to end the live activity.")
             }
@@ -74,5 +86,6 @@ class PushReceiver : NotificarePushIntentReceiver() {
 
     companion object {
         const val INTENT_ACTION_COFFEE_BREWER_DISMISS = "re.notifica.go.intent.action.CoffeeBrewerDismiss"
+        const val INTENT_ACTION_ORDER_STATUS_DISMISS = "re.notifica.go.intent.action.OrderStatusDismiss"
     }
 }

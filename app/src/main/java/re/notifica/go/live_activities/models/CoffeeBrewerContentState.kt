@@ -1,4 +1,4 @@
-package re.notifica.go.models
+package re.notifica.go.live_activities.models
 
 import com.squareup.moshi.JsonClass
 
