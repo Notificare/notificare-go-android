@@ -63,3 +63,41 @@ Use the built-in custom events to create and experiment with automations! 🤖
   total_items: Int
   products: Array<ProductRepresentation>
 ```
+
+## Supported Live Activities
+
+### Coffee Brewer
+
+#### Expected `content-state`
+
+```json
+{
+  "state": "brewing",
+  "remaining": 4
+}
+```
+
+#### Possible `state` values
+
+- `grinding`: the initial state, while grinding the coffee beans.
+- `brewing`: the intermediate state, while brewing the coffee.
+- `served`: the final state, when the coffee has been served.
+
+### Order Status
+
+When you place a fictitious order on the Cart view, a Live Activity is automatically created.
+You can modify the state from the Dashboard or the API.
+
+#### Expected `content-state`
+
+```json
+{
+  "state": "shipped"
+}
+```
+
+#### Possible `state` values
+
+- `preparing`: the initial state, while preparing the order.
+- `shipped`: the intermediate state, while shipping the order.
+- `delivered`: the final state, when the order has been delivered.
