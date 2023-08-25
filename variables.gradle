@@ -5,7 +5,7 @@ buildscript {
         target_sdk_version = 33
 
         // Kotlin
-        kotlin_version = '1.6.21'
+        kotlin_version = '1.8.0'
         kotlinx_coroutines_version = '1.6.1'
 
         // Android
@@ -20,10 +20,10 @@ buildscript {
         androidx_datastore_version = '1.0.0'
         androidx_fragment_version = '1.5.2'
         androidx_hilt_work_version = '1.0.0'
-        androidx_lifecycle_version = '2.5.1'
+        androidx_lifecycle_version = '2.6.1'
         androidx_navigation_version = '2.5.1'
         androidx_recycler_view_version = '1.2.1'
-        androidx_room_version = '2.4.3'
+        androidx_room_version = '2.5.2'
         androidx_view_pager_version = '1.0.0'
         androidx_work_version = '2.7.1'
 
@@ -31,14 +31,14 @@ buildscript {
         google_auth_version = '20.2.0'
         google_barcode_scanning_version = '17.0.2'
         google_firebase_version = '30.0.1'
-        google_hilt_version = '2.42'
+        google_hilt_version = '2.47'
         google_material_version = '1.7.0-beta01'
 
         // Others
         dots_indicator_version = '4.3'
         glide_version = '4.13.2'
         lottie_version = '5.0.3'
-        moshi_version = '1.13.0'
+        moshi_version = '1.15.0'
         notificare_version = '3.6.0'
         okhttp_version = '4.9.3'
         retrofit_version = '2.9.0'
