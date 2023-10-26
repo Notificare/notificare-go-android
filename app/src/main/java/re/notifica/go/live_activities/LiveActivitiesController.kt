@@ -30,9 +30,11 @@ class LiveActivitiesController @Inject constructor(
     private val dataStore: NotificareDataStore,
 ) {
 
-    private val notificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    val notificationManager =
+        application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    val coffeeActivityStream: Flow<CoffeeBrewerContentState?> = dataStore.coffeeBrewerContentStateStream
+    val coffeeActivityStream: Flow<CoffeeBrewerContentState?> =
+        dataStore.coffeeBrewerContentStateStream
     val orderActivityStream: Flow<OrderContentState?> = dataStore.orderContentStateStream
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -43,7 +45,8 @@ class LiveActivitiesController @Inject constructor(
             NotificationManager.IMPORTANCE_DEFAULT
         )
 
-        channel.description = application.getString(R.string.notification_channel_live_activities_description)
+        channel.description =
+            application.getString(R.string.notification_channel_live_activities_description)
 
         notificationManager.createNotificationChannel(channel)
     }
@@ -95,7 +98,7 @@ class LiveActivitiesController @Inject constructor(
         )
 
         // Persist the state to storage.
-        dataStore.updateCoffeeBrewerContentState(contentState)
+        updateCoffeeBrewerState(contentState)
     }
 
     suspend fun clearCoffeeActivity(): Unit = withContext(Dispatchers.IO) {
@@ -105,10 +108,14 @@ class LiveActivitiesController @Inject constructor(
             .forEach { notificationManager.cancel(LiveActivity.COFFEE_BREWER.identifier, it.id) }
 
         // Persist the state to storage.
-        dataStore.updateCoffeeBrewerContentState(null)
+        updateCoffeeBrewerState(null)
 
         // End on Notificare to stop receiving updates.
         Notificare.push().endLiveActivity(LiveActivity.COFFEE_BREWER.identifier)
+    }
+
+    suspend fun updateCoffeeBrewerState(contentState: CoffeeBrewerContentState?) {
+        dataStore.updateCoffeeBrewerContentState(contentState)
     }
 
     // endregion
@@ -148,7 +155,7 @@ class LiveActivitiesController @Inject constructor(
         )
 
         // Persist the state to storage.
-        dataStore.updateOrderContentState(contentState)
+        updateOrderState(contentState)
     }
 
     suspend fun clearOrderActivity(): Unit = withContext(Dispatchers.IO) {
@@ -158,10 +165,14 @@ class LiveActivitiesController @Inject constructor(
             .forEach { notificationManager.cancel(LiveActivity.ORDER_STATUS.identifier, it.id) }
 
         // Persist the state to storage.
-        dataStore.updateOrderContentState(null)
+        updateOrderState(null)
 
         // End on Notificare to stop receiving updates.
         Notificare.push().endLiveActivity(LiveActivity.ORDER_STATUS.identifier)
+    }
+
+    suspend fun updateOrderState(contentState: OrderContentState?) {
+        dataStore.updateOrderContentState(contentState)
     }
 
     // endregion
