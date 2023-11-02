@@ -1,7 +1,6 @@
 package re.notifica.go.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -17,6 +16,7 @@ import re.notifica.go.core.DeepLinksService
 import re.notifica.go.core.extractConfigurationCode
 import re.notifica.go.databinding.ActivityMainBinding
 import re.notifica.go.ktx.observeInLifecycle
+import re.notifica.go.ktx.parcelable
 import re.notifica.models.NotificareNotification
 import re.notifica.push.ktx.INTENT_ACTION_ACTION_OPENED
 import re.notifica.push.ktx.INTENT_ACTION_NOTIFICATION_OPENED
@@ -71,15 +71,7 @@ class MainActivity : AppCompatActivity() {
         when (intent.action) {
             Notificare.INTENT_ACTION_NOTIFICATION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        intent.getParcelableExtra(
-                            Notificare.INTENT_EXTRA_NOTIFICATION,
-                            NotificareNotification::class.java
-                        )
-                    } else {
-                        @Suppress("DEPRECATION")
-                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
-                    }
+                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 Notificare.pushUI().presentNotification(this, notification)
@@ -88,27 +80,11 @@ class MainActivity : AppCompatActivity() {
 
             Notificare.INTENT_ACTION_ACTION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        intent.getParcelableExtra(
-                            Notificare.INTENT_EXTRA_NOTIFICATION,
-                            NotificareNotification::class.java
-                        )
-                    } else {
-                        @Suppress("DEPRECATION")
-                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
-                    }
+                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 val action: NotificareNotification.Action = requireNotNull(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        intent.getParcelableExtra(
-                            Notificare.INTENT_EXTRA_ACTION,
-                            NotificareNotification.Action::class.java
-                        )
-                    } else {
-                        @Suppress("DEPRECATION")
-                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_ACTION)
-                    }
+                    intent.parcelable(Notificare.INTENT_EXTRA_ACTION)
                 )
 
                 Notificare.pushUI().presentAction(this, notification, action)

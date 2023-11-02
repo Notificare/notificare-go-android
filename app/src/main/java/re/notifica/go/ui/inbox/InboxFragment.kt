@@ -67,11 +67,7 @@ class InboxFragment : Fragment(), MenuProvider {
         return true
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentInboxBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -107,11 +103,9 @@ class InboxFragment : Fragment(), MenuProvider {
     }
 
     private fun onInboxItemLongPressed(item: NotificareInboxItem) {
-        InboxItemOptionsBottomSheet(
-            onOpenClicked = { onInboxItemClicked(item) },
+        InboxItemOptionsBottomSheet(onOpenClicked = { onInboxItemClicked(item) },
             onMarkAsReadClicked = { onMarkItemAsReadClicked(item) },
-            onRemoveClicked = { onRemoveItemClicked(item) }
-        ).show(childFragmentManager, "options-bottom-sheet")
+            onRemoveClicked = { onRemoveItemClicked(item) }).show(childFragmentManager, "options-bottom-sheet")
     }
 
     private fun onMarkItemAsReadClicked(item: NotificareInboxItem) {
