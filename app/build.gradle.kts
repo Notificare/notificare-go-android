@@ -1,7 +1,7 @@
 import java.util.Properties
 import java.io.FileInputStream
 
- plugins {
+plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.ksp)
@@ -32,11 +32,7 @@ android {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
 
-        buildConfigField(
-            "String",
-            "LOCATION_DATA_PRIVACY_POLICY_URL",
-            "\"https://ntc.re/0OMbJKeJ2m\""
-        )
+        buildConfigField("String", "LOCATION_DATA_PRIVACY_POLICY_URL", "\"https://ntc.re/0OMbJKeJ2m\"")
     }
 
     signingConfigs {
@@ -59,15 +55,13 @@ android {
     }
 
     buildTypes {
-        debug {
+        getByName("debug") {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
             signingConfig = signingConfigs.getByName("debug")
 
             buildConfigField(
-                "String",
-                "GOOGLE_AUTH_SERVER_ID",
-                "\"${properties.getProperty("google.auth.server.id.debug")}\""
+                "String", "GOOGLE_AUTH_SERVER_ID", "\"${properties.getProperty("google.auth.server.id.debug")}\""
             )
 
             manifestPlaceholders["configuration_link_host"] = "go-demo-dev.ntc.re"
@@ -75,18 +69,15 @@ android {
             manifestPlaceholders["googleMapsApiKey"] = properties.getProperty("google.maps.key.debug")
 
         }
-        release {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
 
             buildConfigField(
-                "String",
-                "GOOGLE_AUTH_SERVER_ID",
-                "\"${properties.getProperty("google.auth.server.id.release")}\""
+                "String", "GOOGLE_AUTH_SERVER_ID", "\"${properties.getProperty("google.auth.server.id.release")}\""
             )
 
             manifestPlaceholders["configuration_link_host"] = "go-demo.ntc.re"

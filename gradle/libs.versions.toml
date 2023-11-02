@@ -77,7 +77,7 @@ google-material = { module = "com.google.android.material:material", version.ref
 google-hilt = { module = "com.google.dagger:hilt-android", version.ref = "google-hilt" }
 google-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "google-hilt" }
 google-barcodeScanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "google-barcode-scanning" }
-google-guava = { module = "com.google.guava:guava", version.ref = "google-guava"}
+google-guava = { module = "com.google.guava:guava", version.ref = "google-guava" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "google-firebase" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
@@ -87,20 +87,20 @@ notificare = { module = "re.notifica:notificare", version.ref = "notificare" }
 notificare-assets = { module = "re.notifica:notificare-assets", version.ref = "notificare" }
 notificare-geo = { module = "re.notifica:notificare-geo", version.ref = "notificare" }
 notificare-geo-gms = { module = "re.notifica:notificare-geo-gms", version.ref = "notificare" }
-#notificare-geo-hms = { module = "re.notifica:notificare-geo-hms", version.ref = "notificare" }
+notificare-geo-hms = { module = "re.notifica:notificare-geo-hms", version.ref = "notificare" }
 notificare-geo-beacons = { module = "re.notifica:notificare-geo-beacons", version.ref = "notificare" }
 notificare-inAppMessaging = { module = "re.notifica:notificare-in-app-messaging", version.ref = "notificare" }
 notificare-inbox = { module = "re.notifica:notificare-inbox", version.ref = "notificare" }
 notificare-loyalty = { module = "re.notifica:notificare-loyalty", version.ref = "notificare" }
 notificare-push = { module = "re.notifica:notificare-push", version.ref = "notificare" }
 notificare-push-gms = { module = "re.notifica:notificare-push-gms", version.ref = "notificare" }
-#notificare-push-hms = { module = "re.notifica:notificare-push-hms", version.ref = "notificare" }
+notificare-push-hms = { module = "re.notifica:notificare-push-hms", version.ref = "notificare" }
 notificare-push-ui = { module = "re.notifica:notificare-push-ui", version.ref = "notificare" }
 notificare-push-ui-gms = { module = "re.notifica:notificare-push-ui-gms", version.ref = "notificare" }
-#notificare-push-ui-hms = { module = "re.notifica:notificare-push-ui-hms", version.ref = "notificare" }
+notificare-push-ui-hms = { module = "re.notifica:notificare-push-ui-hms", version.ref = "notificare" }
 notificare-scannables = { module = "re.notifica:notificare-scannables", version.ref = "notificare" }
 notificare-scannables-gms = { module = "re.notifica:notificare-scannables-gms", version.ref = "notificare" }
-#notificare-scannables-hms = { module = "re.notifica:notificare-scannables-hms", version.ref = "notificare" }
+notificare-scannables-hms = { module = "re.notifica:notificare-scannables-hms", version.ref = "notificare" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
@@ -118,7 +118,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-application" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-parcelize"}
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-parcelize" }
 androidx-navigation = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hilt" }
