@@ -1,6 +1,7 @@
 package re.notifica.go.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -70,19 +71,44 @@ class MainActivity : AppCompatActivity() {
         when (intent.action) {
             Notificare.INTENT_ACTION_NOTIFICATION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra(
+                            Notificare.INTENT_EXTRA_NOTIFICATION,
+                            NotificareNotification::class.java
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    }
                 )
 
                 Notificare.pushUI().presentNotification(this, notification)
                 return
             }
+
             Notificare.INTENT_ACTION_ACTION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra(
+                            Notificare.INTENT_EXTRA_NOTIFICATION,
+                            NotificareNotification::class.java
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    }
                 )
 
                 val action: NotificareNotification.Action = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_ACTION)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra(
+                            Notificare.INTENT_EXTRA_ACTION,
+                            NotificareNotification.Action::class.java
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent.getParcelableExtra(Notificare.INTENT_EXTRA_ACTION)
+                    }
                 )
 
                 Notificare.pushUI().presentAction(this, notification, action)
@@ -109,6 +135,7 @@ class MainActivity : AppCompatActivity() {
                             .setPositiveButton(R.string.dialog_ok_button, null)
                             .show()
                     }
+
                     MainViewModel.ConfigurationResult.SUCCESS -> {
                         navController.navigate(R.id.splash_fragment)
                     }
