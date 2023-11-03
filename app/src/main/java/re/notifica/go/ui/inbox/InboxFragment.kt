@@ -103,9 +103,11 @@ class InboxFragment : Fragment(), MenuProvider {
     }
 
     private fun onInboxItemLongPressed(item: NotificareInboxItem) {
-        InboxItemOptionsBottomSheet(onOpenClicked = { onInboxItemClicked(item) },
+        InboxItemOptionsBottomSheet(
+            onOpenClicked = { onInboxItemClicked(item) },
             onMarkAsReadClicked = { onMarkItemAsReadClicked(item) },
-            onRemoveClicked = { onRemoveItemClicked(item) }).show(childFragmentManager, "options-bottom-sheet")
+            onRemoveClicked = { onRemoveItemClicked(item) }
+        ).show(childFragmentManager, "options-bottom-sheet")
     }
 
     private fun onMarkItemAsReadClicked(item: NotificareInboxItem) {
