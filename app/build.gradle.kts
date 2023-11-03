@@ -61,29 +61,29 @@ android {
             signingConfig = signingConfigs.getByName("debug")
 
             buildConfigField(
-                "String", "GOOGLE_AUTH_SERVER_ID", "\"${properties.getProperty("google.auth.server.id.debug")}\""
+                "String",
+                "GOOGLE_AUTH_SERVER_ID",
+                "\"${properties.getProperty("google.auth.server.id.debug")}\""
             )
 
             manifestPlaceholders["configuration_link_host"] = "go-demo-dev.ntc.re"
             manifestPlaceholders["crashlyticsEnabled"] = false
             manifestPlaceholders["googleMapsApiKey"] = properties.getProperty("google.maps.key.debug")
-
         }
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
 
             buildConfigField(
-                "String", "GOOGLE_AUTH_SERVER_ID", "\"${properties.getProperty("google.auth.server.id.release")}\""
+                "String",
+                "GOOGLE_AUTH_SERVER_ID",
+                "\"${properties.getProperty("google.auth.server.id.release")}\""
             )
 
             manifestPlaceholders["configuration_link_host"] = "go-demo.ntc.re"
             manifestPlaceholders["crashlyticsEnabled"] = true
             manifestPlaceholders["googleMapsApiKey"] = properties.getProperty("google.maps.key.release")
-
         }
     }
     compileOptions {
@@ -159,6 +159,4 @@ dependencies {
 
     testImplementation(libs.bundles.testing.unit)
     androidTestImplementation(libs.bundles.testing.android)
-
-    implementation(libs.google.guava)
 }
