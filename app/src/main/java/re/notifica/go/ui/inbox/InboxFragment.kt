@@ -2,9 +2,12 @@ package re.notifica.go.ui.inbox
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,27 +20,26 @@ import re.notifica.push.ui.ktx.pushUI
 import timber.log.Timber
 
 @AndroidEntryPoint
-class InboxFragment : Fragment() {
+class InboxFragment : Fragment(), MenuProvider {
     private val viewModel: InboxViewModel by viewModels()
     private lateinit var binding: FragmentInboxBinding
     private val adapter = InboxAdapter(::onInboxItemClicked, ::onInboxItemLongPressed)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.inbox_menu, menu)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
+    override fun onPrepareMenu(menu: Menu) {
         val menuEnabled = !viewModel.items.value.isNullOrEmpty()
         menu.findItem(R.id.action_mark_all_as_read).isVisible = menuEnabled
         menu.findItem(R.id.action_remove_all).isVisible = menuEnabled
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_mark_all_as_read -> {
                 lifecycleScope.launch {
@@ -48,6 +50,7 @@ class InboxFragment : Fragment() {
                     }
                 }
             }
+
             R.id.action_remove_all -> {
                 lifecycleScope.launch {
                     try {
@@ -57,7 +60,8 @@ class InboxFragment : Fragment() {
                     }
                 }
             }
-            else -> return super.onOptionsItemSelected(item)
+
+            else -> return false
         }
 
         return true
@@ -71,6 +75,9 @@ class InboxFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(requireContext())
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         viewModel.items.observe(viewLifecycleOwner) { items ->
             adapter.submitList(items)

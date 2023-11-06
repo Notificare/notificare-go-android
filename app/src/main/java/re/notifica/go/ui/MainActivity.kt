@@ -16,6 +16,7 @@ import re.notifica.go.core.DeepLinksService
 import re.notifica.go.core.extractConfigurationCode
 import re.notifica.go.databinding.ActivityMainBinding
 import re.notifica.go.ktx.observeInLifecycle
+import re.notifica.go.ktx.parcelable
 import re.notifica.models.NotificareNotification
 import re.notifica.push.ktx.INTENT_ACTION_ACTION_OPENED
 import re.notifica.push.ktx.INTENT_ACTION_NOTIFICATION_OPENED
@@ -70,19 +71,20 @@ class MainActivity : AppCompatActivity() {
         when (intent.action) {
             Notificare.INTENT_ACTION_NOTIFICATION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 Notificare.pushUI().presentNotification(this, notification)
                 return
             }
+
             Notificare.INTENT_ACTION_ACTION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 val action: NotificareNotification.Action = requireNotNull(
-                    intent.getParcelableExtra(Notificare.INTENT_EXTRA_ACTION)
+                    intent.parcelable(Notificare.INTENT_EXTRA_ACTION)
                 )
 
                 Notificare.pushUI().presentAction(this, notification, action)
@@ -109,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                             .setPositiveButton(R.string.dialog_ok_button, null)
                             .show()
                     }
+
                     MainViewModel.ConfigurationResult.SUCCESS -> {
                         navController.navigate(R.id.splash_fragment)
                     }

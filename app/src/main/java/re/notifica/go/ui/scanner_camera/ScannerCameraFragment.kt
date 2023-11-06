@@ -15,17 +15,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import kotlinx.coroutines.guava.await
+import kotlinx.coroutines.launch
 import re.notifica.go.databinding.FragmentScannerCameraBinding
 
 class ScannerCameraFragment : Fragment() {
     private lateinit var binding: FragmentScannerCameraBinding
     private var cameraProvider: ProcessCameraProvider? = null
+    private var imageAnalyzer: ImageAnalysis? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScannerCameraBinding.inflate(inflater, container, false)
@@ -42,45 +46,45 @@ class ScannerCameraFragment : Fragment() {
             findNavController().popBackStack()
             return
         }
-
-        startCamera()
+        lifecycleScope.launch {
+            startCamera()
+        }
     }
 
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+    private suspend fun startCamera() {
+        val cameraProvider = ProcessCameraProvider
+            .getInstance(requireContext())
+            .await()
+            .also { this.cameraProvider = it }
 
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get().also { this.cameraProvider = it }
+        // Preview
+        val preview = Preview.Builder()
+            .build()
+            .also { it.setSurfaceProvider(binding.cameraPreview.surfaceProvider) }
 
-            // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also { it.setSurfaceProvider(binding.cameraPreview.surfaceProvider) }
-
-            // Image analyzer
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build()
-                .apply {
-                    setAnalyzer(
-                        ContextCompat.getMainExecutor(requireContext()),
-                        BarcodeAnalyzer(),
-                    )
-                }
-
-            // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
-
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
-            } catch (exc: Exception) {
-                exc.printStackTrace()
+        // Image analyzer
+        imageAnalyzer = ImageAnalysis.Builder()
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+            .build()
+            .apply {
+                setAnalyzer(
+                    ContextCompat.getMainExecutor(requireContext()),
+                    BarcodeAnalyzer(),
+                )
             }
-        }, ContextCompat.getMainExecutor(requireContext()))
+
+        // Select back camera as a default
+        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+        try {
+            // Unbind use cases before rebinding
+            cameraProvider.unbindAll()
+
+            // Bind use cases to camera
+            cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
+        } catch (exc: Exception) {
+            exc.printStackTrace()
+        }
     }
 
     private fun stopCamera() {
