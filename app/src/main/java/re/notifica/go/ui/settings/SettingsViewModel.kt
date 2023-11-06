@@ -37,6 +37,9 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
     private val _announcementsTopicEnabled = MutableLiveData(false)
     val announcementsTopicEnabled: LiveData<Boolean> = _announcementsTopicEnabled
 
+    private val _marketingTopicEnabled = MutableLiveData(false)
+    val marketingTopicEnabled: LiveData<Boolean> = _marketingTopicEnabled
+
     private val _bestPracticesTopicEnabled = MutableLiveData(false)
     val bestPracticesTopicEnabled: LiveData<Boolean> = _bestPracticesTopicEnabled
 
@@ -87,6 +90,7 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
                 val tags = Notificare.device().fetchTags()
 
                 _announcementsTopicEnabled.postValue(tags.contains(Topic.ANNOUNCEMENTS.rawValue))
+                _marketingTopicEnabled.postValue(tags.contains(Topic.MARKETING.rawValue))
                 _bestPracticesTopicEnabled.postValue(tags.contains(Topic.BEST_PRACTICES.rawValue))
                 _productUpdatesTopicEnabled.postValue(tags.contains(Topic.PRODUCT_UPDATES.rawValue))
                 _engineeringTopicEnabled.postValue(tags.contains(Topic.ENGINEERING.rawValue))
@@ -147,6 +151,7 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
         viewModelScope.launch {
             val data: MutableLiveData<Boolean> = when (topic) {
                 Topic.ANNOUNCEMENTS -> _announcementsTopicEnabled
+                Topic.MARKETING -> _marketingTopicEnabled
                 Topic.BEST_PRACTICES -> _bestPracticesTopicEnabled
                 Topic.PRODUCT_UPDATES -> _productUpdatesTopicEnabled
                 Topic.ENGINEERING -> _engineeringTopicEnabled
@@ -180,6 +185,7 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
 
     enum class Topic {
         ANNOUNCEMENTS,
+        MARKETING,
         BEST_PRACTICES,
         PRODUCT_UPDATES,
         ENGINEERING,
@@ -188,6 +194,7 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
         val rawValue: String
             get() = when (this) {
                 ANNOUNCEMENTS -> "topic_announcements"
+                MARKETING -> "topic_marketing"
                 BEST_PRACTICES -> "topic_best_practices"
                 PRODUCT_UPDATES -> "topic_product_updates"
                 ENGINEERING -> "topic_engineering"

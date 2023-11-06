@@ -101,6 +101,7 @@
     <string name="settings_location_view_policies_button">View data policies</string>
     <string name="settings_topics_title">Subscribe to topics</string>
     <string name="settings_topics_announcements">Announcements &amp; events</string>
+    <string name="settings_topics_marketing">Marketing</string>
     <string name="settings_topics_best_practices">Best practices</string>
     <string name="settings_topics_product_updates">Product updates</string>
     <string name="settings_topics_engineering">Engineering &amp; technology</string>
