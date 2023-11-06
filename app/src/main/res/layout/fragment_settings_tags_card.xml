@@ -29,6 +29,13 @@
             android:textAppearance="?attr/textAppearanceBodyMedium" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/marketing_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_topics_marketing"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/best_practices_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

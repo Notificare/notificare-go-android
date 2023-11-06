@@ -243,6 +243,11 @@ class SettingsFragment : Fragment() {
             viewModel.changeTopicSubscription(SettingsViewModel.Topic.ANNOUNCEMENTS, checked)
         }
 
+        binding.tagsCard.marketingSwitch.setOnCheckedChangeListener { _, checked ->
+            if (checked == viewModel.marketingTopicEnabled.value) return@setOnCheckedChangeListener
+            viewModel.changeTopicSubscription(SettingsViewModel.Topic.MARKETING, checked)
+        }
+
         binding.tagsCard.bestPracticesSwitch.setOnCheckedChangeListener { _, checked ->
             if (checked == viewModel.bestPracticesTopicEnabled.value) return@setOnCheckedChangeListener
             viewModel.changeTopicSubscription(SettingsViewModel.Topic.BEST_PRACTICES, checked)
@@ -302,6 +307,10 @@ class SettingsFragment : Fragment() {
 
         viewModel.announcementsTopicEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.tagsCard.announcementsSwitch.isChecked = enabled
+        }
+
+        viewModel.marketingTopicEnabled.observe(viewLifecycleOwner) { enabled ->
+            binding.tagsCard.marketingSwitch.isChecked = enabled
         }
 
         viewModel.bestPracticesTopicEnabled.observe(viewLifecycleOwner) { enabled ->
