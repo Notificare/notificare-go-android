@@ -12,9 +12,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
 
-        maven { url 'https://maven.notifica.re/releases' }
-        maven { url 'https://maven.notifica.re/prereleases' }
-        maven { url 'https://developer.huawei.com/repo' }
+        maven(url = "https://maven.notifica.re/releases")
+        maven(url = "https://maven.notifica.re/prereleases")
+        maven(url = "https://developer.huawei.com/repo")
 
         mavenLocal()
     }
@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "notificare-go-android"
 
-include ':app'
+include(":app")
