@@ -71,7 +71,8 @@ android {
             manifestPlaceholders["googleMapsApiKey"] = properties.getProperty("google.maps.key.debug")
         }
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
 
