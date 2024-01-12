@@ -25,6 +25,11 @@ class NotificareApp : Application(), Configuration.Provider {
     @Inject
     lateinit var liveActivitiesController: LiveActivitiesController
 
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+
     override fun onCreate() {
         super.onCreate()
 
@@ -45,11 +50,5 @@ class NotificareApp : Application(), Configuration.Provider {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             liveActivitiesController.registerLiveActivitiesChannel()
         }
-    }
-
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
     }
 }

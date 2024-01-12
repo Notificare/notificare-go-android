@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import re.notifica.Notificare
-import re.notifica.geo.ktx.geo
 import re.notifica.go.core.createDynamicShortcuts
 import re.notifica.go.core.loadRemoteConfig
 import re.notifica.go.models.AppConfiguration
@@ -26,7 +25,6 @@ import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.go.workers.UpdateProductsWorker
 import re.notifica.iam.ktx.inAppMessaging
 import re.notifica.models.NotificareApplication
-import re.notifica.push.ktx.push
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -118,14 +116,6 @@ class MainViewModel @Inject constructor(
             Notificare.inAppMessaging().hasMessagesSuppressed = true
             navigationChannel.trySend(NavigationOption.INTRO)
             return
-        }
-
-        if (Notificare.push().hasRemoteNotificationsEnabled) {
-            Notificare.push().enableRemoteNotifications()
-        }
-
-        if (Notificare.geo().hasLocationServicesEnabled) {
-            Notificare.geo().enableLocationUpdates()
         }
 
         viewModelScope.launch {
