@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming release
+## 1.4.1
 
 - Update Notificare to 3.7.0-beta.1
 - Remove code for re-enabling remote notifications and location services
