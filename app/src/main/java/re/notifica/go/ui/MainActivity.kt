@@ -16,7 +16,7 @@ import re.notifica.go.core.DeepLinksService
 import re.notifica.go.core.extractConfigurationCode
 import re.notifica.go.databinding.ActivityMainBinding
 import re.notifica.go.ktx.observeInLifecycle
-import re.notifica.go.ktx.parcelable
+import re.notifica.go.ktx.parcelableExtra
 import re.notifica.models.NotificareNotification
 import re.notifica.push.ktx.INTENT_ACTION_ACTION_OPENED
 import re.notifica.push.ktx.INTENT_ACTION_NOTIFICATION_OPENED
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         when (intent.action) {
             Notificare.INTENT_ACTION_NOTIFICATION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    intent.parcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 Notificare.pushUI().presentNotification(this, notification)
@@ -80,11 +80,11 @@ class MainActivity : AppCompatActivity() {
 
             Notificare.INTENT_ACTION_ACTION_OPENED -> {
                 val notification: NotificareNotification = requireNotNull(
-                    intent.parcelable(Notificare.INTENT_EXTRA_NOTIFICATION)
+                    intent.parcelableExtra(Notificare.INTENT_EXTRA_NOTIFICATION)
                 )
 
                 val action: NotificareNotification.Action = requireNotNull(
-                    intent.parcelable(Notificare.INTENT_EXTRA_ACTION)
+                    intent.parcelableExtra(Notificare.INTENT_EXTRA_ACTION)
                 )
 
                 Notificare.pushUI().presentAction(this, notification, action)
