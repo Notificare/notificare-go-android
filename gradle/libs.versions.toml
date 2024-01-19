@@ -1,8 +1,8 @@
 [versions]
-android-application = "8.1.2"
+android-application = "8.2.1"
 android-minSdk = "23"
 android-compileSdk = "34"
-android-targetSdk = "33"
+android-targetSdk = "34"
 kotlin = "1.9.10"
 kotlinx-coroutines = "1.7.3"
 kotlin-parcelize = "1.9.10"
@@ -40,7 +40,7 @@ timber = "5.0.1"
 moshi = "1.15.0"
 okhttp = "4.12.0"
 retrofit = "2.9.0"
-notificare = "3.7.0-beta.1"
+notificare = "3.7.0"
 junit = "4.13.2"
 
 [libraries]

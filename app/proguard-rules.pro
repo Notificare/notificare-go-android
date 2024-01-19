@@ -20,11 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# Shrinking with play-services-location version 21.0.1 causes exception in some devices
-# https://issuetracker.google.com/issues/265809643
-# https://issuetracker.google.com/issues/293387803
--keep class com.google.android.gms.internal.** { *; }
-
 # With R8 full mode generic signatures are stripped for classes that are not
 # kept. Suspend functions are wrapped in continuations where the type argument
 # is used.
