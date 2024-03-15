@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming release
+
+- Update Notificare to 3.8.0
+
 ## 1.4.2
 
 - Update Notificare to 3.7.0
