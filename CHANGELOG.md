@@ -3,6 +3,7 @@
 ## Upcoming release
 
 - Update Notificare to 3.8.0
+- Update dependencies
 
 ## 1.4.2
 
