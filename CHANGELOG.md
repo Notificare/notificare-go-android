@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming release
+## 1.4.3
 
 - Update Notificare to 3.8.0
 - Update dependencies
