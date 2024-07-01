@@ -2,7 +2,7 @@
 
 ## Upcoming release
 
-- Update Notificare to 3.9.1
+- Update Notificare to 3.10.0
 - Update dependencies
 
 ## 1.4.3
