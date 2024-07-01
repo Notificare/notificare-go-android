@@ -35,7 +35,9 @@ class InboxViewModel @Inject constructor(
             } catch (e: Exception) {
                 Timber.e(e, "Failed to log a custom event.")
             }
+        }
 
+        viewModelScope.launch {
             Notificare.inbox().observableItems
                 .asFlow()
                 .collect { items ->
