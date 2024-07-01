@@ -18,6 +18,6 @@ class CartItemTouchCallback(
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        onSwiped(viewHolder.adapterPosition)
+        onSwiped(viewHolder.absoluteAdapterPosition)
     }
 }

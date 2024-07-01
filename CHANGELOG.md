@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.0
+
+- Update Notificare to 3.10.0
+- Update dependencies
+
 ## 1.4.3
 
 - Update Notificare to 3.8.0
