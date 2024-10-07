@@ -3,10 +3,10 @@ android-application = "8.7.0"
 android-minSdk = "23"
 android-compileSdk = "34"
 android-targetSdk = "34"
-kotlin = "1.9.23"
-kotlinx-coroutines = "1.8.0"
-kotlin-parcelize = "1.9.23"
-androidx-activity = "1.9.0"
+kotlin = "1.9.24"
+kotlinx-coroutines = "1.9.0"
+kotlin-parcelize = "1.9.24"
+androidx-activity = "1.9.2"
 androidx-app-compat = "1.7.0"
 androidx-browser = "1.8.0"
 androidx-camera = "1.3.4"
@@ -15,20 +15,20 @@ androidx-constraintlayout = "2.1.4"
 androidx-core = "1.13.1"
 androidx-core-shortcuts = "1.1.0"
 androidx-datastore = "1.1.1"
-androidx-fragment = "1.8.1"
+androidx-fragment = "1.8.4"
 androidx-hilt-work = "1.2.0"
-androidx-lifecycle = "2.8.2"
-androidx-navigation = "2.7.7"
+androidx-lifecycle = "2.8.6"
+androidx-navigation = "2.8.2"
 androidx-recyclerview = "1.3.2"
 androidx-room = "2.6.1"
 androidx-viewpager = "1.1.0"
-androidx-work = "2.9.0"
-androidx-test-espresso-core = "3.5.1"
-androidx-test-ext-junit = "1.1.5"
-google-ksp = "1.9.23-1.0.19"
+androidx-work = "2.9.1"
+androidx-test-espresso-core = "3.6.1"
+androidx-test-ext-junit = "1.2.1"
+google-ksp = "1.9.24-1.0.20"
 google-auth = "21.0.0"
-google-barcode-scanning = "17.2.0"
-google-firebase = "33.1.1"
+google-barcode-scanning = "17.3.0"
+google-firebase = "33.4.0"
 google-firebase-crashlytics = "3.0.2"
 google-hilt = "2.49"
 google-services = "4.4.2"
@@ -40,7 +40,7 @@ timber = "5.0.1"
 moshi = "1.15.1"
 okhttp = "4.12.0"
 retrofit = "2.9.0"
-notificare = "3.10.0"
+notificare = "4.0.0"
 junit = "4.13.2"
 
 [libraries]
@@ -85,21 +85,13 @@ firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx" }
 notificare = { module = "re.notifica:notificare", version.ref = "notificare" }
 notificare-assets = { module = "re.notifica:notificare-assets", version.ref = "notificare" }
 notificare-geo = { module = "re.notifica:notificare-geo", version.ref = "notificare" }
-notificare-geo-gms = { module = "re.notifica:notificare-geo-gms", version.ref = "notificare" }
-notificare-geo-hms = { module = "re.notifica:notificare-geo-hms", version.ref = "notificare" }
 notificare-geo-beacons = { module = "re.notifica:notificare-geo-beacons", version.ref = "notificare" }
 notificare-inAppMessaging = { module = "re.notifica:notificare-in-app-messaging", version.ref = "notificare" }
 notificare-inbox = { module = "re.notifica:notificare-inbox", version.ref = "notificare" }
 notificare-loyalty = { module = "re.notifica:notificare-loyalty", version.ref = "notificare" }
 notificare-push = { module = "re.notifica:notificare-push", version.ref = "notificare" }
-notificare-push-gms = { module = "re.notifica:notificare-push-gms", version.ref = "notificare" }
-notificare-push-hms = { module = "re.notifica:notificare-push-hms", version.ref = "notificare" }
 notificare-push-ui = { module = "re.notifica:notificare-push-ui", version.ref = "notificare" }
-notificare-push-ui-gms = { module = "re.notifica:notificare-push-ui-gms", version.ref = "notificare" }
-notificare-push-ui-hms = { module = "re.notifica:notificare-push-ui-hms", version.ref = "notificare" }
 notificare-scannables = { module = "re.notifica:notificare-scannables", version.ref = "notificare" }
-notificare-scannables-gms = { module = "re.notifica:notificare-scannables-gms", version.ref = "notificare" }
-notificare-scannables-hms = { module = "re.notifica:notificare-scannables-hms", version.ref = "notificare" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
@@ -132,10 +124,7 @@ androidx-lifecycle = ["androidx-lifecycle-livedata", "androidx-lifecycle-runtime
 androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-room = ["androidx-room", "androidx-room-runtime"]
 firebase = ["firebase-analytics", "firebase-auth", "firebase-crashlytics", "firebase-messaging"]
-notificare-geo = ["notificare-geo", "notificare-geo-gms", "notificare-geo-hms", "notificare-geo-beacons"]
-notificare-push = ["notificare-push", "notificare-push-gms", "notificare-push-hms"]
-notificare-push-ui = ["notificare-push-ui", "notificare-push-ui-gms", "notificare-push-ui-hms"]
-notificare-scannables = ["notificare-scannables", "notificare-scannables-gms", "notificare-scannables-hms"]
+notificare-geo = ["notificare-geo", "notificare-geo-beacons"]
 moshi = ["moshi-kotlin", "moshi-adapters"]
 okhttp = ["okhttp", "okhttp-loggingInterceptor"]
 retrofit = ["retrofit", "retrofit-moshiConverter"]

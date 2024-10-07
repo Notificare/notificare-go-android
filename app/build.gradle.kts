@@ -139,9 +139,9 @@ dependencies {
     implementation(libs.notificare.inAppMessaging)
     implementation(libs.notificare.inbox)
     implementation(libs.notificare.loyalty)
-    implementation(libs.bundles.notificare.push)
-    implementation(libs.bundles.notificare.push.ui)
-    implementation(libs.bundles.notificare.scannables)
+    implementation(libs.notificare.push)
+    implementation(libs.notificare.push.ui)
+    implementation(libs.notificare.scannables)
 
     // Glide
     implementation(libs.glide)
