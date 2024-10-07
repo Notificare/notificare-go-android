@@ -102,10 +102,12 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
     }
 
     fun changeRemoteNotifications(enabled: Boolean) {
-        if (enabled) {
-            Notificare.push().enableRemoteNotifications()
-        } else {
-            Notificare.push().disableRemoteNotifications()
+        viewModelScope.launch {
+            if (enabled) {
+                Notificare.push().enableRemoteNotifications()
+            } else {
+                Notificare.push().disableRemoteNotifications()
+            }
         }
     }
 
