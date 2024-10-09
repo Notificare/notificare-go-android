@@ -51,8 +51,12 @@ class IntroViewModel @Inject constructor(
 
     fun enableRemoteNotifications() {
         viewModelScope.launch {
-            Notificare.push().enableRemoteNotifications()
-            moveTo(IntroPage.LOCATION)
+            try {
+                Notificare.push().enableRemoteNotifications()
+                moveTo(IntroPage.LOCATION)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to enable remote notifications.")
+            }
         }
     }
 

@@ -99,7 +99,11 @@ class MainViewModel @Inject constructor(
 
         // Let's get started! 🚀
         viewModelScope.launch {
-            Notificare.launch()
+            try {
+                Notificare.launch()
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to launch Notificare.")
+            }
         }
     }
 

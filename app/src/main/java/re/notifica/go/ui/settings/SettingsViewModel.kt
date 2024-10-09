@@ -103,10 +103,14 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
 
     fun changeRemoteNotifications(enabled: Boolean) {
         viewModelScope.launch {
-            if (enabled) {
-                Notificare.push().enableRemoteNotifications()
-            } else {
-                Notificare.push().disableRemoteNotifications()
+            try {
+                if (enabled) {
+                    Notificare.push().enableRemoteNotifications()
+                } else {
+                    Notificare.push().disableRemoteNotifications()
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to update remote notifications registration.")
             }
         }
     }
