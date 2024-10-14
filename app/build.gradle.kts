@@ -23,8 +23,8 @@ android {
         applicationId = "re.notifica.go"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 19
-        versionName = "1.5.0"
+        versionCode = 20
+        versionName = "1.6.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -88,11 +88,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         viewBinding = true
@@ -139,9 +139,9 @@ dependencies {
     implementation(libs.notificare.inAppMessaging)
     implementation(libs.notificare.inbox)
     implementation(libs.notificare.loyalty)
-    implementation(libs.bundles.notificare.push)
-    implementation(libs.bundles.notificare.push.ui)
-    implementation(libs.bundles.notificare.scannables)
+    implementation(libs.notificare.push)
+    implementation(libs.notificare.push.ui)
+    implementation(libs.notificare.scannables)
 
     // Glide
     implementation(libs.glide)

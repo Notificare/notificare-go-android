@@ -7,12 +7,14 @@ import androidx.activity.result.ActivityResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import re.notifica.Notificare
 import re.notifica.geo.ktx.geo
@@ -48,8 +50,14 @@ class IntroViewModel @Inject constructor(
     }
 
     fun enableRemoteNotifications() {
-        Notificare.push().enableRemoteNotifications()
-        moveTo(IntroPage.LOCATION)
+        viewModelScope.launch {
+            try {
+                Notificare.push().enableRemoteNotifications()
+                moveTo(IntroPage.LOCATION)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to enable remote notifications.")
+            }
+        }
     }
 
     fun enableLocationUpdates() {
@@ -75,7 +83,7 @@ class IntroViewModel @Inject constructor(
             Timber.w("Authentication result yielded no user.")
         } else {
             try {
-                Notificare.device().register(user.uid, user.displayName)
+                Notificare.device().updateUser(user.uid, user.displayName)
 
                 val programId = preferences.appConfiguration?.loyaltyProgramId
                 if (programId != null) {

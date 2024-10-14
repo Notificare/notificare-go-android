@@ -18,6 +18,7 @@ import re.notifica.go.workers.CoffeeBrewerDismissalWorker
 import re.notifica.go.workers.OrderStatusDismissalWorker
 import re.notifica.push.NotificarePushIntentReceiver
 import re.notifica.push.models.NotificareLiveActivityUpdate
+import re.notifica.push.models.NotificarePushSubscription
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -45,7 +46,10 @@ class PushReceiver : NotificarePushIntentReceiver() {
         }
     }
 
-    override fun onTokenChanged(context: Context, token: String) {
+    override fun onSubscriptionChanged(
+        context: Context,
+        subscription: NotificarePushSubscription?
+    ) {
         coroutineScope.launch {
             try {
                 liveActivitiesController.handleTokenChanged()

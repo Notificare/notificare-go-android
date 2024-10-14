@@ -106,7 +106,7 @@ class ProfileViewModel @Inject constructor(
         user.delete().await()
 
         // Register the device as anonymous.
-        Notificare.device().register(userId = null, userName = null)
+        Notificare.device().updateUser(userId = null, userName = null)
     }
 
     suspend fun handleAuthenticationResult(result: ActivityResult) {
