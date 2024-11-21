@@ -24,6 +24,7 @@ import re.notifica.go.network.push.PushService
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
 import re.notifica.go.workers.UpdateProductsWorker
 import re.notifica.iam.ktx.inAppMessaging
+import re.notifica.ktx.device
 import re.notifica.models.NotificareApplication
 import timber.log.Timber
 import javax.inject.Inject
@@ -127,6 +128,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             loadRemoteConfig(preferences)
             createDynamicShortcuts(context, preferences)
+
+            try {
+                Notificare.device().updateUser(user.uid, user.displayName)
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to update user.")
+            }
+
             navigationChannel.trySend(NavigationOption.MAIN)
         }
     }
