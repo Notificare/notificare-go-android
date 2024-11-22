@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.1
+
+- Ensure user is updated
+
 ## 1.6.0
 
 - Update Notificare to 4.0.0
