@@ -1,13 +1,15 @@
 package re.notifica.go.ui.profile
 
-import android.app.Activity
 import android.content.Context
-import androidx.activity.result.ActivityResult
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -36,7 +38,7 @@ class ProfileViewModel @Inject constructor(
     preferences: NotificareSharedPreferences,
 ) : ViewModel() {
 
-    val loginClient = Identity.getSignInClient(context)
+    val credentialManager = CredentialManager.create(context)
 
     private val _membershipCard = MutableLiveData<String?>(preferences.membershipCardUrl)
     val membershipCard: LiveData<String?> = _membershipCard
@@ -51,6 +53,7 @@ class ProfileViewModel @Inject constructor(
 
     init {
         val user = Firebase.auth.currentUser
+        Timber.w(user.toString())
         if (user != null) _userInfo.postValue(UserInfo(user))
 
         viewModelScope.launch {
@@ -109,17 +112,26 @@ class ProfileViewModel @Inject constructor(
         Notificare.device().updateUser(userId = null, userName = null)
     }
 
-    suspend fun handleAuthenticationResult(result: ActivityResult) {
-        if (result.resultCode != Activity.RESULT_OK) throw IllegalStateException("Login request result NOT OK.")
+    suspend fun handleAuthenticationResult(result: GetCredentialResponse) {
+        val credential = result.credential
 
-        val credential = loginClient.getSignInCredentialFromIntent(result.data)
-        val token = credential.googleIdToken
-            ?: throw IllegalArgumentException("Invalid googleIdToken extracted from the intent.")
+        if (
+            credential is CustomCredential &&
+            credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+        ) {
+            try {
+                val token = GoogleIdTokenCredential.createFrom(credential.data).idToken
 
-        val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
+                val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
 
-        val user = checkNotNull(Firebase.auth.currentUser)
-        user.reauthenticate(firebaseCredential).await()
+                val user = checkNotNull(Firebase.auth.currentUser)
+                user.reauthenticate(firebaseCredential).await()
+            } catch (e: GoogleIdTokenParsingException) {
+                throw IllegalArgumentException("Received an invalid google id token response", e)
+            }
+        } else {
+            throw IllegalArgumentException("Unexpected type of credential")
+        }
     }
 
     data class UserDataField(

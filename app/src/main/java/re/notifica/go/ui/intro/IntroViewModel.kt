@@ -1,14 +1,16 @@
 package re.notifica.go.ui.intro
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import androidx.activity.result.ActivityResult
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -43,7 +45,9 @@ class IntroViewModel @Inject constructor(
     private val _currentPage = MutableLiveData(IntroPage.WELCOME)
     val currentPage: LiveData<IntroPage> = _currentPage
 
-    val loginClient = Identity.getSignInClient(context)
+    //val loginClient = Identity.getSignInClient(context)
+
+    val credentialManager = CredentialManager.create(context)
 
     fun moveTo(to: IntroPage) {
         _currentPage.postValue(to)
@@ -65,52 +69,58 @@ class IntroViewModel @Inject constructor(
         moveTo(IntroPage.LOGIN)
     }
 
-    suspend fun handleLoginResult(result: ActivityResult) {
-        if (result.resultCode != Activity.RESULT_OK) throw IllegalStateException("Login request result NOT OK.")
+    suspend fun handleSignInResult(result: GetCredentialResponse) {
+        val credential = result.credential
 
-        val credential = loginClient.getSignInCredentialFromIntent(result.data)
-        val token = credential.googleIdToken
-            ?: throw IllegalArgumentException("Invalid googleIdToken extracted from the intent.")
-
-        val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
-        val authenticationResult = Firebase.auth.signInWithCredential(firebaseCredential).await()
-
-        loadRemoteConfig(preferences)
-        createDynamicShortcuts(context, preferences)
-
-        val user = authenticationResult.user
-        if (user == null) {
-            Timber.w("Authentication result yielded no user.")
-        } else {
+        if (
+            credential is CustomCredential &&
+            credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+        ) {
             try {
-                Notificare.device().updateUser(user.uid, user.displayName)
+                val token = GoogleIdTokenCredential.createFrom(credential.data).idToken
 
-                val programId = preferences.appConfiguration?.loyaltyProgramId
-                if (programId != null) {
-                    Timber.d("Creating loyalty program enrollment.")
-                    val response = pushService.createEnrollment(
-                        programId = programId,
-                        payload = EnrollmentPayload(
-                            userId = user.uid,
-                            memberId = user.uid,
-                            fields = listOf(
-                                EnrollmentPayload.Field(
-                                    key = "name",
-                                    value = user.displayName ?: context.getString(R.string.settings_anonymous_user_name)
-                                ),
-                                EnrollmentPayload.Field(
-                                    key = "email",
-                                    value = user.email ?: "",
-                                ),
-                            ),
-                        )
-                    )
+                val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
+                val authenticationResult = Firebase.auth.signInWithCredential(firebaseCredential).await()
 
-                    preferences.membershipCardUrl = response.saveLinks.googlePay
+                loadRemoteConfig(preferences)
+                createDynamicShortcuts(context, preferences)
+
+                val user = authenticationResult.user
+
+                if (user == null) {
+                    Timber.w("Authentication result yielded no user.")
+                } else {
+                    Notificare.device().updateUser(user.uid, user.displayName)
+
+                    val programId = preferences.appConfiguration?.loyaltyProgramId
+                    if (programId != null) {
+                        Timber.d("Creating loyalty program enrollment.")
+                        val response = pushService.createEnrollment(
+                            programId = programId,
+                            payload = EnrollmentPayload(
+                                userId = user.uid,
+                                memberId = user.uid,
+                                fields = listOf(
+                                    EnrollmentPayload.Field(
+                                        key = "name",
+                                        value = user.displayName ?: context.getString(R.string.settings_anonymous_user_name),
+                                        ),
+                                    EnrollmentPayload.Field(
+                                        key = "email",
+                                        value = user.email ?: "",
+                                        ),
+                                    ),
+                                ),
+                            )
+
+                        preferences.membershipCardUrl = response.saveLinks.googlePay
+                    }
                 }
-            } catch (e: Exception) {
-                // TODO: handle error scenario.
+            } catch (e: GoogleIdTokenParsingException) {
+                throw IllegalArgumentException("Received an invalid google id token response", e)
             }
+        } else {
+            throw IllegalArgumentException("Unexpected type of credential")
         }
 
         try {
