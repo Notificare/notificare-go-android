@@ -1,34 +1,35 @@
 [versions]
-android-application = "8.7.0"
+android-application = "8.7.3"
 android-minSdk = "23"
 android-compileSdk = "35"
 android-targetSdk = "34"
+googleid = "1.1.1"
 kotlin = "1.9.24"
 kotlinx-coroutines = "1.9.0"
 kotlin-parcelize = "1.9.24"
-androidx-activity = "1.9.2"
+androidx-activity = "1.9.3"
 androidx-app-compat = "1.7.0"
 androidx-browser = "1.8.0"
-androidx-camera = "1.3.4"
-androidx-camera-view = "1.3.4"
-androidx-constraintlayout = "2.1.4"
-androidx-core = "1.13.1"
+androidx-camera = "1.4.0"
+androidx-constraintlayout = "2.2.0"
+androidx-core = "1.15.0"
 androidx-core-shortcuts = "1.1.0"
+androidx-credentials = "1.3.0"
 androidx-datastore = "1.1.1"
-androidx-fragment = "1.8.4"
+androidx-fragment = "1.8.5"
 androidx-hilt-work = "1.2.0"
-androidx-lifecycle = "2.8.6"
-androidx-navigation = "2.8.2"
+androidx-lifecycle = "2.8.7"
+androidx-navigation = "2.8.4"
 androidx-recyclerview = "1.3.2"
 androidx-room = "2.6.1"
 androidx-viewpager = "1.1.0"
-androidx-work = "2.9.1"
+androidx-work = "2.10.0"
 androidx-test-espresso-core = "3.6.1"
 androidx-test-ext-junit = "1.2.1"
 google-ksp = "1.9.24-1.0.20"
-google-auth = "21.0.0"
+google-auth = "21.3.0"
 google-barcode-scanning = "17.3.0"
-google-firebase = "33.4.0"
+google-firebase = "33.7.0"
 google-firebase-crashlytics = "3.0.2"
 google-hilt = "2.49"
 google-services = "4.4.2"
@@ -39,11 +40,12 @@ glide = "4.16.0"
 timber = "5.0.1"
 moshi = "1.15.1"
 okhttp = "4.12.0"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 notificare = "4.0.0"
 junit = "4.13.2"
 
 [libraries]
+googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
@@ -52,7 +54,7 @@ androidx-app-compat = { module = "androidx.appcompat:appcompat", version.ref = "
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-camera = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidx-camera" }
-androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera-view" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-room = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
@@ -62,6 +64,8 @@ androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref
 androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-shortcuts = { module = "androidx.core:core-google-shortcuts", version.ref = "androidx-core-shortcuts" }
+androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "androidx-credentials"}
+androidx-credentials-play-services = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "androidx-credentials"}
 androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt-work" }
@@ -123,6 +127,7 @@ androidx-core = ["androidx-core", "androidx-core-shortcuts"]
 androidx-lifecycle = ["androidx-lifecycle-livedata", "androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel"]
 androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-room = ["androidx-room", "androidx-room-runtime"]
+androidx-credentials = ["androidx-credentials", "androidx-credentials-play-services"]
 firebase = ["firebase-analytics", "firebase-auth", "firebase-crashlytics", "firebase-messaging"]
 notificare-geo = ["notificare-geo", "notificare-geo-beacons"]
 moshi = ["moshi-kotlin", "moshi-adapters"]
