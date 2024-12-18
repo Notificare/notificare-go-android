@@ -121,13 +121,12 @@ class ProfileViewModel @Inject constructor(
         ) {
             try {
                 val token = GoogleIdTokenCredential.createFrom(credential.data).idToken
-
                 val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
 
                 val user = checkNotNull(Firebase.auth.currentUser)
                 user.reauthenticate(firebaseCredential).await()
             } catch (e: GoogleIdTokenParsingException) {
-                throw IllegalArgumentException("Received an invalid google id token response", e)
+                throw IllegalArgumentException("Received an invalid Google ID token response", e)
             }
         } else {
             throw IllegalArgumentException("Unexpected type of credential")

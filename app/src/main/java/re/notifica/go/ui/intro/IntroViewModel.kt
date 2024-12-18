@@ -45,8 +45,6 @@ class IntroViewModel @Inject constructor(
     private val _currentPage = MutableLiveData(IntroPage.WELCOME)
     val currentPage: LiveData<IntroPage> = _currentPage
 
-    //val loginClient = Identity.getSignInClient(context)
-
     val credentialManager = CredentialManager.create(context)
 
     fun moveTo(to: IntroPage) {
@@ -78,7 +76,6 @@ class IntroViewModel @Inject constructor(
         ) {
             try {
                 val token = GoogleIdTokenCredential.createFrom(credential.data).idToken
-
                 val firebaseCredential = GoogleAuthProvider.getCredential(token, null)
                 val authenticationResult = Firebase.auth.signInWithCredential(firebaseCredential).await()
 
@@ -86,7 +83,6 @@ class IntroViewModel @Inject constructor(
                 createDynamicShortcuts(context, preferences)
 
                 val user = authenticationResult.user
-
                 if (user == null) {
                     Timber.w("Authentication result yielded no user.")
                 } else {
@@ -95,6 +91,7 @@ class IntroViewModel @Inject constructor(
                     val programId = preferences.appConfiguration?.loyaltyProgramId
                     if (programId != null) {
                         Timber.d("Creating loyalty program enrollment.")
+
                         val response = pushService.createEnrollment(
                             programId = programId,
                             payload = EnrollmentPayload(
@@ -103,15 +100,16 @@ class IntroViewModel @Inject constructor(
                                 fields = listOf(
                                     EnrollmentPayload.Field(
                                         key = "name",
-                                        value = user.displayName ?: context.getString(R.string.settings_anonymous_user_name),
-                                        ),
+                                        value = user.displayName
+                                            ?: context.getString(R.string.settings_anonymous_user_name),
+                                    ),
                                     EnrollmentPayload.Field(
                                         key = "email",
                                         value = user.email ?: "",
-                                        ),
                                     ),
                                 ),
-                            )
+                            ),
+                        )
 
                         preferences.membershipCardUrl = response.saveLinks.googlePay
                     }
@@ -132,4 +130,5 @@ class IntroViewModel @Inject constructor(
         preferences.hasIntroFinished = true
         Notificare.inAppMessaging().hasMessagesSuppressed = false
     }
+
 }
