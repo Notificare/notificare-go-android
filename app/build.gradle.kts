@@ -121,10 +121,9 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.viewpager)
     implementation(libs.androidx.work.runtime)
-    implementation(libs.googleid)
 
     // Google
-    implementation(libs.google.auth)
+    implementation(libs.googleid)
     implementation(libs.google.material)
     implementation(libs.google.hilt)
     ksp(libs.google.hilt.compiler)
