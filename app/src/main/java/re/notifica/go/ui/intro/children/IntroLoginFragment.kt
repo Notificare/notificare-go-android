@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +60,11 @@ class IntroLoginFragment : Fragment() {
                     Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
+                if (e is GetCredentialCancellationException) {
+                    Timber.i("User dismissed the login popup.")
+                    return@launch
+                }
+
                 if (filterAuthorizedAccounts) {
                     login(filterAuthorizedAccounts = false)
                     return@launch
