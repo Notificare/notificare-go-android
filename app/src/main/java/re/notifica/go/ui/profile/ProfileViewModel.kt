@@ -53,7 +53,6 @@ class ProfileViewModel @Inject constructor(
 
     init {
         val user = Firebase.auth.currentUser
-        Timber.w(user.toString())
         if (user != null) _userInfo.postValue(UserInfo(user))
 
         viewModelScope.launch {

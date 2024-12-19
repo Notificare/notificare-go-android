@@ -243,7 +243,25 @@ class ProfileFragment : Fragment() {
             try {
                 val result = viewModel.credentialManager.getCredential(requireContext(), request)
 
-                viewModel.handleAuthenticationResult(result)
+                try {
+                    viewModel.handleAuthenticationResult(result)
+                } catch (e: Exception) {
+                    Timber.e(e, "Failed to handle the authentication result.")
+                    Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
+
+                    return@launch
+                }
+
+                try {
+                    viewModel.deleteAccount()
+                    showIntro()
+                } catch (e: Exception) {
+                    Snackbar.make(
+                        binding.root,
+                        R.string.profile_delete_account_failure,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             } catch (e: Exception) {
                 if (filterAuthorizedAccounts) {
                     authenticate(filterAuthorizedAccounts = false)
@@ -252,17 +270,6 @@ class ProfileFragment : Fragment() {
 
                 Timber.e(e, "Failed to authenticate the user.")
                 Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
-            }
-
-            try {
-                viewModel.deleteAccount()
-                showIntro()
-            } catch (e: Exception) {
-                Snackbar.make(
-                    binding.root,
-                    R.string.profile_delete_account_failure,
-                    Snackbar.LENGTH_SHORT
-                ).show()
             }
         }
     }
