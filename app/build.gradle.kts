@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.bundles.androidx.camera)
     implementation(libs.androidx.constraintLayout)
     implementation(libs.bundles.androidx.core)
+    implementation(libs.bundles.androidx.credentials)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.hilt.work)
@@ -120,6 +121,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.viewpager)
     implementation(libs.androidx.work.runtime)
+    implementation(libs.googleid)
 
     // Google
     implementation(libs.google.auth)

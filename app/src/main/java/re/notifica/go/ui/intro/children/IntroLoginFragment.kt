@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.credentials.GetCredentialRequest
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.databinding.FragmentIntroLoginBinding
@@ -25,21 +23,6 @@ import timber.log.Timber
 class IntroLoginFragment : Fragment() {
     private val viewModel: IntroViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var binding: FragmentIntroLoginBinding
-
-    private val loginRequestLauncher = registerForActivityResult(
-        ActivityResultContracts.StartIntentSenderForResult()
-    ) { result ->
-        lifecycleScope.launch {
-            try {
-                viewModel.handleLoginResult(result)
-                findNavController().navigate(R.id.intro_to_main_action)
-            } catch (e: Exception) {
-                Timber.e(e, "Failed to handle the login result.")
-                Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentIntroLoginBinding.inflate(inflater, container, false)
@@ -54,23 +37,26 @@ class IntroLoginFragment : Fragment() {
 
 
     private fun login(filterAuthorizedAccounts: Boolean = true) {
-        val request = BeginSignInRequest.Builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.Builder()
-                    .setSupported(true)
-                    .setServerClientId(BuildConfig.GOOGLE_AUTH_SERVER_ID)
-                    .setFilterByAuthorizedAccounts(filterAuthorizedAccounts)
-                    .build()
-            )
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(filterAuthorizedAccounts)
+            .setServerClientId(BuildConfig.GOOGLE_AUTH_SERVER_ID)
+            .build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
             .build()
 
         lifecycleScope.launch {
             try {
-                val result = viewModel.loginClient.beginSignIn(request).await()
-                loginRequestLauncher.launch(
-                    IntentSenderRequest.Builder(result.pendingIntent.intentSender)
-                        .build()
-                )
+                val result = viewModel.credentialManager.getCredential(requireContext(), request)
+
+                try {
+                    viewModel.handleSignInResult(result)
+                    findNavController().navigate(R.id.intro_to_main_action)
+                } catch (e: Exception) {
+                    Timber.e(e, "Failed to handle the login result.")
+                    Snackbar.make(binding.root, R.string.intro_login_error_message, Snackbar.LENGTH_SHORT).show()
+                }
             } catch (e: Exception) {
                 if (filterAuthorizedAccounts) {
                     login(filterAuthorizedAccounts = false)

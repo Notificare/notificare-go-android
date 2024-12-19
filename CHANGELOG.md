@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Upcoming Release
+
+- Update dependencies
+
 ## 1.6.1
 
 - Ensure user is updated
