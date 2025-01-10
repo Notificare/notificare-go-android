@@ -36,7 +36,7 @@ dotsIndicator = "4.3"
 lottie = "6.4.0"
 glide = "4.16.0"
 timber = "5.0.1"
-moshi = "1.15.1"
+moshi = "1.15.2"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 notificare = "4.0.1"
@@ -47,7 +47,7 @@ googleid = { module = "com.google.android.libraries.identity.googleid:googleid",
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-app-compat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-app-compat" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-camera = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
