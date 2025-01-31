@@ -2,7 +2,7 @@
 android-application = "8.7.3"
 android-minSdk = "23"
 android-compileSdk = "35"
-android-targetSdk = "34"
+android-targetSdk = "35"
 googleid = "1.1.1"
 kotlin = "1.9.24"
 kotlinx-coroutines = "1.9.0"
