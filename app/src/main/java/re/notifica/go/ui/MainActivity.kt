@@ -1,6 +1,7 @@
 package re.notifica.go.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -21,12 +22,13 @@ import re.notifica.models.NotificareNotification
 import re.notifica.push.ktx.INTENT_ACTION_ACTION_OPENED
 import re.notifica.push.ktx.INTENT_ACTION_NOTIFICATION_OPENED
 import re.notifica.push.ktx.push
+import re.notifica.push.ui.NotificarePushUI
 import re.notifica.push.ui.ktx.pushUI
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NotificarePushUI.NotificationLifecycleListener {
     private val viewModel: MainViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+
+        Notificare.pushUI().addLifecycleListener(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,12 +60,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Notificare.pushUI().removeLifecycleListener(this)
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
         handleIntent(intent)
     }
 
+    override fun onCustomActionReceived(
+        notification: NotificareNotification,
+        action: NotificareNotification.Action,
+        uri: Uri
+    ) {
+        try {
+            startActivity(
+                Intent()
+                    .setAction(Intent.ACTION_VIEW)
+                    .setData(uri)
+            )
+        } catch (e: Exception) {
+            Timber.w("Cannot open custom action link that's not supported by the application.")
+        }
+    }
 
     private fun handleIntent(intent: Intent) {
         if (handleConfigurationIntent(intent)) return
