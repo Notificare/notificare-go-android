@@ -2,24 +2,24 @@
 android-application = "8.7.3"
 android-minSdk = "23"
 android-compileSdk = "35"
-android-targetSdk = "34"
+android-targetSdk = "35"
 googleid = "1.1.1"
 kotlin = "1.9.24"
 kotlinx-coroutines = "1.9.0"
 kotlin-parcelize = "1.9.24"
-androidx-activity = "1.9.3"
+androidx-activity = "1.10.1"
 androidx-app-compat = "1.7.0"
 androidx-browser = "1.8.0"
 androidx-camera = "1.4.1"
-androidx-constraintlayout = "2.2.0"
+androidx-constraintlayout = "2.2.1"
 androidx-core = "1.15.0"
 androidx-core-shortcuts = "1.1.0"
-androidx-credentials = "1.3.0"
-androidx-datastore = "1.1.1"
-androidx-fragment = "1.8.5"
+androidx-credentials = "1.5.0"
+androidx-datastore = "1.1.3"
+androidx-fragment = "1.8.6"
 androidx-hilt-work = "1.2.0"
 androidx-lifecycle = "2.8.7"
-androidx-navigation = "2.8.5"
+androidx-navigation = "2.8.9"
 androidx-room = "2.6.1"
 androidx-viewpager = "1.1.0"
 androidx-work = "2.10.0"
@@ -28,7 +28,7 @@ androidx-test-ext-junit = "1.2.1"
 google-ksp = "1.9.24-1.0.20"
 google-barcode-scanning = "17.3.0"
 google-firebase = "33.7.0"
-google-firebase-crashlytics = "3.0.2"
+google-firebase-crashlytics = "3.0.3"
 google-hilt = "2.49"
 google-services = "4.4.2"
 google-material = "1.12.0"
@@ -36,10 +36,10 @@ dotsIndicator = "4.3"
 lottie = "6.4.0"
 glide = "4.16.0"
 timber = "5.0.1"
-moshi = "1.15.1"
+moshi = "1.15.2"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
-notificare = "4.0.0"
+notificare = "4.1.0"
 junit = "4.13.2"
 
 [libraries]
@@ -47,7 +47,7 @@ googleid = { module = "com.google.android.libraries.identity.googleid:googleid",
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-app-compat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-app-compat" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-camera = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
