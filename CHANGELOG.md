@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.0
+
+- Update Notificare to 4.1.0
+- Update dependencies
+- Handle Custom Actions
+
 ## 1.6.1
 
 - Ensure user is updated

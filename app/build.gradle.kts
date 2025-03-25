@@ -23,8 +23,8 @@ android {
         applicationId = "re.notifica.go"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 21
-        versionName = "1.6.1"
+        versionCode = 22
+        versionName = "1.7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.bundles.androidx.camera)
     implementation(libs.androidx.constraintLayout)
     implementation(libs.bundles.androidx.core)
+    implementation(libs.bundles.androidx.credentials)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.hilt.work)
@@ -122,7 +123,7 @@ dependencies {
     implementation(libs.androidx.work.runtime)
 
     // Google
-    implementation(libs.google.auth)
+    implementation(libs.googleid)
     implementation(libs.google.material)
     implementation(libs.google.hilt)
     ksp(libs.google.hilt.compiler)
