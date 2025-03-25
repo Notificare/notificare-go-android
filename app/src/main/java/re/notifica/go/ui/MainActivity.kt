@@ -119,6 +119,12 @@ class MainActivity : AppCompatActivity(), NotificarePushUI.NotificationLifecycle
 
         val uri = intent.data ?: return
         Timber.d("Received deep link with uri = $uri")
+
+        // Without the CLEAR_TASK flag, NavController would recreate the task by adding CLEAR_TASK flag to the intent and finish the current instance
+        if (intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK != 0 && intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TASK == 0) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+
         deepLinksService.deepLinkIntent.tryEmit(intent)
     }
 
