@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Upcoming Release
+## 1.7.0
 
 - Update Notificare to 4.1.0
 - Update dependencies
