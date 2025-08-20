@@ -28,11 +28,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-
         buildConfigField("String", "LOCATION_DATA_PRIVACY_POLICY_URL", "\"https://ntc.re/0OMbJKeJ2m\"")
+    }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
     }
 
     signingConfigs {
