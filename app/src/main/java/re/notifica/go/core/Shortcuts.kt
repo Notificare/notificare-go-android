@@ -6,8 +6,9 @@ import android.net.Uri
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import com.google.firebase.crashlytics.crashlytics
+import androidx.core.net.toUri
 import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
 import re.notifica.go.storage.preferences.NotificareSharedPreferences
@@ -27,9 +28,9 @@ enum class ShortcutAction {
 
     val deepLink: Uri
         get() = when (this) {
-            CART -> Uri.parse("${BuildConfig.APPLICATION_ID}://notifica.re/cart")
-            SETTINGS -> Uri.parse("${BuildConfig.APPLICATION_ID}://notifica.re/settings")
-            EVENTS -> Uri.parse("${BuildConfig.APPLICATION_ID}://notifica.re/events")
+            CART -> "${BuildConfig.APPLICATION_ID}://notifica.re/cart".toUri()
+            SETTINGS -> "${BuildConfig.APPLICATION_ID}://notifica.re/settings".toUri()
+            EVENTS -> "${BuildConfig.APPLICATION_ID}://notifica.re/events".toUri()
         }
 }
 

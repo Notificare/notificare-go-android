@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), NotificarePushUI.NotificationLifecycle
                     .setAction(Intent.ACTION_VIEW)
                     .setData(uri)
             )
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Timber.w("Cannot open custom action link that's not supported by the application.")
         }
     }
@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity(), NotificarePushUI.NotificationLifecycle
                         navController.navigate(R.id.splash_fragment)
                     }
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 AlertDialog.Builder(this@MainActivity)
                     .setTitle(R.string.main_configuration_error_dialog_title)
                     .setMessage(R.string.main_configuration_error_dialog_message)

@@ -50,7 +50,7 @@ class EventsFragment : Fragment() {
 
                     Snackbar.make(binding.root, R.string.events_create_event_success_message, Snackbar.LENGTH_SHORT)
                         .show()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     Snackbar.make(binding.root, R.string.events_create_event_failure_message, Snackbar.LENGTH_SHORT)
                         .show()
                 } finally {

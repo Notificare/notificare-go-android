@@ -76,7 +76,7 @@ class ProfileViewModel @Inject constructor(
                         )
                     }
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // TODO: handle error
             }
         }

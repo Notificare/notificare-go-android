@@ -10,7 +10,7 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.elevation.SurfaceColors
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
             // Access the nested NavController.
             // Using findNavController will yield a reference to the parent's NavController.
             val fragmentContainer = binding.root.findViewById<View>(R.id.main_nav_host_fragment)
-            return Navigation.findNavController(fragmentContainer)
+            return fragmentContainer.findNavController()
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

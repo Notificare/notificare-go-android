@@ -1,9 +1,10 @@
 package re.notifica.go.core
 
 import android.net.Uri
+import androidx.core.net.toUri
 
 fun getGravatarUrl(email: String): Uri {
-    return Uri.parse("https://gravatar.com/avatar")
+    return "https://gravatar.com/avatar".toUri()
         .buildUpon()
         .appendPath(md5(email.lowercase()))
         .appendQueryParameter("s", "400")

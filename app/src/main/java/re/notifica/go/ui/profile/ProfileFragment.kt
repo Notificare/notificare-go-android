@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextWatcher
@@ -12,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.credentials.GetCredentialRequest
@@ -29,11 +30,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import re.notifica.go.BuildConfig
 import re.notifica.go.R
-import re.notifica.go.databinding.*
+import re.notifica.go.databinding.FragmentProfileBinding
+import re.notifica.go.databinding.FragmentProfileFieldDatePickerBinding
+import re.notifica.go.databinding.FragmentProfileFieldTextBinding
+import re.notifica.go.databinding.FragmentProfileFieldToggleBinding
+import re.notifica.go.databinding.FragmentProfileFieldUnsupportedBinding
 import re.notifica.go.models.UserInfo
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -93,7 +99,7 @@ class ProfileFragment : Fragment() {
             binding.membershipCard.root.isVisible = membershipCardUrl != null
 
             if (membershipCardUrl != null) {
-                val url = Uri.parse(membershipCardUrl)
+                val url = membershipCardUrl.toUri()
 
                 binding.membershipCard.root.setOnClickListener {
                     try {
@@ -120,7 +126,7 @@ class ProfileFragment : Fragment() {
     private fun render(userDataFields: List<ProfileViewModel.UserDataField>) {
         // The field views are only created once.
         // The logic rests on the assumption the field index and type are not mutable.
-        if (binding.userDataFieldsContainer.childCount == 0) {
+        if (binding.userDataFieldsContainer.isEmpty()) {
             userDataFields.forEach { field ->
                 when (field.type) {
                     "text", "number" -> FragmentProfileFieldTextBinding.inflate(
@@ -177,7 +183,7 @@ class ProfileFragment : Fragment() {
                     FragmentProfileFieldDatePickerBinding.bind(view).also { binding ->
                         val parsedDate: Date? = try {
                             dateParser.parse(field.value)
-                        } catch (e: Exception) {
+                        } catch (_: Exception) {
                             null
                         }
 
@@ -256,7 +262,7 @@ class ProfileFragment : Fragment() {
                 try {
                     viewModel.deleteAccount()
                     showIntro()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     Snackbar.make(
                         binding.root,
                         R.string.profile_delete_account_failure,

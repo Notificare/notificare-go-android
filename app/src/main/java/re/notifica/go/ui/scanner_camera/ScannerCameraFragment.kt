@@ -60,7 +60,7 @@ class ScannerCameraFragment : Fragment() {
         // Preview
         val preview = Preview.Builder()
             .build()
-            .also { it.setSurfaceProvider(binding.cameraPreview.surfaceProvider) }
+            .also { it.surfaceProvider = binding.cameraPreview.surfaceProvider }
 
         // Image analyzer
         imageAnalyzer = ImageAnalysis.Builder()

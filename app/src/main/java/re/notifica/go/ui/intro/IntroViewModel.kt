@@ -37,7 +37,7 @@ import javax.inject.Inject
 @HiltViewModel
 @SuppressLint("StaticFieldLeak")
 class IntroViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val preferences: NotificareSharedPreferences,
     private val pushService: PushService,
 ) : ViewModel() {

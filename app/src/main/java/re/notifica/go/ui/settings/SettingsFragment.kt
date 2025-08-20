@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -235,7 +236,7 @@ class SettingsFragment : Fragment() {
             CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .build()
-                .launchUrl(requireContext(), Uri.parse(BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL))
+                .launchUrl(requireContext(), BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL.toUri())
         }
 
         binding.tagsCard.announcementsSwitch.setOnCheckedChangeListener { _, checked ->
