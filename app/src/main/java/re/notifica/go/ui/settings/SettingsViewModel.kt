@@ -1,8 +1,8 @@
 package re.notifica.go.ui.settings
 
 import androidx.lifecycle.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.Firebase
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
