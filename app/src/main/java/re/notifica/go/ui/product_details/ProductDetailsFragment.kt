@@ -38,7 +38,7 @@ class ProductDetailsFragment : Fragment() {
                     viewModel.addToCart()
 
                     Snackbar.make(binding.root, R.string.product_details_cart_success, Snackbar.LENGTH_SHORT).show()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     Snackbar.make(binding.root, R.string.product_details_cart_failure, Snackbar.LENGTH_SHORT).show()
                 } finally {
                     binding.addToCartButton.isEnabled = true

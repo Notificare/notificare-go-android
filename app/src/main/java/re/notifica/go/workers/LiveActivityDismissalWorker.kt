@@ -28,7 +28,7 @@ class CoffeeBrewerDismissalWorker @AssistedInject constructor(
                 }
             Result.success()
 
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Result.failure()
         }
     }
@@ -53,7 +53,7 @@ class OrderStatusDismissalWorker @AssistedInject constructor(
                 }
             Result.success()
 
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Result.failure()
         }
     }

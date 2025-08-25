@@ -2,7 +2,6 @@ package re.notifica.go.ui.intro.children
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,7 +72,7 @@ class IntroLocationFragment : Fragment() {
             CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .build()
-                .launchUrl(requireContext(), Uri.parse(BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL))
+                .launchUrl(requireContext(), BuildConfig.LOCATION_DATA_PRIVACY_POLICY_URL.toUri())
         }
 
         binding.continueButton.setOnClickListener {

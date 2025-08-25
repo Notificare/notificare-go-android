@@ -12,7 +12,7 @@ enum class LiveActivity {
 
     companion object {
         fun from(identifier: String): LiveActivity? {
-            return values().firstOrNull { it.identifier == identifier }
+            return entries.firstOrNull { it.identifier == identifier }
         }
     }
 }
