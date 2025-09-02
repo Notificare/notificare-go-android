@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 @SuppressLint("StaticFieldLeak")
 class InboxViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : ViewModel() {
     private val _items = MutableLiveData<List<InboxListEntry>>()
     val items: LiveData<List<InboxListEntry>> = _items

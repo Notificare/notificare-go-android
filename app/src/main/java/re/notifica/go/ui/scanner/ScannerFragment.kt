@@ -48,7 +48,7 @@ class ScannerFragment : Fragment() {
 
                     mainViewModel.configure(configuration)
                     mainViewModel.launch()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     Snackbar.make(binding.root, R.string.scanner_invalid_qr_code_error, Snackbar.LENGTH_SHORT).show()
                 }
             }

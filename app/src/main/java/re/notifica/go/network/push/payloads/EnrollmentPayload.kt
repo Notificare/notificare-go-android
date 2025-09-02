@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class EnrollmentPayload(
-    @Json(name = "userID") val userId: String,
+    @param:Json(name = "userID") val userId: String,
     val memberId: String,
     val fields: List<Field>,
 ) {

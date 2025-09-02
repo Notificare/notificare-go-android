@@ -35,7 +35,7 @@ class AppModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): NotificareDatabase {
         return Room.databaseBuilder(context, NotificareDatabase::class.java, "notificare-app.db")
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(false)
             .build()
     }
 

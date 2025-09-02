@@ -24,7 +24,7 @@ class InboxAdapter(
     private val onInboxItemLongPressed: (NotificareInboxItem) -> Unit,
 ) : ListAdapter<InboxViewModel.InboxListEntry, RecyclerView.ViewHolder>(InboxDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (ViewType.values()[viewType]) {
+        return when (ViewType.entries[viewType]) {
             ViewType.SECTION -> SectionViewHolder(
                 ViewInboxSectionBinding.inflate(
                     LayoutInflater.from(parent.context),

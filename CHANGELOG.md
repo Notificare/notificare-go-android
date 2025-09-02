@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.7.1
+
+- Update Notificare to 4.2.1
+- Update dependencies
+
 ## 1.7.0
 
 - Update Notificare to 4.1.0

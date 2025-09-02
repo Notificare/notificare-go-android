@@ -1,8 +1,8 @@
 package re.notifica.go.ui.settings
 
 import androidx.lifecycle.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.Firebase
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import re.notifica.Notificare
@@ -95,7 +95,7 @@ class SettingsViewModel : ViewModel(), DefaultLifecycleObserver {
                 _productUpdatesTopicEnabled.postValue(tags.contains(Topic.PRODUCT_UPDATES.rawValue))
                 _engineeringTopicEnabled.postValue(tags.contains(Topic.ENGINEERING.rawValue))
                 _staffTopicEnabled.postValue(tags.contains(Topic.STAFF.rawValue))
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 Timber.e("Failed to fetch the device tags.")
             }
         }

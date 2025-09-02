@@ -54,7 +54,7 @@ class CartFragment : Fragment() {
                     viewModel.purchase()
 
                     Snackbar.make(binding.root, R.string.cart_purchase_success, Snackbar.LENGTH_SHORT).show()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     Snackbar.make(binding.root, R.string.cart_purchase_failure, Snackbar.LENGTH_SHORT).show()
                 } finally {
                     binding.purchaseButton.isEnabled = true

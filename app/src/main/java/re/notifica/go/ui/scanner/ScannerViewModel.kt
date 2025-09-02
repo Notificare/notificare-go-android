@@ -1,6 +1,6 @@
 package re.notifica.go.ui.scanner
 
-import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class ScannerViewModel @Inject constructor(
 ) : ViewModel() {
 
     suspend fun fetchConfiguration(barcode: String): AppConfiguration = withContext(Dispatchers.IO) {
-        val code = extractConfigurationCode(Uri.parse(barcode))
+        val code = extractConfigurationCode(barcode.toUri())
 
         if (code == null) {
             Timber.w("Invalid URI code query parameter.")

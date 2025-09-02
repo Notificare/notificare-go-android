@@ -13,7 +13,7 @@ class IntroAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int): Fragment {
-        return when (IntroPage.values()[position]) {
+        return when (IntroPage.entries[position]) {
             IntroPage.WELCOME -> IntroWelcomeFragment()
             IntroPage.NOTIFICATIONS -> IntroNotificationsFragment()
             IntroPage.LOCATION -> IntroLocationFragment()
@@ -21,5 +21,5 @@ class IntroAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         }
     }
 
-    override fun getItemCount(): Int = IntroPage.values().size
+    override fun getItemCount(): Int = IntroPage.entries.size
 }
