@@ -39,7 +39,7 @@ timber = "5.0.1"
 moshi = "1.15.2"
 okhttp = "5.2.1"
 retrofit = "3.0.0"
-actito = "5.0.0-canary.3"
+actito = "5.0.0-beta.1-SNAPSHOT"
 junit = "4.13.2"
 
 [libraries]
