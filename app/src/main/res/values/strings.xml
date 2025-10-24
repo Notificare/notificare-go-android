@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notificare Go</string>
+    <string name="app_name">Actito Go</string>
 
     <string name="shortcut_cart">Cart</string>
     <string name="shortcut_settings">Settings</string>
@@ -36,23 +36,23 @@
     <string name="scanner_camera_permission_button">Enable camera</string>
 
     <string name="intro_welcome_title">Welcome</string>
-    <string name="intro_welcome_message">Welcome to the Notificare Go app.\nHere you can play around with all the functionalities provided by the Notificare platform.</string>
+    <string name="intro_welcome_message">Welcome to the Actito Go app.\nHere you can play around with all the functionalities provided by the Actito platform.</string>
     <string name="intro_welcome_button">Get started</string>
     <string name="intro_notifications_title">Notifications</string>
     <string name="intro_notifications_message">By enabling remote notifications, you can harness the power of highly relevant and contextual messages.</string>
     <string name="intro_notifications_button">Continue</string>
     <string name="intro_location_title">Location</string>
-    <string name="intro_location_message">Notificare Go collects location data to enable geo-based content, even when the app is closed or not in use.\nYou can also configure beacons to show relevant content to nearby users.</string>
+    <string name="intro_location_message">Actito Go collects location data to enable geo-based content, even when the app is closed or not in use.\nYou can also configure beacons to show relevant content to nearby users.</string>
     <string name="intro_location_view_policies_button">View data policies</string>
     <string name="intro_location_button">Continue</string>
     <string name="intro_login_title">Login</string>
-    <string name="intro_login_message">Sign in with your Google Account to quickly find and target your user in the Notificare Dashboard.</string>
+    <string name="intro_login_message">Sign in with your Google Account to quickly find and target your user in the Actito Dashboard.</string>
     <string name="intro_login_button">Login</string>
     <string name="intro_login_error_message">Login request failed!</string>
 
     <string name="home_title">Home</string>
-    <string name="home_welcome_title">Welcome to the Notificare Go app</string>
-    <string name="home_welcome_message">Here you can play around with all the functionalities provided by the Notificare platform.</string>
+    <string name="home_welcome_title">Welcome to the Actito Go app</string>
+    <string name="home_welcome_message">Here you can play around with all the functionalities provided by the Actito platform.</string>
     <string name="home_products_title">Top products</string>
     <string name="home_products_browse_more_button">Browse more</string>
     <string name="home_scan_title">Scan for a product</string>
@@ -69,7 +69,7 @@
     <string name="home_events_message">Log events manually by setting up its name and attributes. Use your custom event to create event-based automations.</string>
     <string name="home_events_try_button">Try it!</string>
     <string name="home_coffee_brewer_title">Live Activities sandbox</string>
-    <string name="home_coffee_brewer_message">Experiment with Live Activities by leveraging Notificare\'s toolset.</string>
+    <string name="home_coffee_brewer_message">Experiment with Live Activities by leveraging Actito\'s toolset.</string>
     <string name="home_coffee_brewer_create_button">Brew a coffee</string>
     <string name="home_coffee_brewer_brew_button">Start brewing</string>
     <string name="home_coffee_brewer_serve_button">Serve the coffee!</string>

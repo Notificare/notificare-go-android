@@ -39,7 +39,7 @@ timber = "5.0.1"
 moshi = "1.15.2"
 okhttp = "5.2.1"
 retrofit = "3.0.0"
-notificare = "4.2.1"
+actito = "5.0.0-canary.3"
 junit = "4.13.2"
 
 [libraries]
@@ -83,16 +83,16 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
-notificare = { module = "re.notifica:notificare", version.ref = "notificare" }
-notificare-assets = { module = "re.notifica:notificare-assets", version.ref = "notificare" }
-notificare-geo = { module = "re.notifica:notificare-geo", version.ref = "notificare" }
-notificare-geo-beacons = { module = "re.notifica:notificare-geo-beacons", version.ref = "notificare" }
-notificare-inAppMessaging = { module = "re.notifica:notificare-in-app-messaging", version.ref = "notificare" }
-notificare-inbox = { module = "re.notifica:notificare-inbox", version.ref = "notificare" }
-notificare-loyalty = { module = "re.notifica:notificare-loyalty", version.ref = "notificare" }
-notificare-push = { module = "re.notifica:notificare-push", version.ref = "notificare" }
-notificare-push-ui = { module = "re.notifica:notificare-push-ui", version.ref = "notificare" }
-notificare-scannables = { module = "re.notifica:notificare-scannables", version.ref = "notificare" }
+actito = { module = "com.actito:actito", version.ref = "actito" }
+actito-assets = { module = "com.actito:actito-assets", version.ref = "actito" }
+actito-geo = { module = "com.actito:actito-geo", version.ref = "actito" }
+actito-geo-beacons = { module = "com.actito:actito-geo-beacons", version.ref = "actito" }
+actito-inAppMessaging = { module = "com.actito:actito-in-app-messaging", version.ref = "actito" }
+actito-inbox = { module = "com.actito:actito-inbox", version.ref = "actito" }
+actito-loyalty = { module = "com.actito:actito-loyalty", version.ref = "actito" }
+actito-push = { module = "com.actito:actito-push", version.ref = "actito" }
+actito-push-ui = { module = "com.actito:actito-push-ui", version.ref = "actito" }
+actito-scannables = { module = "com.actito:actito-scannables", version.ref = "actito" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
@@ -126,7 +126,7 @@ androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
 androidx-room = ["androidx-room", "androidx-room-runtime"]
 androidx-credentials = ["androidx-credentials", "androidx-credentials-play-services"]
 firebase = ["firebase-analytics", "firebase-auth", "firebase-crashlytics", "firebase-messaging"]
-notificare-geo = ["notificare-geo", "notificare-geo-beacons"]
+actito-geo = ["actito-geo", "actito-geo-beacons"]
 moshi = ["moshi-kotlin", "moshi-adapters"]
 okhttp = ["okhttp", "okhttp-loggingInterceptor"]
 retrofit = ["retrofit", "retrofit-moshiConverter"]

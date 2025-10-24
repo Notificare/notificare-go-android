@@ -1,4 +1,4 @@
-# Notificare GO
+# Actito GO
 
 ## Supported deep links
 

@@ -9,7 +9,7 @@
         tools:node="remove" />
 
     <application
-        android:name=".NotificareApp"
+        android:name="com.actito.go.ActitoApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.actito.go.ui.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.App"
@@ -31,17 +31,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="re.notifica.intent.action.RemoteMessageOpened" />
+                <action android:name="com.actito.intent.action.RemoteMessageOpened" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <action android:name="re.notifica.intent.action.NotificationOpened" />
+                <action android:name="com.actito.intent.action.NotificationOpened" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <action android:name="re.notifica.intent.action.ActionOpened" />
+                <action android:name="com.actito.intent.action.ActionOpened" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -68,43 +68,39 @@
         </activity>
 
         <activity
-            android:name="re.notifica.push.ui.NotificationActivity"
-            android:theme="@style/Theme.App.Notificare.Translucent" />
+            android:name="com.actito.push.ui.NotificationActivity"
+            android:theme="@style/Theme.App.Actito.Translucent" />
 
         <activity
-            android:name="re.notifica.scannables.ScannableActivity"
-            android:theme="@style/Theme.App.Notificare" />
-
-        <activity
-            android:name="re.notifica.iam.ui.InAppMessagingActivity"
-            android:theme="@style/Theme.App.Notificare.Iam"
+            android:name="com.actito.iam.ui.InAppMessagingActivity"
+            android:theme="@style/Theme.App.Actito.Iam"
             tools:replace="android:theme" />
 
-        <!-- Provider to auto configure Notificare -->
+        <!-- Provider to auto configure Actito -->
         <provider
-            android:name="re.notifica.NotificareConfigurationProvider"
-            android:authorities="${applicationId}.NotificareConfigurationProvider"
+            android:name="com.actito.ActitoConfigurationProvider"
+            android:authorities="${applicationId}.ActitoConfigurationProvider"
             android:exported="false"
             tools:node="remove" />
 
         <receiver
-            android:name=".PushReceiver"
+            android:name="com.actito.go.PushReceiver"
             android:exported="false" />
 
         <meta-data
-            android:name="re.notifica.debug_logging_enabled"
+            android:name="com.actito.debug_logging_enabled"
             android:value="true" />
 
         <meta-data
-            android:name="re.notifica.push.notification_small_icon"
+            android:name="com.actito.push.notification_small_icon"
             android:resource="@drawable/ic_stat_notification" />
 
         <meta-data
-            android:name="re.notifica.geo.beacons.foreground_service_enabled"
+            android:name="com.actito.geo.beacons.foreground_service_enabled"
             android:value="true" />
 
         <meta-data
-            android:name="re.notifica.geo.beacons.service_notification_small_icon"
+            android:name="com.actito.geo.beacons.service_notification_small_icon"
             android:resource="@drawable/ic_baseline_bluetooth_searching_24" />
 
         <provider

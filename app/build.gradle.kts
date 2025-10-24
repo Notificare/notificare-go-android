@@ -17,7 +17,7 @@ val properties = Properties()
 properties.load(FileInputStream(rootProject.file("local.properties")))
 
 android {
-    namespace = "re.notifica.go"
+    namespace = "com.actito.go"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
@@ -136,16 +136,15 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
 
-    // Notificare
-    implementation(libs.notificare)
-    implementation(libs.notificare.assets)
-    implementation(libs.bundles.notificare.geo)
-    implementation(libs.notificare.inAppMessaging)
-    implementation(libs.notificare.inbox)
-    implementation(libs.notificare.loyalty)
-    implementation(libs.notificare.push)
-    implementation(libs.notificare.push.ui)
-    implementation(libs.notificare.scannables)
+    // Actito
+    implementation(libs.actito)
+    implementation(libs.actito.assets)
+    implementation(libs.bundles.actito.geo)
+    implementation(libs.actito.inAppMessaging)
+    implementation(libs.actito.inbox)
+    implementation(libs.actito.loyalty)
+    implementation(libs.actito.push)
+    implementation(libs.actito.push.ui)
 
     // Glide
     implementation(libs.glide)
