@@ -83,6 +83,7 @@ class MainFragment : Fragment() {
                 intent.data = intent.data
                     ?.buildUpon()
                     ?.scheme("re.notifica.go")
+                    ?.authority("notifica.re")
                     ?.build()
 
                 // Without the CLEAR_TASK flag, NavController would recreate the task by adding CLEAR_TASK flag to the intent and finish the current instance
