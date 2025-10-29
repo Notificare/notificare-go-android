@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceLabelLarge"
-                tools:text="Notificare Go" />
+                tools:text="Actito Go" />
 
             <TextView
                 android:id="@+id/app_id_label"

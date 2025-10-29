@@ -88,7 +88,7 @@
     <string name="cart_purchase_failure">Couldn\'t complete your purchase.</string>
 
     <string name="settings_title">Settings</string>
-    <string name="settings_anonymous_user_name">Notificarista</string>
+    <string name="settings_anonymous_user_name">Anonymous User</string>
     <string name="settings_inbox_title">Inbox</string>
     <string name="settings_notifications_title">Notifications</string>
     <string name="settings_notifications_message">Allow us to send notifications whenever your apps generate alarms or important notifications.</string>
