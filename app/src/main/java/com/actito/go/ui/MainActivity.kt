@@ -93,28 +93,16 @@ class MainActivity : AppCompatActivity(), ActitoPushUI.NotificationLifecycleList
         if (Actito.push().handleTrampolineIntent(intent)) return
         if (Actito.handleDynamicLinkIntent(this, intent)) return
 
-        when (intent.action) {
-            Actito.INTENT_ACTION_NOTIFICATION_OPENED -> {
-                val notification: ActitoNotification = requireNotNull(
-                    intent.parcelableExtra(Actito.INTENT_EXTRA_NOTIFICATION)
-                )
+        // Handle notification opened
+        Actito.push().parseNotificationOpenedIntent(intent)?.also { result ->
+            Actito.pushUI().presentNotification(this, result.notification)
+            return
+        }
 
-                Actito.pushUI().presentNotification(this, notification)
-                return
-            }
-
-            Actito.INTENT_ACTION_ACTION_OPENED -> {
-                val notification: ActitoNotification = requireNotNull(
-                    intent.parcelableExtra(Actito.INTENT_EXTRA_NOTIFICATION)
-                )
-
-                val action: ActitoNotification.Action = requireNotNull(
-                    intent.parcelableExtra(Actito.INTENT_EXTRA_ACTION)
-                )
-
-                Actito.pushUI().presentAction(this, notification, action)
-                return
-            }
+        // Handle notification action opened
+        Actito.push().parseNotificationActionOpenedIntent(intent)?.also { result ->
+            Actito.pushUI().presentAction(this, result.notification, result.action)
+            return
         }
 
         val uri = intent.data ?: return
