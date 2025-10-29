@@ -12,14 +12,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
 
-        maven(url = "https://maven.notifica.re/releases")
-        maven(url = "https://maven.notifica.re/prereleases")
-        maven(url = "https://developer.huawei.com/repo")
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/")
 
         mavenLocal()
     }
 }
 
-rootProject.name = "notificare-go-android"
+rootProject.name = "actito-go-android"
 
 include(":app")

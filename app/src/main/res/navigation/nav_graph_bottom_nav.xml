@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="re.notifica.go.ui.home.HomeFragment"
+        android:name="com.actito.go.ui.home.HomeFragment"
         android:label="@string/home_title"
         tools:layout="@layout/fragment_home">
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/cart_fragment"
-        android:name="re.notifica.go.ui.cart.CartFragment"
+        android:name="com.actito.go.ui.cart.CartFragment"
         android:label="@string/cart_title"
         tools:layout="@layout/fragment_cart">
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="re.notifica.go.ui.settings.SettingsFragment"
+        android:name="com.actito.go.ui.settings.SettingsFragment"
         android:label="@string/settings_title"
         tools:layout="@layout/fragment_settings">
         <action
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/events_fragment"
-        android:name="re.notifica.go.ui.events.EventsFragment"
+        android:name="com.actito.go.ui.events.EventsFragment"
         android:label="@string/events_title"
         tools:layout="@layout/fragment_events">
         <deepLink app:uri="re.notifica.go://notifica.re/events" />
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/inbox_fragment"
-        android:name="re.notifica.go.ui.inbox.InboxFragment"
+        android:name="com.actito.go.ui.inbox.InboxFragment"
         android:label="@string/inbox_title"
         tools:layout="@layout/fragment_inbox">
         <deepLink app:uri="re.notifica.go://notifica.re/inbox" />
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/product_details_fragment"
-        android:name="re.notifica.go.ui.product_details.ProductDetailsFragment"
+        android:name="com.actito.go.ui.product_details.ProductDetailsFragment"
         android:label="@string/product_details_title"
         tools:layout="@layout/fragment_product_details">
         <argument
@@ -81,7 +81,7 @@
 
     <fragment
         android:id="@+id/products_list_fragment"
-        android:name="re.notifica.go.ui.products_list.ProductsListFragment"
+        android:name="com.actito.go.ui.products_list.ProductsListFragment"
         android:label="@string/products_list_title"
         tools:layout="@layout/fragment_products_list">
         <action
@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="re.notifica.go.ui.profile.ProfileFragment"
+        android:name="com.actito.go.ui.profile.ProfileFragment"
         android:label="@string/profile_title"
         tools:layout="@layout/fragment_profile">
         <deepLink app:uri="re.notifica.go://notifica.re/profile" />

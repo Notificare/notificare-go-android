@@ -31,12 +31,12 @@
 
     <fragment
         android:id="@+id/splash_fragment"
-        android:name="re.notifica.go.ui.splash.SplashFragment"
+        android:name="com.actito.go.ui.splash.SplashFragment"
         tools:layout="@layout/fragment_splash" />
 
     <fragment
         android:id="@+id/scanner_fragment"
-        android:name="re.notifica.go.ui.scanner.ScannerFragment"
+        android:name="com.actito.go.ui.scanner.ScannerFragment"
         tools:layout="@layout/fragment_scanner">
         <action
             android:id="@+id/scanner_to_scanner_camera_action"
@@ -50,12 +50,12 @@
 
     <fragment
         android:id="@+id/scanner_camera_fragment"
-        android:name="re.notifica.go.ui.scanner_camera.ScannerCameraFragment"
+        android:name="com.actito.go.ui.scanner_camera.ScannerCameraFragment"
         tools:layout="@layout/fragment_scanner_camera" />
 
     <fragment
         android:id="@+id/intro_fragment"
-        android:name="re.notifica.go.ui.intro.IntroFragment"
+        android:name="com.actito.go.ui.intro.IntroFragment"
         tools:layout="@layout/fragment_intro">
         <action
             android:id="@+id/intro_to_main_action"
@@ -70,7 +70,7 @@
 
         <fragment
             android:id="@+id/main_fragment"
-            android:name="re.notifica.go.ui.main.MainFragment"
+            android:name="com.actito.go.ui.main.MainFragment"
             tools:layout="@layout/fragment_main" />
 
     </navigation>

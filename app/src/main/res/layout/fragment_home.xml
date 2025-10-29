@@ -89,76 +89,6 @@
             app:constraint_referenced_ids="welcome_message_label,products_title_label,products_list,products_list_button" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/scannables_card"
-            style="?attr/materialCardViewFilledStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_section_barrier">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/scannables_title_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:text="@string/home_scan_title"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    app:drawableStartCompat="@drawable/ic_baseline_qr_code_scanner_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/scannables_message_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/home_scan_message"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/scannables_title_label" />
-
-                <LinearLayout
-                    android:id="@+id/scannables_actions_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/scannables_message_label">
-
-                    <Button
-                        android:id="@+id/scannables_primary_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_scan_nfc_button"
-                        tools:ignore="ButtonStyle" />
-
-                    <Button
-                        android:id="@+id/scannables_secondary_button"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/home_scan_qr_code_button" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
             android:id="@+id/beacons_card"
             style="?attr/materialCardViewFilledStyle"
             android:layout_width="0dp"
@@ -167,7 +97,7 @@
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scannables_card">
+            app:layout_constraintTop_toBottomOf="@id/top_section_barrier">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

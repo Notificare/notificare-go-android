@@ -15,19 +15,19 @@
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
 
-    <style name="Theme.App.Notificare" parent="Base.Theme.App">
+    <style name="Theme.App.Actito" parent="Base.Theme.App">
         <!-- Transparent system bars for edge-to-edge. -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
 
-    <style name="Theme.App.Notificare.Translucent">
+    <style name="Theme.App.Actito.Translucent">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.App.Notificare.Iam">
+    <style name="Theme.App.Actito.Iam">
         <!-- Disable the ActionBar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -36,7 +36,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowBackground">@color/notificare_translucent</item>
+        <item name="android:windowBackground">@color/actito_translucent</item>
 
         <!-- Customise your theme below -->
         <item name="cardViewStyle">@style/Widget.App.CardView.Filled</item>
