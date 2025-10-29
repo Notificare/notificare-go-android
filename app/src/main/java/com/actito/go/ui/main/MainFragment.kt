@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +51,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().window.navigationBarColor = SurfaceColors.SURFACE_2.getColor(requireActivity())
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNavigation) { view, insets ->
+            view.setPadding(0, 0, 0, 0)
+            insets
+        }
+        
         // Only shows the cart tab when enabled in the remote config.
         binding.bottomNavigation.menu.findItem(R.id.cart_fragment).isVisible = sharedPreferences.hasStoreEnabled
 
