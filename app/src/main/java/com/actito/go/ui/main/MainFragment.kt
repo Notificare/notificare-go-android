@@ -1,5 +1,6 @@
 package com.actito.go.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,11 @@ class MainFragment : Fragment() {
                     ?.buildUpon()
                     ?.scheme("re.notifica.go")
                     ?.build()
+
+                // Without the CLEAR_TASK flag, NavController would recreate the task by adding CLEAR_TASK flag to the intent and finish the current instance
+                if (intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK != 0 && intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TASK == 0) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                }
 
                 navController.handleDeepLink(intent)
                 deepLinksService.deepLinkIntent.emit(null)
