@@ -18,6 +18,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "notificare-go-android"
+rootProject.name = "actito-go-android"
 
 include(":app")
