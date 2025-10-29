@@ -92,7 +92,6 @@ actito-inbox = { module = "com.actito:actito-inbox", version.ref = "actito" }
 actito-loyalty = { module = "com.actito:actito-loyalty", version.ref = "actito" }
 actito-push = { module = "com.actito:actito-push", version.ref = "actito" }
 actito-push-ui = { module = "com.actito:actito-push-ui", version.ref = "actito" }
-actito-scannables = { module = "com.actito:actito-scannables", version.ref = "actito" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
